@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function VerifyAcc() {
+export default function VerifyAccount() {
   return (
     <div>
       <h2>VerifyAcc</h2>
