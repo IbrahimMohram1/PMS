@@ -11,7 +11,8 @@ import ForgetPassword from "./AuthModule/Components/ForgetPassword/ForgetPasswor
 import ResetPassword from "./AuthModule/Components/ResetPassword/ResetPassword";
 import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount";
 import MasterLayout from "./Shared/MasterLayout/MasterLayout";
-import Dashboard from './DashboardMoudule/Dashboard';
+import Dashboard from "./DashboardMoudule/Dashboard";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 function App() {
   let routes = createBrowserRouter([
@@ -38,7 +39,9 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={routes}></RouterProvider>
+      <AuthContextProvider>
+        <RouterProvider router={routes}></RouterProvider>
+      </AuthContextProvider>
     </>
   );
 }
