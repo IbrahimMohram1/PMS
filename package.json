@@ -10,23 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
-    "axois": "^0.0.1-security",
-    "bootstrap": "^5.3.8",
+    "axios": "^1.13.2",
     "flowbite": "^4.0.1",
     "flowbite-react": "^0.12.15",
     "jwt-decode": "^4.0.0",
-    "postcss": "^8.5.6",
     "react": "^19.2.0",
-    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.69.0",
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^7.11.0",
     "react-toastify": "^11.0.5",
-    "tailwindcss": "^4.1.18",
-    "zustand": "^5.0.9"
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
