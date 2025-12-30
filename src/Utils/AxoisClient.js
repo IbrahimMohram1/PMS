@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuthStore } from "../store/authStore";
 
 const axiosClient = axios.create({
   baseURL: `https://upskilling-egypt.com:3003/api/v1/`,
