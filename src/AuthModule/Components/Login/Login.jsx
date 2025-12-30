@@ -1,30 +1,39 @@
 import React from "react";
-import { Card } from "flowbite-react";
-import { Button } from "flowbite-react";
-import { Footer, FooterCopyright, FooterLink, FooterLinkGroup } from "flowbite-react";
+
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
-    <div>
-      <h2 className="bg-amber-400 text-white text-3xl">login</h2>
-          <Card href="#" className="max-w-sm">
-      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Noteworthy technology acquisitions 2021
-      </h5>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-      </p>
-    </Card>
-    <Button color="purple">Default</Button>
-    <Footer container>
-      <FooterCopyright href="#" by="Flowbite™" year={2022} />
-      <FooterLinkGroup>
-        <FooterLink href="#">About</FooterLink>
-        <FooterLink href="#">Privacy Policy</FooterLink>
-        <FooterLink href="#">Licensing</FooterLink>
-        <FooterLink href="#">Contact</FooterLink>
-      </FooterLinkGroup>
-    </Footer>
+    <div className="mx-auto  w-3/4">
+      <h6 className=" text-white  ">Welcome to PMS</h6>
+
+      <h2 className=" text-amber-300 text-capitalize text-3xl ">login</h2>
+
+      <form className="flex   flex-col gap-4 justify-center items-center my-5">
+        <div className="  flex gap-y-3 flex-col w-full ">
+          <div>
+            <TextInput
+              id="email2"
+              type="email"
+              placeholder="name@flowbite.com"
+            />
+          </div>
+          <div>
+            <TextInput id="password2" type="password" />
+          </div>
+          <div>
+            <TextInput id="repeat-password" type="password" />
+          </div>
+        </div>
+        <div className="flex justify-between w-full text-white ">
+          <Link>Register Now ?</Link>
+          <Link>Forget Password ?</Link>
+        </div>
+        <Button className="mx-auto my-3  " type="submit">
+          Register new account
+        </Button>
+      </form>
     </div>
   );
 }
