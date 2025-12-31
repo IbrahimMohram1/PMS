@@ -37,3 +37,8 @@
 #fileInput {
   display: none;
 }
+
+input {
+  background-color: transparent !important;
+  border: none;
+}

@@ -36,6 +36,7 @@ export default function VerifyAccount() {
                 Email
               </Label>
               <TextInput
+                className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                 id="email"
                 {...register("email", {
                   required: "Email is Required",
@@ -61,6 +62,7 @@ export default function VerifyAccount() {
                 OTP Validation
               </Label>
               <TextInput
+                className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                 id="OTP"
                 {...register("code", {
                   required: "OTP is Required",
