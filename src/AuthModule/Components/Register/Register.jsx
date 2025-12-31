@@ -1,17 +1,20 @@
 import React from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useAuthApi } from "../../../Hooks/useAuth";
+import { IoCameraOutline } from "react-icons/io5";
+import { FaCamera } from "react-icons/fa";
 
 export default function Register() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
   let { registerAcc, loading } = useAuthApi();
-
+  const ConfirmPass = useWatch({ control, name: "password", defaultValue: "" });
   const onSubmit = (data) => {
     registerAcc(data);
   };
@@ -25,11 +28,23 @@ export default function Register() {
       <hr className="w-8 h-1 bg-[#EF9B28]" />
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <label className="input-img" htmlFor="fileInput">
+          <FaCamera className="text-[#EF9B28] text-xl" />
+        </label>
+        <input type="file" id="fileInput" />
         <div className="flex   flex-row gap-4 justify-center items-center my-5">
           <div className="w-1/2">
             <div className="  flex gap-y-3 flex-col w-full ">
               <div>
+                <Label
+                  htmlFor="userName"
+                  className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                >
+                  UserName
+                </Label>
                 <TextInput
+                  id="userName"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("userName", {
                     required: "UserName is Required",
                     maxLength: { value: 8, message: "Maximum length is 8" },
@@ -48,7 +63,15 @@ export default function Register() {
                 )}
               </div>
               <div>
+                <Label
+                  htmlFor="country"
+                  className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                >
+                  Country
+                </Label>
                 <TextInput
+                  id="country"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("country", {
                     required: "Country is Required",
                     minLength: {
@@ -66,7 +89,15 @@ export default function Register() {
                 )}
               </div>
               <div>
+                <Label
+                  htmlFor="password"
+                  className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                >
+                  Password
+                </Label>
                 <TextInput
+                  id="password"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("password", {
                     required: "Password is Required",
                     pattern: {
@@ -90,7 +121,15 @@ export default function Register() {
           <div className="w-1/2">
             <div className="  flex gap-y-3 flex-col w-full ">
               <div>
+                <Label
+                  htmlFor="email"
+                  className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                >
+                  Email
+                </Label>
                 <TextInput
+                  id="email"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("email", {
                     required: "Email is Required",
                     pattern: {
@@ -108,7 +147,15 @@ export default function Register() {
                 )}
               </div>
               <div>
+                <Label
+                  htmlFor="phoneNumber"
+                  className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28] "
+                >
+                  Phone Number
+                </Label>
                 <TextInput
+                  id="phoneNumber"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("phoneNumber", {
                     required: "PhoneNumber is Required",
                     pattern: {
@@ -126,7 +173,31 @@ export default function Register() {
                 )}
               </div>
               <div>
+                {/* Confirm Password */}
+                <Label
+                  htmlFor="confirmPassword"
+                  className="mb-2 text-[#EF9B28] font-medium pt-4 dark:text-[#EF9B28]"
+                >
+                  Confirm Password
+                </Label>
                 <TextInput
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Confirm New Password"
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
+                  {...register("confirmPassword", {
+                    required: "Please confirm your password",
+                    validate: (value) =>
+                      value === ConfirmPass || "Passwords do not match",
+                  })}
+                />
+                {errors.confirmPassword && (
+                  <div className="bg-red-400 text-white px-3 py-2 rounded-md text-sm mt-1">
+                    {errors.confirmPassword.message}
+                  </div>
+                )}
+                {/* <TextInput
+                  className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
                   {...register("confirmPassword", {
                     required: "confirmPassword is Required",
                   })}
@@ -137,7 +208,7 @@ export default function Register() {
                   <div className="bg-red-400 text-white px-3 py-2 rounded-md text-sm mt-1">
                     {errors.confirmPassword.message}
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthApi } from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { Button, TextInput } from "flowbite-react";
+import { Button, Label, TextInput } from "flowbite-react";
 
 export default function VerifyAccount() {
   let { VerifyAcc, loading } = useAuthApi();
@@ -29,7 +29,14 @@ export default function VerifyAccount() {
         >
           <div className="  flex gap-y-3 flex-col w-full ">
             <div>
+              <Label
+                htmlFor="email"
+                className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+              >
+                Email
+              </Label>
               <TextInput
+                id="email"
                 {...register("email", {
                   required: "Email is Required",
                   pattern: {
@@ -47,7 +54,14 @@ export default function VerifyAccount() {
               )}
             </div>
             <div>
+              <Label
+                htmlFor="OTP"
+                className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+              >
+                OTP Validation
+              </Label>
               <TextInput
+                id="OTP"
                 {...register("code", {
                   required: "OTP is Required",
                   minLength: {

@@ -28,7 +28,14 @@ export default function Login() {
       >
         <div className="  flex gap-y-3 flex-col w-full ">
           <div>
+            <Label
+              htmlFor="email"
+              className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+            >
+              Email
+            </Label>
             <TextInput
+              id="email"
               {...register("email", {
                 required: "Email is Required",
                 pattern: {
@@ -46,7 +53,14 @@ export default function Login() {
             )}
           </div>
           <div>
+            <Label
+              htmlFor="password"
+              className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+            >
+              Password
+            </Label>
             <TextInput
+              id="password"
               {...register("password", {
                 required: "Password is Required",
                 pattern: {
