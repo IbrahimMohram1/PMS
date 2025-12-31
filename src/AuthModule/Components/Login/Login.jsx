@@ -66,7 +66,8 @@ export default function Login() {
         </div>
         <div className="flex justify-between w-full text-white ">
           <Link>Register Now ?</Link>
-          <Link>Forget Password ?</Link>
+         <Link to="/forget-password">Forget Password ?</Link>
+
         </div>
         <Button className="mx-auto my-3  " type="submit">
           Register new account
