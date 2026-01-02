@@ -1,97 +1,150 @@
 import React, { useState } from "react";
-import { Button, Label } from "flowbite-react";
-import { useForm, useWatch } from "react-hook-form";
+import { Button } from "flowbite-react";
+import { useForm } from "react-hook-form";
 import { useAuthApi } from "../../../Hooks/useAuth";
+import logo from "../../../assets/logoo.png";
+import ChangeBg from "../../../assets/img3.jpeg";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function ChangePassword() {
   const { changepassword, loading } = useAuthApi();
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
-  const newPassword = useWatch({ control, name: "newPassword", defaultValue: "" });
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const newPasswordValue = watch("newPassword", "");
 
   const onSubmit = async (data) => {
-    await changepassword(data);
+    setSuccess("");
+    setError("");
+    try {
+      await changepassword(data);
+      setSuccess("Password changed successfully!");
+    } catch (err) {
+      setError(err.message || "Failed to change password.");
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <p className="text-white text-sm mb-4">welcome to PMS</p>
+    <div className="min-h-screen flex items-center justify-center relative  overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${ChangeBg})` }}
+      ></div>
+      
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
 
-      <div>
-        <p className="text-4xl font-bold text-[#EF9B28]">
-          <span className="border-b-4 border-[#EF9B28] mb-1">C</span>hange Password
-        </p>
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col mt-6 space-y-6">
-
-          {/* Old Password */}
-          <div className="relative">
-            <Label className="mb-2 text-[#EF9B28] font-medium">Old Password</Label>
-            <input
-              type={showOld ? "text" : "password"}
-              placeholder="Enter your Old Password"
-              className="bg-transparent border-0 border-b border-gray-400 text-white px-0 py-2 pr-10 text-lg w-full"
-              {...register("oldPassword", { required: "Old password is required" })}
-            />
-            <i
-              className={`fa ${showOld ? "fa-eye-slash" : "fa-eye"} absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400`}
-              onClick={() => setShowOld(!showOld)}
-            ></i>
-            {errors.oldPassword && <p className="text-red-500 text-sm">{errors.oldPassword.message}</p>}
-          </div>
-
-          {/* New Password */}
-          <div className="relative">
-            <Label className="mb-2 text-[#EF9B28] font-medium">New Password</Label>
-            <input
-              type={showNew ? "text" : "password"}
-              placeholder="Enter your New Password"
-              className="bg-transparent border-0 border-b border-gray-400 text-white px-0 py-2 pr-10 text-lg w-full"
-              {...register("newPassword", {
-                required: "New password is required",
-                minLength: { value: 6, message: "Password must be at least 6 characters" },
-              })}
-            />
-            <i
-              className={`fa ${showNew ? "fa-eye-slash" : "fa-eye"} absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400`}
-              onClick={() => setShowNew(!showNew)}
-            ></i>
-            {errors.newPassword && <p className="text-red-500 text-sm">{errors.newPassword.message}</p>}
-          </div>
-
-          {/* Confirm Password */}
-          <div className="relative">
-            <Label className="mb-2 text-[#EF9B28] font-medium">Confirm Password</Label>
-            <input
-              type={showConfirm ? "text" : "password"}
-              placeholder="Confirm New Password"
-              className="bg-transparent border-0 border-b border-gray-400 text-white px-0 py-2 pr-10 text-lg w-full"
-              {...register("confirmNewPassword", {
-                required: "Please confirm your password",
-                validate: (value) => value === newPassword || "Passwords do not match",
-              })}
-            />
-            <i
-              className={`fa ${showConfirm ? "fa-eye-slash" : "fa-eye"} absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400`}
-              onClick={() => setShowConfirm(!showConfirm)}
-            ></i>
-            {errors.confirmNewPassword && <p className="text-red-500 text-sm">{errors.confirmNewPassword.message}</p>}
-          </div>
-
-          <Button
-            type="submit"
-            disabled={loading}
-            className="bg-[#EF9B28] enabled:hover:bg-[#d88a24] text-white rounded-full py-2 h-14 text-xl font-semibold border-none"
-          >
-            {loading ? "Processing..." : "Change Password"}
-          </Button>
+      {/* Container for Logo + Form */}
+      <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
+        
+        {/* 1. Logo Above the Card */}
+        <div className="">
+          <img src={logo} alt="Logo" className="w-48 " />
+         
         </div>
-      </form>
+
+        {/* 2. Main Card (Form) */}
+        <div className="w-full p-4 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
+          {/* Title Section */}
+          <div className="mb-10">
+            <p className="text-xs text-white/70 mb-1">welcome to PMS</p>
+            <div className="relative inline-block">
+             <h2 className="text-4xl font-bold text-[#EF9B28]">
+          <span className="border-b-4 border-[#EF9B28] pb-1">C</span>
+          hange Password
+        </h2>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} >
+            {/* Old Password */}
+            <div className="relative">
+              <label className="block text-[#EF9B28] text-sm mb-1">Old Password</label>
+              <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
+                <input
+                  type={showOld ? "text" : "password"}
+                  placeholder="Enter your Old Password"
+                  className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 focus:ring-0 focus:outline-none"
+                  {...register("oldPassword", { required: "Required" })}
+                />
+                <button
+                  type="button"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                  onClick={() => setShowOld(!showOld)}
+                >
+                  {showOld ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                </button>
+              </div>
+              {errors.oldPassword && <span className="text-[10px] text-red-400 absolute">{errors.oldPassword.message}</span>}
+            </div>
+
+            {/* New Password */}
+            <div className="relative">
+              <label className="block text-[#EF9B28] text-sm mb-1">New Password</label>
+              <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
+                <input
+                  type={showNew ? "text" : "password"}
+                  placeholder="Enter your New Password"
+                  className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 focus:ring-0 focus:outline-none"
+                  {...register("newPassword", { required: "Required", minLength: { value: 6, message: "Min 6 chars" } })}
+                />
+                <button
+                  type="button"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                  onClick={() => setShowNew(!showNew)}
+                >
+                  {showNew ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                </button>
+              </div>
+              {errors.newPassword && <span className="text-[10px] text-red-400 absolute">{errors.newPassword.message}</span>}
+            </div>
+
+            {/* Confirm Password */}
+            <div className="relative">
+              <label className="block text-[#EF9B28] text-sm mb-1">Confirm New Password</label>
+              <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
+                <input
+                  type={showConfirm ? "text" : "password"}
+                  placeholder="Confirm New Password"
+                  className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 focus:ring-0 focus:outline-none"
+                  {...register("confirmNewPassword", { 
+                    required: "Required", 
+                    validate: v => v === newPasswordValue || "Mismatch" 
+                  })}
+                />
+                <button
+                  type="button"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                >
+                  {showConfirm ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                </button>
+              </div>
+              {errors.confirmNewPassword && <span className="text-[10px] text-red-400 absolute">{errors.confirmNewPassword.message}</span>}
+            </div>
+
+            <div className="pt-6">
+               
+
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-[#EF9B28] enabled:hover:bg-[#d88c24] border-none rounded-full py-1 transition-all active:scale-[0.98] shadow-lg"
+                >
+                  <span className="text-lg font-bold text-white uppercase tracking-wider">
+                      {loading ? "Saving..." : "Save"}
+                  </span>
+                </Button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

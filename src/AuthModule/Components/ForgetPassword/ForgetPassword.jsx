@@ -1,98 +1,98 @@
-import React from "react";
-import { Button, Label } from "flowbite-react";
+import React, { useState } from "react";
+import { Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
-import { useAuthApi } from "../../../Hooks/useAuth";      
+import { useAuthApi } from "../../../Hooks/useAuth";
+import logo from "../../../assets/logoo.png";
+import ChangeBg from "../../../assets/img3.jpeg";
 
 export default function ForgetPassword() {
+  const { forgetPassword, loading } = useAuthApi();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { forgetPassword, loading } = useAuthApi();
-
   const onSubmit = async (data) => {
-    await forgetPassword(data);
+    setSuccess("");
+    setError("");
+    try {
+      await forgetPassword(data);
+      setSuccess("Verification email sent successfully!");
+    } catch (err) {
+      setError(err.message || "Failed to process request.");
+    }
   };
 
   return (
-    <div>
-      <p className="text-white text-sm font-medium mb-1">
-        welcome to PMS
-      </p>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${ChangeBg})` }}
+      ></div>
 
-      <div className="mb-12">
-        <h2 className="text-4xl font-bold text-[#EF9B28]">
-          <span className="border-b-4 border-[#EF9B28] pb-1">F</span>
-          orget Password
-        </h2>
-      </div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-10"
-      >
-        <div className="flex flex-col">
-          <Label
-            htmlFor="email"
-            className="mb-2 text-[#EF9B28] font-medium"
-          >
-            E-mail
-          </Label>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter your E-mail"
-            {...register("email", {
-              required: "E-mail is required",
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Invalid email format",
-              },
-            })}
-            className="
-              bg-transparent
-              border-0
-              border-b
-              border-gray-400
-              text-white
-              placeholder-gray-300
-              px-0
-              py-2
-              text-lg
-              focus:outline-none
-              focus:ring-0
-              focus:border-[#EF9B28]
-            "
-          />
-
-          {errors.email && (
-            <span className="text-red-500 text-sm mt-2">
-              {errors.email.message}
-            </span>
-          )}
+      {/* Container for Logo + Form */}
+      <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
+        {/* Logo */}
+        <div className="mb-8">
+          <img src={logo} alt="Logo" className="w-48" />
         </div>
 
-        <Button
-          type="submit"
-          disabled={loading}
-          className="
-            bg-[#EF9B28]
-            enabled:hover:bg-[#d88a24]
-            text-white
-            rounded-full
-            py-2
-            h-14
-            text-xl
-            font-semibold
-            border-none
-          "
-        >
-          {loading ? "Processing..." : "Verify"}
-        </Button>
-      </form>
+        {/* Card */}
+        <div className="w-full p-6 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
+          {/* Title */}
+          <div className="mb-10">
+            <p className="text-xs text-white/70 mb-1">welcome to PMS</p>
+            <h2 className="text-4xl font-bold text-[#EF9B28] inline-block">
+              <span className="border-b-4 border-[#EF9B28] pb-1">F</span>
+              orget Password
+            </h2>
+          </div>
+
+          {/* Success / Error */}
+         
+
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+            {/* Email */}
+            <div className="relative">
+              <label className="block text-[#EF9B28] text-sm mb-1">E-mail</label>
+              <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
+                <input
+                  type="email"
+                  placeholder="Enter your E-mail"
+                  className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 focus:ring-0 focus:outline-none"
+                  {...register("email", {
+                    required: "E-mail is required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Invalid email format",
+                    },
+                  })}
+                />
+              </div>
+              {errors.email && (
+                <span className="text-[10px] text-red-400 absolute">{errors.email.message}</span>
+              )}
+            </div>
+
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#EF9B28] enabled:hover:bg-[#d88c24] border-none rounded-full py-2 transition-all active:scale-[0.98] shadow-lg text-lg font-bold uppercase tracking-wider"
+            >
+              {loading ? "Processing..." : "Verify"}
+            </Button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
