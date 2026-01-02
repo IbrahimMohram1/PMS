@@ -43,11 +43,11 @@ export default function Register() {
               <input type="file" id="fileInput" />
               <div className="flex   flex-row gap-4 justify-center items-center my-5">
                 <div className="w-1/2">
-                  <div className="  flex gap-y-3 flex-col w-full ">
+                  <div className="  flex gap-y-1 flex-col w-full ">
                     <div>
                       <Label
                         htmlFor="userName"
-                        className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                        className=" text-[#EF9B28] font-medium dark:text-[#EF9B28]"
                       >
                         UserName
                       </Label>
@@ -77,7 +77,7 @@ export default function Register() {
                     <div>
                       <Label
                         htmlFor="country"
-                        className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                        className=" text-[#EF9B28] font-medium dark:text-[#EF9B28]"
                       >
                         Country
                       </Label>
@@ -103,7 +103,7 @@ export default function Register() {
                     <div>
                       <Label
                         htmlFor="password"
-                        className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                        className=" text-[#EF9B28] font-medium dark:text-[#EF9B28]"
                       >
                         Password
                       </Label>
@@ -131,11 +131,11 @@ export default function Register() {
                   </div>
                 </div>
                 <div className="w-1/2">
-                  <div className="  flex gap-y-3 flex-col w-full ">
+                  <div className="  flex gap-y-1 flex-col w-full ">
                     <div>
                       <Label
                         htmlFor="email"
-                        className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+                        className=" text-[#EF9B28] font-medium dark:text-[#EF9B28]"
                       >
                         Email
                       </Label>
@@ -161,7 +161,7 @@ export default function Register() {
                     <div>
                       <Label
                         htmlFor="phoneNumber"
-                        className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28] "
+                        className=" text-[#EF9B28] font-medium dark:text-[#EF9B28] "
                       >
                         Phone Number
                       </Label>
@@ -188,7 +188,7 @@ export default function Register() {
                       {/* Confirm Password */}
                       <Label
                         htmlFor="confirmPassword"
-                        className="mb-2 text-[#EF9B28] font-medium pt-4 dark:text-[#EF9B28]"
+                        className=" text-[#EF9B28] font-medium pt-4 dark:text-[#EF9B28]"
                       >
                         Confirm Password
                       </Label>
