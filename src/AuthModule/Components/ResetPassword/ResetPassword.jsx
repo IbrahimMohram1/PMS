@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useAuthApi } from "../../../Hooks/useAuth";
 import logo from "../../../assets/logoo.png";
-import ChangeBg from "../../../assets/img3.jpeg";
+import ResetBg from "../../../assets/img2.jpeg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function ResetPassword() {
@@ -52,9 +52,9 @@ export default function ResetPassword() {
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${ChangeBg})` }}
+        style={{ backgroundImage: `url(${ResetBg})` }}
       ></div>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+      
 
       {/* Container */}
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">

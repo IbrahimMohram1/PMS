@@ -37,7 +37,7 @@ export default function ChangePassword() {
       ></div>
       
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+      <div className="absolute inset-0 bg-[#EF9B284D] backdrop-blur-[2px]"></div>
 
       {/* Container for Logo + Form */}
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
@@ -49,23 +49,23 @@ export default function ChangePassword() {
         </div>
 
         {/* 2. Main Card (Form) */}
-        <div className="w-full p-4 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
+        <div className="w-full p-4 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-[1px]">
           {/* Title Section */}
           <div className="mb-10">
             <p className="text-xs text-white/70 mb-1">welcome to PMS</p>
-            <div className="relative inline-block">
+         
              <h2 className="text-4xl font-bold text-[#EF9B28]">
           <span className="border-b-4 border-[#EF9B28] pb-1">C</span>
           hange Password
         </h2>
             </div>
-          </div>
+          
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} >
             {/* Old Password */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">Old Password</label>
+              <label className="block text-[#EF9B28] text-sm">Old Password</label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type={showOld ? "text" : "password"}
@@ -86,7 +86,7 @@ export default function ChangePassword() {
 
             {/* New Password */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">New Password</label>
+              <label className="block text-[#EF9B28] text-sm ">New Password</label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type={showNew ? "text" : "password"}
