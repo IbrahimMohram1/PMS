@@ -3,7 +3,7 @@ import { Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { useAuthApi } from "../../../Hooks/useAuth";
 import logo from "../../../assets/logoo.png";
-import ChangeBg from "../../../assets/img3.jpeg";
+import ForgetBg from "../../../assets/img4.jpeg";
 
 export default function ForgetPassword() {
   const { forgetPassword, loading } = useAuthApi();
@@ -32,11 +32,10 @@ export default function ForgetPassword() {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${ChangeBg})` }}
+        style={{ backgroundImage: `url(${ForgetBg})` }}
       ></div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+
 
       {/* Container for Logo + Form */}
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
