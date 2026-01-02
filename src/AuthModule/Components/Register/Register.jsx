@@ -5,7 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useAuthApi } from "../../../Hooks/useAuth";
 import { IoCameraOutline } from "react-icons/io5";
 import { FaCamera } from "react-icons/fa";
-import Rebg from "../../../assets/bg3.png";
+import Rebg from "../../../assets/bg1.png";
 import logo from "../../../assets/PMS.png";
 
 export default function Register() {
