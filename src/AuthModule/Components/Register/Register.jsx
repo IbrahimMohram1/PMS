@@ -21,14 +21,17 @@ export default function Register() {
     registerAcc(data);
   };
   return (
-    <div className="Auth-container" style={{ backgroundImage: `url(${Rebg})` }}>
+    <div
+      className="Auth-container h-screen"
+      style={{ backgroundImage: `url(${Rebg})` }}
+    >
       <div className="flex  justify-center items-center ">
-        <div className="w-1/2 p-4 ">
-          <div className="logo-container mb-5 ">
+        <div className="w-1/2 ">
+          <div className="logo-container my-3  ">
             <img src={logo} alt="Logo" className="mx-auto" />
           </div>
           <div className="form-container p-12 rounded-2xl  bg-[#315951E5] opacity-90">
-            <div className="title mb-8">
+            <div className="title ">
               <p className="text-white text-sm">Welcome to PMS</p>
               <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
                 Create New Account
