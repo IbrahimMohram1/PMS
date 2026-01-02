@@ -8,4 +8,15 @@
     background-position: center center;
     background-size: cover;
   }
+.eye-position {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}
+
+
+
 }
