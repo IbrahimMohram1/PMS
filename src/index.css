@@ -4,7 +4,6 @@
 
 @layer utilities {
   .Auth-container {
-    background-image: url("./assets/AuthBackground.png");
     background-position: center center;
     background-size: cover;
   }
