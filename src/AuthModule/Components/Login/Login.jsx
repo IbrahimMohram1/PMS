@@ -26,52 +26,64 @@ export default function Login() {
       });
   };
 
-  return (
-    <div
-      className="Auth-container"
-      style={{ backgroundImage: `url(${LoginBg})` }}
-    >
-      <div className="flex h-screen justify-center items-center ">
-        <div className="w-1/2 p-4 ">
-          <div className="logo-container mb-5 ">
-            <img src={logo} alt="Logo" className="mx-auto" />
-          </div>
-          {/* form container */}
-          <div className="form-container p-12 rounded-2xl  bg-[#315951E5] opacity-90">
-            <div className="title mb-8">
-              <p className="text-white text-sm">Welcome to PMS</p>
-              <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
-                Login
-                <span className="w-4 h-1 bg-[#EF9B28]"></span>
-              </h1>
-            </div>
+      <h2 className=" text-[#EF9B28] text-capitalize text-3xl mb-3 ">login</h2>
+      <hr className="w-8 h-1 bg-[#EF9B28]" />
 
-            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-              <div className="input-group">
-                <label className="text-[#EF9B28] text-sm block mb-1">
-                  E-mail
-                </label>
-                <input
-                  type="email"
-                  {...register("email", EmailValidation)}
-                  placeholder="Enter your E-mail"
-                  className="w-full bg-transparent border-b border-white/30 text-white py-2 focus:outline-none focus:border-[#EF9B28] transition-colors placeholder:text-white font-light"
-                />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex   flex-col gap-4 justify-center items-center my-5"
+      >
+        <div className="  flex gap-y-3 flex-col w-full ">
+          <div>
+            <Label
+              htmlFor="email"
+              className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+            >
+              Email
+            </Label>
+            <TextInput
+              className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
+              id="email"
+              {...register("email", {
+                required: "Email is Required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+                  message: "Please Enter a Valid Email",
+                },
+              })}
+              type="email"
+              placeholder="name@flowbite.com"
+            />
+            {errors.email && (
+              <div className="bg-red-400 text-white px-3 py-2 rounded-md text-sm mt-1">
+                {errors.email.message}
               </div>
-              {errors.email && (
-                <p className="text-red-500 text-sm ">{errors.email.message}</p>
-              )}
-
-              <div className="input-group">
-                <label className="text-[#EF9B28] text-sm block mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  {...register("password", PasswordValidation)}
-                  placeholder="Enter your password"
-                  className="w-full bg-transparent border-b border-white/30 text-white py-2 focus:outline-none focus:border-[#EF9B28] transition-colors placeholder:text-white font-light"
-                />
+            )}
+          </div>
+          <div>
+            <Label
+              htmlFor="password"
+              className="mb-2 text-[#EF9B28] font-medium dark:text-[#EF9B28]"
+            >
+              Password
+            </Label>
+            <TextInput
+              className="bg-transparent border-0 border-b border-gray-400 text-white placeholder-gray-300 px-0 py-2 text-lg"
+              id="password"
+              {...register("password", {
+                required: "Password is Required",
+                pattern: {
+                  value:
+                    /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{5,}$/,
+                  message:
+                    "Password must start with a capital letter and contain letters, numbers, and a special character",
+                },
+              })}
+              type="password"
+            />
+            {errors.password && (
+              <div className="bg-red-400 text-white px-3 py-2 rounded-md text-sm mt-1">
+                {errors.password.message}
               </div>
 
               {errors.password && (

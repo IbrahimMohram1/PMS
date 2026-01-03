@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useAuthApi = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   // ================= LOGIN =================
   const login = async (values) => {
