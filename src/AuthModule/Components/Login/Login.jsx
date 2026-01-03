@@ -1,69 +1,95 @@
 import React from "react";
-
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import LoginBg from "../../../assets/login-bg.png";
+import logo from "../../../assets/logo.svg";
 import { useForm } from "react-hook-form";
-import { useAuthApi } from "../../../Hooks/useAuth";
-
+import { EmailValidation, PasswordValidation } from "../../../Api/validation";
+import axios from "axios";
+import { toast } from "react-toastify";
 export default function Login() {
-  let { login, loading } = useAuthApi();
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+    handleSubmit,
+  } = useForm();
+
   const onSubmit = (data) => {
-    login(data);
+    console.log(data);
+    axios
+      .post("https://upskilling-egypt.com:3003/api/v1/Users/Login", data)
+      .then((res) => {
+        console.log(res);
+        toast.success("Login successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Login failed");
+      });
   };
+
   return (
-    <div className="mx-auto  w-3/4">
-      <h6 className=" text-white  ">Welcome to PMS</h6>
-
-      <h2 className=" text-amber-300 text-capitalize text-3xl ">login</h2>
-
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex   flex-col gap-4 justify-center items-center my-5"
-      >
-        <div className="  flex gap-y-3 flex-col w-full ">
-          <div>
-            <TextInput
-              {...register("email", {
-                required: "Email is Required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-                  message: "Please Enter a Valid Email",
-                },
-              })}
-              type="email"
-              placeholder="name@flowbite.com"
-            />
-            {errors.email && (
-              <div className="bg-red-100 text-red-700 px-3 py-2 rounded-md text-sm mt-1">
-                {errors.email.message}
-              </div>
-            )}
+    <div
+      className="Auth-container"
+      style={{ backgroundImage: `url(${LoginBg})` }}
+    >
+      <div className="flex h-screen justify-center items-center ">
+        <div className="w-1/2 p-4 ">
+          <div className="logo-container mb-5 ">
+            <img src={logo} alt="Logo" className="mx-auto" />
           </div>
-          <div>
-            <TextInput
-              {...register("password", {
-                required: "Password is Required",
-                pattern: {
-                  value:
-                    /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{5,}$/,
-                  message:
-                    "Password must start with a capital letter and contain letters, numbers, and a special character",
-                },
-              })}
-              type="password"
-            />
-            {errors.password && (
-              <div className="bg-red-100 text-red-700 px-3 py-2 rounded-md text-sm mt-1">
-                {errors.password.message}
+          {/* form container */}
+          <div className="form-container p-12 rounded-2xl  bg-[#315951E5] opacity-90">
+            <div className="title mb-8">
+              <p className="text-white text-sm">Welcome to PMS</p>
+              <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
+                Login
+                <span className="w-4 h-1 bg-[#EF9B28]"></span>
+              </h1>
+            </div>
+
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+              <div className="input-group">
+                <label className="text-[#EF9B28] text-sm block mb-1">
+                  E-mail
+                </label>
+                <input
+                  type="email"
+                  {...register("email", EmailValidation)}
+                  placeholder="Enter your E-mail"
+                  className="w-full bg-transparent border-b border-white/30 text-white py-2 focus:outline-none focus:border-[#EF9B28] transition-colors placeholder:text-white font-light"
+                />
               </div>
-            )}
+              {errors.email && (
+                <p className="text-red-500 text-sm ">{errors.email.message}</p>
+              )}
+
+              <div className="input-group">
+                <label className="text-[#EF9B28] text-sm block mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  {...register("password", PasswordValidation)}
+                  placeholder="Enter your password"
+                  className="w-full bg-transparent border-b border-white/30 text-white py-2 focus:outline-none focus:border-[#EF9B28] transition-colors placeholder:text-white font-light"
+                />
+              </div>
+
+              {errors.password && (
+                <p className="text-red-500 text-sm ">
+                  {errors.password.message}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="w-full bg-[#EF9B28] text-white py-3 rounded-full font-semibold hover:bg-[#d88c24] transition-all shadow-lg mt-4 active:scale-95"
+              >
+                Login
+              </button>
+            </form>
           </div>
         </div>
+
         <div className="flex justify-between w-full text-white ">
           <Link>Register Now ?</Link>
          <Link to="/forget-password">Forget Password ?</Link>
@@ -72,7 +98,10 @@ export default function Login() {
         <Button className="mx-auto my-3  " type="submit">
           Register new account
         </Button>
-      </form>
-    </div>
+     
+
+      </div>
+
+  </div>
   );
 }
