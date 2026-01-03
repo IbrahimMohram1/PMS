@@ -13,6 +13,8 @@ import VerifyAccount from "./AuthModule/Components/VerifyAccount/VerifyAccount";
 import MasterLayout from "./Shared/MasterLayout/MasterLayout";
 import Dashboard from "./DashboardMoudule/Dashboard";
 import { AuthContextProvider } from "./Context/AuthContext";
+import { Bounce, ToastContainer } from "react-toastify";
+import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePassword";
 
 function App() {
   let routes = createBrowserRouter([
@@ -27,6 +29,7 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "verify-account", element: <VerifyAccount /> },
         { path: "reset-password", element: <ResetPassword /> },
+        { path: "change-password", element: <ChangePassword/> },
       ],
     },
     {
@@ -40,6 +43,19 @@ function App() {
   return (
     <>
       <AuthContextProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+        />
         <RouterProvider router={routes}></RouterProvider>
       </AuthContextProvider>
     </>

@@ -8,4 +8,8 @@
     background-position: center center;
     background-size: cover;
   }
+  input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
 }
