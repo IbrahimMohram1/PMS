@@ -7,49 +7,84 @@ export const useAuthApi = () => {
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
+  // ================= LOGIN =================
   const login = async (values) => {
     try {
+      setLoading(true);
       const { data } = await axiosClient.post("/Users/Login", values);
-      toast.success("Login successful! 🎉");
-      navigate("/dashboard", { replace: true });
-      setLoading(false);
-      return data;
-    } catch (error) {
-      setLoading(false);
-      toast.error(error.response.data.message);
-    }
-  };
-  const registerAcc = async (values) => {
-    try {
-      const { data } = await axiosClient.post("/Users/Register", values);
-      toast.success("Register successful! 🎉");
-      navigate("/verify-account", { replace: true });
-      console.log(data);
 
-      setLoading(false);
+      localStorage.setItem("access_token", data.token);
+
+      toast.success("Login successful 🎉");
       return data;
     } catch (error) {
+      toast.error(error?.response?.data?.message || "Login failed");
+    } finally {
       setLoading(false);
-      toast.error(error.response.data.message);
     }
   };
-  const VerifyAcc = async (values) => {
+
+  // ================= FORGET PASSWORD =================
+  const forgetPassword = async (values) => {
     try {
-      const { data } = await axiosClient.put("/Users/verify", values);
-      toast.success("Verify successful! ");
-      console.log(data);
-      navigate("/login", { replace: true });
-      setLoading(false);
+      setLoading(true);
+      const { data } = await axiosClient.post("/Users/Reset/Request", values);
+      toast.success("Check your email 📧");
+       navigate("/reset-password");
       return data;
     } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+    } finally {
       setLoading(false);
-      toast.error(error.response.data.message);
     }
   };
+
+  // ================= RESET PASSWORD =================
+  const resetPassword = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await axiosClient.post("/Users/Reset", {
+        email: values.email,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+        seed: values.seed,
+      });
+      toast.success("Password reset successfully!");
+      navigate('/')
+      return data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to reset password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ================= CHANGE PASSWORD =================
+  const changepassword = async (values) => {
+    try {
+      setLoading(true);
+
+      const { data } = await axiosClient.put("/Users/ChangePassword", {
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
+        confirmNewPassword: values.confirmNewPassword,
+      });
+
+      toast.success(data?.message || "Password changed successfully 🔐");
+      navigate('/')
+      return data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Unauthorized");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     login,
-    registerAcc,
-    VerifyAcc,
+    forgetPassword,
+    resetPassword,
+    changepassword,
     loading,
   };
 };
