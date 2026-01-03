@@ -29,7 +29,7 @@ export default function VerifyAccount() {
               <div className="title ">
                 <p className="text-white text-sm">Welcome to PMS</p>
                 <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
-                  Create New Account
+                  Verify Account
                   <span className="w-4 h-1 bg-[#EF9B28]"></span>
                 </h1>
               </div>
