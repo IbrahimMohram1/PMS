@@ -88,10 +88,10 @@ export default function Login() {
                 Login
               </button>
             </form>
-            <div className="flex justify-between items-center w-full my-3 text-white">
-              <Link to="/register">Register ? </Link>
 
-              <Link to="/forget-password">Forget Password ? </Link>
+            <div className="flex justify-between items-center my-3 text-white">
+              <Link to="/register">Register ?</Link>
+              <Link to="/forget-password">Forget Password ?</Link>
             </div>
           </div>
         </div>
