@@ -43,7 +43,7 @@ export default function ForgetPassword() {
         </div>
 
         {/* Card */}
-        <div className="w-full p-6 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
+        <div className="w-full p-6 sm:p-12 rounded-2xl bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
           {/* Title */}
           <div className="mb-10">
             <p className="text-xs text-white/70 mb-1">welcome to PMS</p>
