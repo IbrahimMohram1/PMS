@@ -10,3 +10,38 @@
 
   
 }
+.form-layout {
+  background-color: rgba(49, 74, 89, 0.9);
+}
+.input-img {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url("../src/assets/imgUpload.jpg");
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+}
+.input-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  z-index: 1;
+}
+#fileInput {
+  display: none;
+}
+
+input {
+  background-color: transparent !important;
+  border: none;
+}
