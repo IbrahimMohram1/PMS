@@ -1,23 +1,30 @@
 import React from "react";
-
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import LoginBg from "../../../assets/login-bg.png";
+import logo from "../../../assets/logo.svg";
 import { useForm } from "react-hook-form";
-import { useAuthApi } from "../../../Hooks/useAuth";
-
+import { EmailValidation, PasswordValidation } from "../../../Api/validation";
+import axios from "axios";
+import { toast } from "react-toastify";
 export default function Login() {
-  let { login, loading } = useAuthApi();
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+    handleSubmit,
+  } = useForm();
+
   const onSubmit = (data) => {
-    login(data);
+    console.log(data);
+    axios
+      .post("https://upskilling-egypt.com:3003/api/v1/Users/Login", data)
+      .then((res) => {
+        console.log(res);
+        toast.success("Login successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Login failed");
+      });
   };
-  return (
-    <div className="mx-auto  w-3/4">
-      <h6 className=" text-white  ">Welcome to PMS</h6>
 
       <h2 className=" text-[#EF9B28] text-capitalize text-3xl mb-3 ">login</h2>
       <hr className="w-8 h-1 bg-[#EF9B28]" />
@@ -78,7 +85,20 @@ export default function Login() {
               <div className="bg-red-400 text-white px-3 py-2 rounded-md text-sm mt-1">
                 {errors.password.message}
               </div>
-            )}
+
+              {errors.password && (
+                <p className="text-red-500 text-sm ">
+                  {errors.password.message}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="w-full bg-[#EF9B28] text-white py-3 rounded-full font-semibold hover:bg-[#d88c24] transition-all shadow-lg mt-4 active:scale-95"
+              >
+                Login
+              </button>
+            </form>
           </div>
         </div>
         <div className="flex justify-between w-full text-white ">
@@ -104,6 +124,5 @@ export default function Login() {
           {loading ? "Processing..." : "Login"}
         </Button>
       </form>
-    </div>
   );
 }
