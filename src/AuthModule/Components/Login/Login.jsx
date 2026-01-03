@@ -101,28 +101,19 @@ export default function Login() {
             </form>
           </div>
         </div>
+
         <div className="flex justify-between w-full text-white ">
-          <Link to={"/register"}>Register Now ?</Link>
-          <Link to={"/forget-password"}>Forget Password ?</Link>
+          <Link>Register Now ?</Link>
+         <Link to="/forget-password">Forget Password ?</Link>
+
         </div>
-        <Button
-          type="submit"
-          disabled={loading}
-          color="none"
-          className="
-            bg-[#EF9B28]
-            enabled:hover:bg-[#d88a24]
-            text-white
-            rounded-full
-            py-2
-            w-full
-            text-lg
-            font-semibold
-            border-none
-          "
-        >
-          {loading ? "Processing..." : "Login"}
+        <Button className="mx-auto my-3  " type="submit">
+          Register new account
         </Button>
-      </form>
+     
+
+      </div>
+
+  </div>
   );
 }

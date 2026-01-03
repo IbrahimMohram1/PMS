@@ -8,7 +8,13 @@
     background-size: cover;
   }
 
+  input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+
+
   
+
 }
 .form-layout {
   background-color: rgba(49, 74, 89, 0.9);
