@@ -35,8 +35,6 @@ export default function ForgetPassword() {
         style={{ backgroundImage: `url(${ForgetBg})` }}
       ></div>
 
-
-
       {/* Container for Logo + Form */}
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
         {/* Logo */}
@@ -45,7 +43,7 @@ export default function ForgetPassword() {
         </div>
 
         {/* Card */}
-        <div className="w-full p-6 sm:p-12 rounded-[2.5rem] bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
+        <div className="w-full p-6 sm:p-12 rounded-2xl bg-[#315951]/90 shadow-2xl text-white backdrop-blur-md">
           {/* Title */}
           <div className="mb-10">
             <p className="text-xs text-white/70 mb-1">welcome to PMS</p>
@@ -56,13 +54,17 @@ export default function ForgetPassword() {
           </div>
 
           {/* Success / Error */}
-         
 
           {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-8"
+          >
             {/* Email */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">E-mail</label>
+              <label className="block text-[#EF9B28] text-sm mb-1">
+                E-mail
+              </label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type="email"
@@ -78,17 +80,21 @@ export default function ForgetPassword() {
                 />
               </div>
               {errors.email && (
-                <span className="text-[10px] text-red-400 absolute">{errors.email.message}</span>
+                <span className="text-[10px] text-red-400 absolute">
+                  {errors.email.message}
+                </span>
               )}
             </div>
 
-            <Button
-              type="submit"
+            <button
               disabled={loading}
-              className="w-full bg-[#EF9B28] enabled:hover:bg-[#d88c24] border-none rounded-full py-2 transition-all active:scale-[0.98] shadow-lg text-lg font-bold uppercase tracking-wider"
+              type="submit"
+              className="w-full bg-[#EF9B28] text-white py-3 rounded-full font-semibold hover:bg-[#d88c24] transition-all shadow-lg mt-4 active:scale-95"
             >
-              {loading ? "Processing..." : "Verify"}
-            </Button>
+              <span className="text-lg font-bold text-white uppercase tracking-wider">
+                {loading ? "Saving..." : "Forget Password"}
+              </span>{" "}
+            </button>
           </form>
         </div>
       </div>
