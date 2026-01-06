@@ -45,10 +45,10 @@ export default function ChangePassword() {
       <div className="absolute inset-0 bg-[#EF9B284D] backdrop-blur-[2px]"></div>
 
       {/* Container for Logo + Form */}
-      <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-2xl mx-4 flex flex-col items-center">
         {/* 1. Logo Above the Card */}
         <div className="">
-          <img src={logo} alt="Logo" className="w-48 " />
+          <img src={logo} alt="Logo" className="w-48" />
         </div>
 
         {/* 2. Main Card (Form) */}

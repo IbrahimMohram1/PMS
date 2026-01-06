@@ -5,14 +5,14 @@ import { useForm } from "react-hook-form";
 import { EmailValidation, PasswordValidation } from "../../../Api/validation";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Login() {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
+  let navigate = useNavigate();
   const onSubmit = (data) => {
     console.log(data);
     axios
@@ -20,6 +20,7 @@ export default function Login() {
       .then((res) => {
         console.log(res);
         toast.success("Login successfully");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +82,10 @@ export default function Login() {
                 </p>
               )}
 
+              <div className="flex justify-between items-center my-3 text-white">
+                <Link to="/register">Register ?</Link>
+                <Link to="/forget-password">Forget Password ?</Link>
+              </div>
               <button
                 type="submit"
                 className="w-full bg-[#EF9B28] text-white py-3 rounded-full font-semibold hover:bg-[#d88c24] transition-all shadow-lg mt-4 active:scale-95"
@@ -88,11 +93,6 @@ export default function Login() {
                 Login
               </button>
             </form>
-
-            <div className="flex justify-between items-center my-3 text-white">
-              <Link to="/register">Register ?</Link>
-              <Link to="/forget-password">Forget Password ?</Link>
-            </div>
           </div>
         </div>
       </div>

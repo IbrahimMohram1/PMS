@@ -23,6 +23,36 @@ export const useAuthApi = () => {
       setLoading(false);
     }
   };
+  const registerAcc = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await axiosClient.post("/Users/Register", values);
+
+      toast.success("Regisrtation successful 🎉");
+      navigate("/verify-account");
+
+      return data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Regisrtation failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const VerifyAcc = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await axiosClient.put("/Users/verify", values);
+
+      toast.success("Verify successful 🎉");
+      navigate("/");
+
+      return data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Verify failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // ================= FORGET PASSWORD =================
   const forgetPassword = async (values) => {
@@ -30,7 +60,7 @@ export const useAuthApi = () => {
       setLoading(true);
       const { data } = await axiosClient.post("/Users/Reset/Request", values);
       toast.success("Check your email 📧");
-       navigate("/reset-password");
+      navigate("/reset-password");
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
@@ -50,7 +80,7 @@ export const useAuthApi = () => {
         seed: values.seed,
       });
       toast.success("Password reset successfully!");
-      navigate('/')
+      navigate("/");
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to reset password");
@@ -71,7 +101,7 @@ export const useAuthApi = () => {
       });
 
       toast.success(data?.message || "Password changed successfully 🔐");
-      navigate('/')
+      navigate("/");
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unauthorized");
@@ -84,7 +114,9 @@ export const useAuthApi = () => {
     login,
     forgetPassword,
     resetPassword,
+    registerAcc,
     changepassword,
+    VerifyAcc,
     loading,
   };
 };
