@@ -12,10 +12,11 @@ export const useAuthApi = () => {
     try {
       setLoading(true);
       const { data } = await axiosClient.post("/Users/Login", values);
+      console.log(data.token);
 
       localStorage.setItem("access_token", data.token);
-
       toast.success("Login successful 🎉");
+      navigate("/dashboard/users");
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "Login failed");
