@@ -19,6 +19,8 @@ export default function Login() {
       .post("https://upskilling-egypt.com:3003/api/v1/Users/Login", data)
       .then((res) => {
         console.log(res);
+        localStorage.setItem("access_token", res.data.token);
+
         toast.success("Login successfully");
         navigate("/dashboard");
       })

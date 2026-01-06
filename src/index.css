@@ -48,3 +48,9 @@
     border: none;
   }
 }
+
+.ps-sidebar-container {
+  background: #0e382f;
+  color: white;
+  min-height: 100vh;
+}

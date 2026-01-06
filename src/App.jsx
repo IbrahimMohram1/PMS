@@ -15,6 +15,7 @@ import Dashboard from "./DashboardMoudule/Dashboard";
 import { AuthContextProvider } from "./Context/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePassword";
+import Users from "./UsersModule/Components/Users/Users";
 
 function App() {
   let routes = createBrowserRouter([
@@ -29,14 +30,17 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "verify-account", element: <VerifyAccount /> },
         { path: "reset-password", element: <ResetPassword /> },
-        { path: "change-password", element: <ChangePassword/> },
+        { path: "change-password", element: <ChangePassword /> },
       ],
     },
     {
       path: "dashboard",
       element: <MasterLayout />,
       errorElement: <NotFound />,
-      children: [{ index: true, element: <Dashboard /> }],
+      children: [
+        { index: true, element: <Dashboard /> },
+        { path: "users", element: <Users /> },
+      ],
     },
   ]);
 
