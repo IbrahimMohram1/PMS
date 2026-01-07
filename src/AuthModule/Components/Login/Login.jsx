@@ -21,12 +21,11 @@ export default function Login() {
         console.log(res);
         localStorage.setItem("access_token", res.data.token);
 
-        toast.success("Login successfully");
+        toast.success("login Successfully");
         navigate("/dashboard");
       })
       .catch((err) => {
-        console.log(err);
-        toast.error("Login failed");
+        toast.error(err.response.data.message);
       });
   };
 

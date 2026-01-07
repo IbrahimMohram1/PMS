@@ -1,12 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useUsersApi } from "../../../Hooks/useUsers";
+import { toast } from "react-toastify";
+import { CiMenuKebab } from "react-icons/ci";
 
 export default function Users() {
-  let { getUsersApi, data, loading } = useUsersApi();
+  let { getUsersApi, data, loading, toogleActiveUser, isActivated } =
+    useUsersApi();
+  const [openDropdown, setOpenDropdown] = useState(null);
+
   useEffect(() => {
     getUsersApi();
     console.log(data);
   }, []);
+
+  const handleToggleActive = async (user) => {
+    const updatedUser = await toogleActiveUser(user.id);
+    getUsersApi();
+  };
   return (
     <>
       <table className="w-full border-collapse rounded-xl overflow-hidden shadow-md">
@@ -17,18 +27,14 @@ export default function Users() {
             <th className="px-4 py-3 text-left">Phone Number</th>
             <th className="px-4 py-3 text-left">Email</th>
             <th className="px-4 py-3 text-left">Date Created</th>
+            <th className="">Toogle Active</th>
           </tr>
         </thead>
 
         <tbody>
           {data.length > 0 ? (
-            data.map((user, index) => (
-              <tr
-                key={user.id}
-                className={`
-            ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}
-          `}
-              >
+            data.map((user) => (
+              <tr className="odd:bg-gray-100 even:bg-white" key={user.id}>
                 <td className="px-4 py-3">{user.userName}</td>
 
                 <td className="px-4 py-3">
@@ -49,6 +55,35 @@ export default function Users() {
                 <td className="px-4 py-3">{user.email}</td>
                 <td className="px-4 py-3 text-sm text-gray-500">
                   {new Date(user.creationDate).toLocaleDateString()}
+                </td>
+                <td>
+                  <button
+                    onClick={() =>
+                      setOpenDropdown(openDropdown === user.id ? null : user.id)
+                    }
+                    className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer "
+                  >
+                    <CiMenuKebab className="text-[#315951E5] text-2xl" />
+                  </button>
+                  {openDropdown === user.id && (
+                    <div className="absolute  z-20 mt-2 w-fit bg-white border rounded-md">
+                      <ul className="py-1 text-sm ">
+                        <li>
+                          <button
+                            onClick={() => {
+                              handleToggleActive(user);
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full text-left px-4 py-2 
+            ${user.isActivated ? "text-red-600" : "text-green-600"}
+          `}
+                          >
+                            {user.isActivated ? "Deactivate" : "Activate"}
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))

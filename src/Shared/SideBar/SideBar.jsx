@@ -67,7 +67,12 @@ export default function SideBar() {
             Users
           </MenuItem>
 
-          <MenuItem icon={<FaTasks />}>Tasks</MenuItem>
+          <MenuItem
+            component={<Link to={"/dashboard/tasks"} />}
+            icon={<FaTasks />}
+          >
+            Tasks
+          </MenuItem>
         </Menu>
       </Sidebar>
 
