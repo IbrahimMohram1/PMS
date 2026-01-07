@@ -16,6 +16,8 @@ import { AuthContextProvider } from "./Context/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePassword";
 import Users from "./UsersModule/Components/Users/Users";
+import AllTask from "./TasksModule/Components/Tasks/AllTask";
+import AddTask from "./TasksModule/Components/AddTask/AddTask";
 
 function App() {
   let routes = createBrowserRouter([
@@ -40,6 +42,9 @@ function App() {
       children: [
         { index: true, element: <Dashboard /> },
         { path: "users", element: <Users /> },
+        { path: "tasks", element: <AllTask /> },
+        { path: "addtask", element: <AddTask /> },
+        { path: "addtask/:id", element: <AddTask /> },
       ],
     },
   ]);
