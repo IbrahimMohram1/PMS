@@ -7,14 +7,14 @@ import {
   TableHeadCell,
   TableRow,
   Spinner,
-  TextInput,
-  Select,
 } from "flowbite-react";
 import useProjects from "../../../Hooks/useProjects";
 import { BsThreeDots, BsSearch } from "react-icons/bs";
 import { HiOutlineChevronLeft, HiOutlineChevronRight, HiOutlineEye, HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
+import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";    
+
 export default function Projects() {
   const {
     projects,
@@ -28,6 +28,8 @@ export default function Projects() {
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [search, setSearch] = useState("");
+  const [projectToDelete, setProjectToDelete] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -46,19 +48,36 @@ export default function Projects() {
     project.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleDeleteClick = (project) => {
+    setProjectToDelete(project);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (projectToDelete) deleteProject(projectToDelete.id);
+    setIsModalOpen(false);
+    setProjectToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setIsModalOpen(false);
+    setProjectToDelete(null);
+  };
+
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-6">
         <p className="text-3xl text-[#4F4F4F]">Projects</p>
-       <button onClick={()=>navigate('/dashboard/Project-Data')}
-  className="bg-[#EF9B28] text-white py-2 px-5 rounded-4xl flex items-center gap-2 hover:bg-[#e88c1f] transition-colors"
->
-  <FaPlus /> <span>Add New Project</span>
-</button>
+        <button
+          onClick={() => navigate('/dashboard/Project-Data')}
+          className="bg-[#EF9B28] text-white py-2 px-5 rounded-4xl flex items-center gap-2 hover:bg-[#e88c1f] transition-colors"
+        >
+          <FaPlus /> <span>Add New Project</span>
+        </button>
       </div>
-      
+
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* شريط البحث العلوي */}
+        {/* شريط البحث */}
         <div className="p-5">
           <div className="relative max-w-xs">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -94,9 +113,7 @@ export default function Projects() {
                 <TableBody className="divide-y">
                   {filteredProjects.map((project) => (
                     <TableRow key={project.id} className="bg-white">
-                      <TableCell className="whitespace-nowrap font-normal text-gray-600">
-                        {project.title}
-                      </TableCell>
+                      <TableCell className="whitespace-nowrap font-normal text-gray-600">{project.title}</TableCell>
                       <TableCell>
                         <span className="bg-[#4D6D66] text-white px-4 py-1.5 rounded-full text-xs font-medium">
                           {project.status || "Public"}
@@ -107,10 +124,8 @@ export default function Projects() {
                       <TableCell className="text-gray-500">
                         {project.creationDate ? new Date(project.creationDate).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) : "09-23-2023"}
                       </TableCell>
-                      
-                      {/* القائمة المنبثقة Action Menu */}
                       <TableCell className="relative">
-                        <button 
+                        <button
                           onClick={() => setOpenDropdown(openDropdown === project.id ? null : project.id)}
                           className="text-emerald-900 hover:bg-gray-100 p-1 rounded-lg"
                         >
@@ -118,27 +133,18 @@ export default function Projects() {
                         </button>
 
                         {openDropdown === project.id && (
-                          <div 
-                            ref={dropdownRef}
-                            className="absolute right-10 top-0 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1"
-                          >
+                          <div ref={dropdownRef} className="absolute right-10 top-0 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1">
                             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50 transition-colors">
                               <HiOutlineEye className="mr-2 text-emerald-600" /> View
                             </button>
-                          <button
-  onClick={() =>
-    navigate(`/dashboard/Project-Data/${project.id}`, {
-      state: project, // 👈 الداتا كلها
-    })
-  }
-  className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
->
-  <HiOutlinePencilAlt className="mr-2 text-emerald-600" /> Edit
-</button>
-
-
-                            <button 
-                              onClick={() => { if(window.confirm("حذف؟")) deleteProject(project.id) }}
+                            <button
+                              onClick={() => navigate(`/dashboard/Project-Data/${project.id}`, { state: project })}
+                              className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
+                            >
+                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" /> Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteClick(project)}
                               className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
                             >
                               <HiOutlineTrash className="mr-2" /> Delete
@@ -152,7 +158,7 @@ export default function Projects() {
               </Table>
             </div>
 
-            {/* Pagination المطور كما في الصورة */}
+            {/* Pagination */}
             <div className="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-100">
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>Showing</span>
@@ -160,7 +166,7 @@ export default function Projects() {
                   <option>10</option>
                   <option>20</option>
                 </select>
-                <span>of 102 Results</span>
+                <span>of {projects.length} Results</span>
               </div>
 
               <div className="flex items-center gap-6">
@@ -188,6 +194,15 @@ export default function Projects() {
           </>
         )}
       </div>
+
+      {/* Confirm Delete Modal */}
+      <ConfirmModal
+        isOpen={isModalOpen}
+        title="Delete Project"
+        message={`Are you sure you want to delete "${projectToDelete?.title}"?`}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </div>
   );
 }

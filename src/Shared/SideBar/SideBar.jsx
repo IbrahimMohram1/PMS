@@ -61,7 +61,7 @@ export default function SideBar() {
           <div style={{ height: 40 }} />
           <MenuItem icon={<FaHome />}  component={<Link to="/dashboard" />}>Home</MenuItem>
           <MenuItem icon={<GrProjects />}  component={<Link to="/dashboard/Projects" />}>Projects</MenuItem>
-          <MenuItem icon={<GrProjects />}  component={<Link to="/dashboard/MyProjects" />}>MyProjects</MenuItem>
+
           <MenuItem component={<Link to={"/dashboard/users"} />} icon={<FaUsers />}  >
             Users
           </MenuItem>
