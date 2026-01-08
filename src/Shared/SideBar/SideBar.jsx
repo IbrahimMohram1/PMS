@@ -9,7 +9,7 @@ import {
 import { GrProjects } from "react-icons/gr";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-
+import { FaHome } from "react-icons/fa";
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -21,8 +21,8 @@ export default function SideBar() {
     backgroundColor: "#f3a333",
     color: "#fff",
     border: "none",
-    borderRadius: "50% 0 0 50%",
-    width: 30,
+    borderRadius: "30% 0 0 30%",
+    width: 40,
     height: 40,
     display: "flex",
     alignItems: "center",
@@ -34,6 +34,7 @@ export default function SideBar() {
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar
+       width="200px"
         collapsed={collapsed}
         backgroundColor="#0f3027"
         rootStyles={{ height: "100vh", border: "none", position: "relative" }}
@@ -58,22 +59,18 @@ export default function SideBar() {
           }}
         >
           <div style={{ height: 40 }} />
-          <MenuItem icon={<FaUsers />}>Users</MenuItem>
-          <MenuItem icon={<GrProjects />}>Projects</MenuItem>
-          <MenuItem
-            component={<Link to={"/dashboard/users"} />}
-            icon={<FaUser />}
-          >
+          <MenuItem icon={<FaHome />}  component={<Link to="/dashboard" />}>Home</MenuItem>
+          <MenuItem icon={<GrProjects />}  component={<Link to="/dashboard/Projects" />}>Projects</MenuItem>
+          <MenuItem icon={<GrProjects />}  component={<Link to="/dashboard/MyProjects" />}>MyProjects</MenuItem>
+          <MenuItem component={<Link to={"/dashboard/users"} />} icon={<FaUsers />}  >
             Users
           </MenuItem>
 
-          <MenuItem icon={<FaTasks />}>Tasks</MenuItem>
+        
         </Menu>
       </Sidebar>
 
-      <main style={{ flex: 1, padding: 20 }}>
-        <h1>Content Area</h1>
-      </main>
+     
     </div>
   );
 }

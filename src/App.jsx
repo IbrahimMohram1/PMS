@@ -16,6 +16,10 @@ import { AuthContextProvider } from "./Context/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePassword";
 import Users from "./UsersModule/Components/Users/Users";
+import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
+import Projects from "./ProjectModule/Component/Projects/Projects";
+import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
+import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
 
 function App() {
   let routes = createBrowserRouter([
@@ -35,13 +39,19 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      // element:<ProtectedRoute><MasterLayout /></ProtectedRoute>,
+     element:<MasterLayout />,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
         { path: "users", element: <Users /> },
+        {path:"Projects",element: <Projects/>},
+        {path:'Project-Data',element:<ProjectData/> },
+        {path:"Project-Data/:id",element:<ProjectData/> },
+        {path:"MyProjects",element:<MyProjects/> },
+
       ],
-    },
+    }
   ]);
 
   return (
