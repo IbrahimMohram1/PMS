@@ -16,6 +16,8 @@ export const useTasksApi = () => {
       const { data } = await axiosClient.get(
         "Task/manager?pageSize=10&pageNumber=1",
       );
+      console.log(data.data);
+
       setData(data.data);
       return data;
     } catch (error) {
