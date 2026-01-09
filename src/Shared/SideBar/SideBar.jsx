@@ -75,10 +75,6 @@ export default function SideBar() {
           </MenuItem>
         </Menu>
       </Sidebar>
-
-      <main style={{ flex: 1, padding: 20 }}>
-        <h1>Content Area</h1>
-      </main>
     </div>
   );
 }
