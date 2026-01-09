@@ -18,6 +18,10 @@ import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePasswor
 import Users from "./UsersModule/Components/Users/Users";
 import AllTask from "./TasksModule/Components/Tasks/AllTask";
 import AddTask from "./TasksModule/Components/AddTask/AddTask";
+import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
+import Projects from "./ProjectModule/Component/Projects/Projects";
+import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
+import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
 
 function App() {
   let routes = createBrowserRouter([
@@ -37,7 +41,11 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
@@ -45,6 +53,10 @@ function App() {
         { path: "tasks", element: <AllTask /> },
         { path: "addtask", element: <AddTask /> },
         { path: "addtask/:id", element: <AddTask /> },
+        { path: "Projects", element: <Projects /> },
+        { path: "Project-Data", element: <ProjectData /> },
+        { path: "Project-Data/:id", element: <ProjectData /> },
+        { path: "MyProjects", element: <MyProjects /> },
       ],
     },
   ]);
