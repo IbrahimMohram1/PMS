@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUsersApi } from "../../../Hooks/useUsers";
 import { toast } from "react-toastify";
 import { CiMenuKebab } from "react-icons/ci";
+import { Spinner } from "flowbite-react";
 
 export default function Users() {
   const { getUsersApi, data, loading, toggleActiveUser } = useUsersApi();
@@ -25,7 +26,9 @@ export default function Users() {
   if (loading) {
     return (
       <div className="text-center py-6 text-gray-500 font-medium">
-        Loading...
+        <div className="flex justify-center py-20">
+          <Spinner size="xl" />
+        </div>{" "}
       </div>
     );
   }

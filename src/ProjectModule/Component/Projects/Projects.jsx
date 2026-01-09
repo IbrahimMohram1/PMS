@@ -10,10 +10,16 @@ import {
 } from "flowbite-react";
 import useProjects from "../../../Hooks/useProjects";
 import { BsThreeDots, BsSearch } from "react-icons/bs";
-import { HiOutlineChevronLeft, HiOutlineChevronRight, HiOutlineEye, HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+import {
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
+  HiOutlineEye,
+  HiOutlinePencilAlt,
+  HiOutlineTrash,
+} from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
-import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";    
+import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
 
 export default function Projects() {
   const {
@@ -45,7 +51,7 @@ export default function Projects() {
   }, []);
 
   const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(search.toLowerCase())
+    project.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleDeleteClick = (project) => {
@@ -69,7 +75,7 @@ export default function Projects() {
       <div className="flex justify-between mb-6">
         <p className="text-3xl text-[#4F4F4F]">Projects</p>
         <button
-          onClick={() => navigate('/dashboard/Project-Data')}
+          onClick={() => navigate("/dashboard/Project-Data")}
           className="bg-[#EF9B28] text-white py-2 px-5 rounded-4xl flex items-center gap-2 hover:bg-[#e88c1f] transition-colors"
         >
           <FaPlus /> <span>Add New Project</span>
@@ -94,7 +100,9 @@ export default function Projects() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20"><Spinner size="xl" /></div>
+          <div className="flex justify-center py-20">
+            <Spinner size="xl" />
+          </div>
         ) : error ? (
           <p className="text-red-600 text-center py-10">{error}</p>
         ) : (
@@ -102,46 +110,85 @@ export default function Projects() {
             <div className="overflow-x-auto">
               <Table hoverable>
                 <TableHead>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium py-4">Title</TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">Statuses</TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">userName</TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">description</TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">Date Created</TableHeadCell>
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium py-4">
+                    Title
+                  </TableHeadCell>
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                    Statuses
+                  </TableHeadCell>
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                    userName
+                  </TableHeadCell>
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                    description
+                  </TableHeadCell>
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                    Date Created
+                  </TableHeadCell>
                   <TableHeadCell className="bg-[#4D6D66] text-white font-medium"></TableHeadCell>
                 </TableHead>
 
                 <TableBody className="divide-y">
                   {filteredProjects.map((project) => (
                     <TableRow key={project.id} className="bg-white">
-                      <TableCell className="whitespace-nowrap font-normal text-gray-600">{project.title}</TableCell>
+                      <TableCell className="whitespace-nowrap font-normal text-gray-600">
+                        {project.title}
+                      </TableCell>
                       <TableCell>
                         <span className="bg-[#4D6D66] text-white px-4 py-1.5 rounded-full text-xs font-medium">
                           {project.status || "Public"}
                         </span>
                       </TableCell>
-                      <TableCell className="text-gray-500">{project.manager?.userName || '-'}</TableCell>
-                      <TableCell className="text-gray-500">{project.description || 0}</TableCell>
                       <TableCell className="text-gray-500">
-                        {project.creationDate ? new Date(project.creationDate).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) : "09-23-2023"}
+                        {project.manager?.userName || "-"}
+                      </TableCell>
+                      <TableCell className="text-gray-500">
+                        {project.description || 0}
+                      </TableCell>
+                      <TableCell className="text-gray-500">
+                        {project.creationDate
+                          ? new Date(project.creationDate).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "2-digit",
+                                day: "2-digit",
+                                year: "numeric",
+                              },
+                            )
+                          : "09-23-2023"}
                       </TableCell>
                       <TableCell className="relative">
                         <button
-                          onClick={() => setOpenDropdown(openDropdown === project.id ? null : project.id)}
+                          onClick={() =>
+                            setOpenDropdown(
+                              openDropdown === project.id ? null : project.id,
+                            )
+                          }
                           className="text-emerald-900 hover:bg-gray-100 p-1 rounded-lg"
                         >
                           <BsThreeDots size={20} />
                         </button>
 
                         {openDropdown === project.id && (
-                          <div ref={dropdownRef} className="absolute right-10 top-0 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1">
+                          <div
+                            ref={dropdownRef}
+                            className="absolute right-10 top-0 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1"
+                          >
                             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50 transition-colors">
-                              <HiOutlineEye className="mr-2 text-emerald-600" /> View
+                              <HiOutlineEye className="mr-2 text-emerald-600" />{" "}
+                              View
                             </button>
                             <button
-                              onClick={() => navigate(`/dashboard/Project-Data/${project.id}`, { state: project })}
+                              onClick={() =>
+                                navigate(
+                                  `/dashboard/Project-Data/${project.id}`,
+                                  { state: project },
+                                )
+                              }
                               className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
                             >
-                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" /> Edit
+                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" />{" "}
+                              Edit
                             </button>
                             <button
                               onClick={() => handleDeleteClick(project)}
@@ -176,14 +223,16 @@ export default function Projects() {
                 <div className="flex gap-4">
                   <button
                     disabled={pageNumber === 1}
-                    onClick={() => setPageNumber(p => Math.max(1, p - 1))}
+                    onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
                     className="text-gray-400 hover:text-emerald-600 disabled:opacity-30 transition-colors"
                   >
                     <HiOutlineChevronLeft size={20} />
                   </button>
                   <button
                     disabled={pageNumber === totalPages}
-                    onClick={() => setPageNumber(p => Math.min(totalPages, p + 1))}
+                    onClick={() =>
+                      setPageNumber((p) => Math.min(totalPages, p + 1))
+                    }
                     className="text-gray-400 hover:text-emerald-600 disabled:opacity-30 transition-colors"
                   >
                     <HiOutlineChevronRight size={20} />
