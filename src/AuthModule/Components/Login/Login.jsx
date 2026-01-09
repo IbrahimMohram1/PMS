@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import LoginBg from "../../../assets/login-bg.png";
 import logo from "../../../assets/logo.svg";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,9 @@ import { EmailValidation, PasswordValidation } from "../../../Api/validation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthContext";
 export default function Login() {
+  const { saveUserData } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -21,7 +23,8 @@ export default function Login() {
         console.log(res);
         localStorage.setItem("access_token", res.data.token);
 
-        toast.success("login Successfully");
+        toast.success("Login successfully");
+        saveUserData();
         navigate("/dashboard");
       })
       .catch((err) => {
