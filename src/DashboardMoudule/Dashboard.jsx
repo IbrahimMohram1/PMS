@@ -6,6 +6,7 @@ import { FaChartBar } from "react-icons/fa";
 import { CiViewList } from "react-icons/ci";
 import { useTasksApi } from "../Hooks/useTasks";
 import { useUsersApi } from "../Hooks/useUsers";
+import ChartsData from "../Shared/ChartsData/ChartsData";
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
@@ -36,7 +37,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="flex mx-6 gap-x-6">
+      <div className="flex mx-6 gap-x-6 items-stretch">
         <div className="md:w-1/2 w-full  bg-[#F8F9FB] rounded-md  p-5 ">
           <h5 className="border-l-[3px]  mx-1 border-l-amber-400 p-1">
             {" "}
@@ -73,27 +74,37 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="md:w-1/2 w-full bg-[#F8F9FB] rounded-md p-5 ">
-          <h5 className="border-l-[3px]  mx-1 border-l-amber-400 p-1">Users</h5>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <div className=" my-5">
-            <div className="flex gap-x-7 items-center">
-              <div className=" w-1/3  py-5 px-4  bg-[#E5E6F4] rounded-md flex flex-col items-start gap-y-2 ">
-                <div className="bg-[#CFD1EC] p-3 text-black rounded-md">
-                  <FaChartBar />
+        <div className="md:w-1/2 w-full bg-[#F8F9FB] rounded-md p-5">
+          {user.userGroup == "user" ? (
+            <>
+              <h5 className="border-l-[3px] mx-1 border-l-amber-400 p-1">
+                Users
+              </h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <div className="my-5">
+                <div className="flex gap-x-7 items-center">
+                  <div className="w-1/3 py-5 px-4 bg-[#E5E6F4] rounded-md flex flex-col items-start gap-y-2">
+                    <div className="bg-[#CFD1EC] p-3 text-black rounded-md">
+                      <FaChartBar />
+                    </div>
+                    <span className="text-gray-500">Active</span>
+                    <h6>{data.activatedEmployeeCount}</h6>
+                  </div>
+                  <div className="w-1/3 py-5 px-4 bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2">
+                    <div className="bg-[#E4E4BC] p-3 text-black rounded-md">
+                      <CiViewList />
+                    </div>
+                    <span className="text-gray-500">In Active</span>
+                    <h6>{data.deactivatedEmployeeCount}</h6>
+                  </div>
                 </div>
-                <span className="text-gray-500">Active</span>
-                <h6>{data.activatedEmployeeCount}</h6>
               </div>
-              <div className=" w-1/3  py-5 px-4  bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2 ">
-                <div className="bg-[#E4E4BC] p-3 text-black rounded-md">
-                  <CiViewList />
-                </div>
-                <span className="text-gray-500">In Active</span>
-                <h6>{data.deactivatedEmployeeCount}</h6>
-              </div>
+            </>
+          ) : (
+            <div className="h-full">
+              <ChartsData TasksData={taskCount} />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
