@@ -74,8 +74,8 @@ export const useTasksApi = () => {
     try {
       setLoading(true);
       const response = await axiosClient.get(`Task/count`);
-      console.log(response);
-      setTaskCount(response);
+      console.log(response.data);
+      setTaskCount(response.data);
       setLoading(false);
     } catch (error) {
       console.log(error);

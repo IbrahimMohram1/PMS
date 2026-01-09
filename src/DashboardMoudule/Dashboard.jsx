@@ -5,13 +5,16 @@ import getGreeting from "../Shared/TimeMessage/TimeMessage";
 import { FaChartBar } from "react-icons/fa";
 import { CiViewList } from "react-icons/ci";
 import { useTasksApi } from "../Hooks/useTasks";
+import { useUsersApi } from "../Hooks/useUsers";
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   let { taskCounts, taskCount } = useTasksApi();
+  let { getUsersCount, data } = useUsersApi();
   let greeting = getGreeting();
   useEffect(() => {
     taskCounts();
+    getUsersCount();
   }, []);
 
   return (
@@ -47,14 +50,16 @@ export default function Dashboard() {
                   <FaChartBar />
                 </div>
                 <span className="text-gray-500">Progress</span>
-                <h6>$ 7328</h6>
+                <h6>{taskCount?.inProgress}</h6>
               </div>
               <div className=" w-1/3  py-5 px-4  bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2 ">
                 <div className="bg-[#E4E4BC] p-3 text-black rounded-md">
                   <CiViewList />
                 </div>
                 <span className="text-nowrap text-gray-500">Tasks Number</span>
-                <h6>1293</h6>
+                <h6>
+                  {taskCount?.inProgress + taskCount?.done + taskCount?.toDo}
+                </h6>
               </div>
               <div className=" w-1/3  py-5 px-4  bg-[#F4E5ED] rounded-md flex flex-col items-start gap-y-2 ">
                 <div className="bg-[#E7C3D7] p-3 text-black rounded-md">
@@ -78,14 +83,14 @@ export default function Dashboard() {
                   <FaChartBar />
                 </div>
                 <span className="text-gray-500">Active</span>
-                <h6>$ 7328</h6>
+                <h6>{data.activatedEmployeeCount}</h6>
               </div>
               <div className=" w-1/3  py-5 px-4  bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2 ">
                 <div className="bg-[#E4E4BC] p-3 text-black rounded-md">
                   <CiViewList />
                 </div>
                 <span className="text-gray-500">In Active</span>
-                <h6>1293</h6>
+                <h6>{data.deactivatedEmployeeCount}</h6>
               </div>
             </div>
           </div>
