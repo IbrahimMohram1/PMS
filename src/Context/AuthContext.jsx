@@ -21,11 +21,11 @@ export function AuthContextProvider({ children }) {
     setUser(null);
   };
 
-  // ✅ on refresh
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      saveUserData();
-    }
+    saveUserData();
+    setLoading(false);
   }, []);
 
   return (
@@ -33,6 +33,7 @@ export function AuthContextProvider({ children }) {
       value={{
         user,
         saveUserData,
+        loading,
         logout,
       }}
     >

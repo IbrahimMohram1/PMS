@@ -7,6 +7,8 @@ export const useTasksApi = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [projectData, setProjectData] = useState([]);
+  let [taskCount, setTaskCount] = useState();
+  const [error, setError] = useState(null);
 
   let navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export const useTasksApi = () => {
       return data;
     } catch (error) {
       console.log(error);
+      setError(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -67,6 +70,18 @@ export const useTasksApi = () => {
       toast.error(error.response.statusText);
     }
   };
+  const taskCounts = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.get(`Task/count`);
+      console.log(response);
+      setTaskCount(response);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   return {
     getMangerTasks,
@@ -75,7 +90,10 @@ export const useTasksApi = () => {
     deleteTask,
     addTask,
     updateTask,
+    taskCounts,
     data,
+    taskCount,
+    error,
     loading,
   };
 };
