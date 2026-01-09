@@ -3,13 +3,20 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 // عدلي المسار حسب مكان الملف
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute({ children, allowedRoles }) {
   const { user, loading } = useContext(AuthContext);
+  let role = user?.userGroup;
+
+  console.log(role);
+
   if (loading) return <div>Loading...</div>;
 
-  if (!user) {
-    // لو المستخدم مش مسجل دخول، نعيد توجيهه لصفحة تسجيل الدخول
+  const token = localStorage.getItem("access_token");
+  if (!token) {
     return <Navigate to="/login" replace />;
+  }
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    return <Navigate to={"/dashboard"} replace />;
   }
 
   // لو مسجل دخول، نعرض المحتوى المحمي

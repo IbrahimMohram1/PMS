@@ -37,7 +37,7 @@ export const useTasksApi = () => {
       setProjectData(data.data);
       return data;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   const addTask = async (values) => {
