@@ -36,11 +36,22 @@ export const useUsersApi = () => {
       setLoading(false);
     }
   };
+  const getUsersCount = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.get(`Users/count`);
+      console.log(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return {
     getUsersApi,
     toogleActiveUser,
     data,
     loading,
+    getUsersCount,
   };
 };

@@ -36,7 +36,6 @@ function App() {
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "verify-account", element: <VerifyAccount /> },
         { path: "reset-password", element: <ResetPassword /> },
-        { path: "change-password", element: <ChangePassword /> },
       ],
     },
     {
@@ -49,6 +48,7 @@ function App() {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
+        { path: "change-password", element: <ChangePassword /> },
         { path: "users", element: <Users /> },
         { path: "tasks", element: <AllTask /> },
         { path: "addtask", element: <AddTask /> },

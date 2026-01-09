@@ -12,6 +12,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import imgProfile from "../../assets/imgUpload.jpg";
 import { useNavigate } from "react-router-dom";
 import { CgLogOut } from "react-icons/cg";
+import { TbLockPassword } from "react-icons/tb";
 
 export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
@@ -65,9 +66,10 @@ export default function NavBar() {
           className="bg-white shadow-lg border px-4 border-gray-200 rounded-lg mt-2"
         >
           <DropdownItem
-            onClick={() => navigate("/change-password")}
-            className="flex items-center gap-2 hover:bg-[#FFF4E6] transition-colors duration-200"
+            onClick={() => navigate("/dashboard/change-password")}
+            className="flex items-center gap-2 text-emerald-600 hover:bg-[#FFF4E6] transition-colors duration-200"
           >
+            <TbLockPassword size={18} />
             Change Pass
           </DropdownItem>
 
