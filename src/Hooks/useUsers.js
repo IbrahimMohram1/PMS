@@ -8,6 +8,7 @@ export const useUsersApi = () => {
   const [data, setData] = useState([]);
 
   let navigate = useNavigate();
+
   const getUsersApi = async () => {
     try {
       setLoading(true);

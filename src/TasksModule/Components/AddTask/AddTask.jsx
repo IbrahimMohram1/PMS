@@ -1,5 +1,5 @@
 import { Label, Select, Textarea, TextInput } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,19 +9,16 @@ import { useTasksApi } from "../../../Hooks/useTasks";
 export default function AddTask() {
   const { getUsersApi, data: users } = useUsersApi();
   const {
-    getMangerTasks,
     getProjectsForManger,
     projectData,
     addTask,
     updateTask,
-    data: tasks,
+    getTaskById,
   } = useTasksApi();
 
-  const { id } = useParams(); // لو فيه id يبقى edit
-  const isEdit = Boolean(id);
   const navigate = useNavigate();
-
-  const [taskToEdit, setTaskToEdit] = useState(null);
+  let { id } = useParams();
+  const isEdit = Boolean(id);
 
   const {
     register,
@@ -33,37 +30,34 @@ export default function AddTask() {
   useEffect(() => {
     getUsersApi();
     getProjectsForManger();
-    // load tasks so we can populate the form when editing
-    getMangerTasks();
+
+    if (isEdit) {
+      getTaskById(id).then((response) => {
+        if (response) {
+          const task = response; // بتملي البيانات الفورم
+          setValue("title", task.title);
+          setValue("description", task.description);
+          setValue("employeeId", task.employee?.id);
+        }
+      });
+    }
   }, []);
 
-  useEffect(() => {
-    // لما tasks يتم تحميلها
-    if (isEdit && tasks.length > 0) {
-      const found = tasks.find((task) => task.id === Number(id));
-      if (found) {
-        setTaskToEdit(found);
-        // تعبي القيم القديمة في الفورم
-        setValue("title", found.title || "");
-        setValue("description", found.description || "");
-        setValue("employeeId", found.employeeId?.toString() || "");
-        setValue("projectId", found.projectId?.toString() || "");
-      }
-    }
-  }, [tasks, id, setValue]);
   const onSubmit = (formData) => {
-    const payload = {
-      ...formData,
+    const basePayload = {
+      title: formData.title,
+      description: formData.description,
       employeeId: Number(formData.employeeId),
-      projectId: Number(formData.projectId),
     };
 
-    if (isEdit && taskToEdit) {
-      updateTask(taskToEdit.id, payload).then(() =>
-        navigate("/dashboard/tasks"),
-      );
+    if (isEdit) {
+      updateTask(id, basePayload).then(() => navigate("/dashboard/tasks"));
     } else {
-      addTask(payload).then(() => navigate("/dashboard/tasks"));
+      const addPayload = {
+        ...basePayload,
+        projectId: Number(formData.projectId),
+      };
+      addTask(addPayload).then(() => navigate("/dashboard/tasks"));
     }
   };
 
@@ -79,7 +73,7 @@ export default function AddTask() {
         </h2>
       </div>
 
-      <div className="bg-gray-100 w-full p-12">
+      <div className="bg-gray-100 min-h-screen w-full p-12">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-4xl mx-auto bg-white rounded-md"
@@ -164,7 +158,7 @@ export default function AddTask() {
                 )}
               </div>
 
-              {/* Project */}
+              {/* Project - Show ONLY if NOT editing */}
               {!isEdit && (
                 <div className="mb-2 block w-1/2">
                   <Label

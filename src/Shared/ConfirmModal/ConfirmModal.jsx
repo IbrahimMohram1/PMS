@@ -1,4 +1,6 @@
 import React from "react";
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function ConfirmModal({
   isOpen,
@@ -7,30 +9,36 @@ export default function ConfirmModal({
   onConfirm,
   onCancel,
 }) {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-50">
-      <div className="bg-white rounded-2xl shadow-lg w-96 max-w-full p-6">
-        <h2 className="text-xl font-semibold text-gray-800">
-          {title || "Confirm"}
-        </h2>
-        <p className="mt-2 text-gray-600">{message || "Are you sure?"}</p>
-        <div className="mt-6 flex justify-end gap-4">
-          <button
-            onClick={onCancel}
-            className="px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            className="px-4 py-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
-          >
-            Delete
-          </button>
+    <Modal show={isOpen} size="md" onClose={onCancel} popup>
+      <ModalHeader />
+      <ModalBody>
+        <div className="text-center">
+          <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-gray-200" />
+          {title && (
+            <h3 className="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">
+              {title}
+            </h3>
+          )}
+          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+            {message || "Are you sure you want to delete this?"}
+          </h3>
+          <div className="flex justify-center gap-4">
+            <Button
+              className="bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white"
+              onClick={onConfirm}
+            >
+              Yes, I'm sure
+            </Button>
+            <Button
+              className="bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 focus:ring-4 focus:ring-gray-200"
+              onClick={onCancel}
+            >
+              No, cancel
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
+      </ModalBody>
+    </Modal>
   );
 }

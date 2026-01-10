@@ -18,7 +18,7 @@ export default function useProjects() {
       const res = await axiosClient.get("Project", {
         params: { pageNumber, pageSize },
       });
-      console.log(res.data.data)
+      console.log(res.data.data);
       setProjects(res.data.data);
       setTotalPages(res.data.totalNumberOfPages);
     } catch (err) {
@@ -31,7 +31,7 @@ export default function useProjects() {
   const deleteProject = async (id) => {
     try {
       await axiosClient.delete(`Project/${id}`);
-   
+
       setProjects((prev) => prev.filter((p) => p.id !== id));
       toast.success("Project deleted successfully");
     } catch (err) {

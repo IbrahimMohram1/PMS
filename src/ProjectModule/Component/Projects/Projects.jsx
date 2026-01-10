@@ -51,7 +51,7 @@ export default function Projects() {
   }, []);
 
   const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(search.toLowerCase()),
+    project.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleDeleteClick = (project) => {
@@ -153,7 +153,7 @@ export default function Projects() {
                                 month: "2-digit",
                                 day: "2-digit",
                                 year: "numeric",
-                              },
+                              }
                             )
                           : "09-23-2023"}
                       </TableCell>
@@ -161,7 +161,7 @@ export default function Projects() {
                         <button
                           onClick={() =>
                             setOpenDropdown(
-                              openDropdown === project.id ? null : project.id,
+                              openDropdown === project.id ? null : project.id
                             )
                           }
                           className="text-emerald-900 hover:bg-gray-100 p-1 rounded-lg"
@@ -182,7 +182,7 @@ export default function Projects() {
                               onClick={() =>
                                 navigate(
                                   `/dashboard/Project-Data/${project.id}`,
-                                  { state: project },
+                                  { state: project }
                                 )
                               }
                               className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
