@@ -6,21 +6,26 @@ import axiosClient from "../Utils/AxoisClient";
 export const useTasksApi = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [totalTasks, setTotalTasks] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [projectData, setProjectData] = useState([]);
   let [taskCount, setTaskCount] = useState();
   const [error, setError] = useState(null);
 
   let navigate = useNavigate();
 
-  const getMangerTasks = async (values) => {
+  const getMangerTasks = async (pageSize = 10, pageNumber = 1, title = "") => {
     try {
       setLoading(true);
       const { data } = await axiosClient.get(
-        "Task/manager?pageSize=10&pageNumber=1",
+        `Task/manager?pageSize=${pageSize}&pageNumber=${pageNumber}&title=${title}`
       );
-      console.log(data.data);
-
       setData(data.data);
+      console.log(data);
+      if (data.totalCount) setTotalTasks(data.totalCount);
+      if (data.totalNumberOfPages) setTotalPages(data.totalNumberOfPages);
+
       return data;
     } catch (error) {
       console.log(error);
@@ -29,10 +34,11 @@ export const useTasksApi = () => {
       setLoading(false);
     }
   };
+
   const getProjectsForManger = async () => {
     try {
       const { data } = await axiosClient.get(
-        "Project/manager?pageSize=10&pageNumber=1",
+        "Project/manager?pageSize=10&pageNumber=1"
       );
       setProjectData(data.data);
       return data;
@@ -48,6 +54,21 @@ export const useTasksApi = () => {
       toast.error(error.response.statusText);
     }
   };
+
+  // get task by id
+  const getTaskById = async (id) => {
+    try {
+      setLoading(true);
+      const { data } = await axiosClient.get(`Task/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setError(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const updateTask = async (id, values) => {
     try {
       const response = await axiosClient.put(`Task/${id}`, values);
@@ -70,6 +91,7 @@ export const useTasksApi = () => {
       toast.error(error.response.statusText);
     }
   };
+
   const taskCounts = async () => {
     try {
       setLoading(true);
@@ -90,7 +112,10 @@ export const useTasksApi = () => {
     deleteTask,
     addTask,
     updateTask,
+    getTaskById,
     taskCounts,
+    totalPages,
+    totalTasks,
     data,
     taskCount,
     error,

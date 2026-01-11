@@ -76,7 +76,7 @@ export default function Users() {
                     <button
                       onClick={() =>
                         setOpenDropdown(
-                          openDropdown === user.id ? null : user.id,
+                          openDropdown === user.id ? null : user.id
                         )
                       }
                       className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer"
