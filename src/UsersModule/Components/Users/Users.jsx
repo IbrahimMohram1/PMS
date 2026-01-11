@@ -5,7 +5,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { Spinner } from "flowbite-react";
 
 export default function Users() {
-  const { getUsersApi, data, loading, toggleActiveUser } = useUsersApi();
+  const { getUsersApi, data, loading, toogleActiveUser } = useUsersApi();
   const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Users() {
   }, [data]);
 
   const handleToggleActive = async (user) => {
-    await toggleActiveUser(user.id);
+    await toogleActiveUser(user.id);
     getUsersApi();
     toast.success(user.isActivated ? "User deactivated" : "User activated");
     setOpenDropdown(null);
@@ -76,7 +76,7 @@ export default function Users() {
                     <button
                       onClick={() =>
                         setOpenDropdown(
-                          openDropdown === user.id ? null : user.id
+                          openDropdown === user.id ? null : user.id,
                         )
                       }
                       className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer"
@@ -90,7 +90,7 @@ export default function Users() {
                           <li>
                             <button
                               onClick={() => handleToggleActive(user)}
-                              className={`w-full text-left px-4 py-2 ${
+                              className={`w-full text-left px-4 py-2 cursor-pointer ${
                                 user.isActivated
                                   ? "text-red-600"
                                   : "text-green-600"

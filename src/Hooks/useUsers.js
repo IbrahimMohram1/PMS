@@ -27,11 +27,6 @@ export const useUsersApi = () => {
     try {
       setLoading(true);
       const response = await axiosClient.put(`Users/${id}`);
-      if (response.data.isActivated) {
-        toast.success("Activation Done");
-      } else {
-        toast.warning("DeActivation Done");
-      }
     } catch (error) {
       toast.error(error?.response?.data?.message || "No Data");
       setLoading(false);
