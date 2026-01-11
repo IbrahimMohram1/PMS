@@ -15,7 +15,11 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm();
 
-  const newPassword = useWatch({ control, name: "newPassword", defaultValue: "" });
+  const newPassword = useWatch({
+    control,
+    name: "newPassword",
+    defaultValue: "",
+  });
 
   // eye states
   const [showOtp, setShowOtp] = useState(false);
@@ -54,13 +58,12 @@ export default function ResetPassword() {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${ResetBg})` }}
       ></div>
-      
 
       {/* Container */}
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
         {/* Logo */}
         <div className="mb-8">
-          <img src={logo} alt="Logo" className="w-48" />
+          <img src={logo} alt="Logo" className=" w-[150px] md:w-48" />
         </div>
 
         {/* Card */}
@@ -69,15 +72,21 @@ export default function ResetPassword() {
           <div className="mb-8">
             <p className="text-xs text-white/70 mb-1">Welcome to PMS</p>
             <h2 className="text-4xl font-bold text-[#EF9B28] inline-block">
-              <span className="border-b-4 border-[#EF9B28] pb-1">R</span>eset Password
+              <span className="border-b-4 border-[#EF9B28] pb-1">R</span>eset
+              Password
             </h2>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-3"
+          >
             {/* Email */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">E-mail</label>
+              <label className="block text-[#EF9B28] text-sm mb-1">
+                E-mail
+              </label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type="email"
@@ -92,12 +101,18 @@ export default function ResetPassword() {
                   })}
                 />
               </div>
-              {errors.email && <span className="text-[10px] text-red-400 absolute mt-1">{errors.email.message}</span>}
+              {errors.email && (
+                <span className="text-[10px] text-red-400 absolute mt-1">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
 
             {/* OTP */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">OTP Verification</label>
+              <label className="block text-[#EF9B28] text-sm mb-1">
+                OTP Verification
+              </label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type={showOtp ? "text" : "password"}
@@ -114,12 +129,18 @@ export default function ResetPassword() {
                   {showOtp ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                 </button>
               </div>
-              {errors.otp && <span className="text-[10px] text-red-400 absolute mt-1">{errors.otp.message}</span>}
+              {errors.otp && (
+                <span className="text-[10px] text-red-400 absolute mt-1">
+                  {errors.otp.message}
+                </span>
+              )}
             </div>
 
             {/* New Password */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">New Password</label>
+              <label className="block text-[#EF9B28] text-sm mb-1">
+                New Password
+              </label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type={showNewPassword ? "text" : "password"}
@@ -127,7 +148,10 @@ export default function ResetPassword() {
                   className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 pr-8 focus:ring-0 focus:outline-none"
                   {...register("newPassword", {
                     required: "New password is required",
-                    minLength: { value: 6, message: "Password must be at least 6 characters" },
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
                   })}
                 />
                 <button
@@ -135,15 +159,25 @@ export default function ResetPassword() {
                   className="absolute right-0 top-1/2 -translate-y-1/2 text-white/60 hover:text-white focus:outline-none"
                   onClick={() => setShowNewPassword(!showNewPassword)}
                 >
-                  {showNewPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                  {showNewPassword ? (
+                    <FaEyeSlash size={18} />
+                  ) : (
+                    <FaEye size={18} />
+                  )}
                 </button>
               </div>
-              {errors.newPassword && <span className="text-[10px] text-red-400 absolute mt-1">{errors.newPassword.message}</span>}
+              {errors.newPassword && (
+                <span className="text-[10px] text-red-400 absolute mt-1">
+                  {errors.newPassword.message}
+                </span>
+              )}
             </div>
 
             {/* Confirm Password */}
             <div className="relative">
-              <label className="block text-[#EF9B28] text-sm mb-1">Confirm Password</label>
+              <label className="block text-[#EF9B28] text-sm mb-1">
+                Confirm Password
+              </label>
               <div className="relative border-b border-white/30 focus-within:border-[#EF9B28] transition-colors">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
@@ -151,7 +185,8 @@ export default function ResetPassword() {
                   className="w-full bg-transparent border-none text-white py-2 px-0 placeholder:text-white/30 pr-8 focus:ring-0 focus:outline-none"
                   {...register("confirmPassword", {
                     required: "Please confirm your password",
-                    validate: (value) => value === newPassword || "Passwords do not match",
+                    validate: (value) =>
+                      value === newPassword || "Passwords do not match",
                   })}
                 />
                 <button
@@ -159,10 +194,18 @@ export default function ResetPassword() {
                   className="absolute right-0 top-1/2 -translate-y-1/2 text-white/60 hover:text-white focus:outline-none"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                  {showConfirmPassword ? (
+                    <FaEyeSlash size={18} />
+                  ) : (
+                    <FaEye size={18} />
+                  )}
                 </button>
               </div>
-              {errors.confirmPassword && <span className="text-[10px] text-red-400 absolute mt-1">{errors.confirmPassword.message}</span>}
+              {errors.confirmPassword && (
+                <span className="text-[10px] text-red-400 absolute mt-1">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
             </div>
 
             {/* Submit Button */}
@@ -175,8 +218,14 @@ export default function ResetPassword() {
             </button>
 
             {/* Messages */}
-            {success && <p className="text-green-400 text-center text-sm mt-2">{success}</p>}
-            {error && <p className="text-red-400 text-center text-sm mt-2">{error}</p>}
+            {success && (
+              <p className="text-green-400 text-center text-sm mt-2">
+                {success}
+              </p>
+            )}
+            {error && (
+              <p className="text-red-400 text-center text-sm mt-2">{error}</p>
+            )}
           </form>
         </div>
       </div>

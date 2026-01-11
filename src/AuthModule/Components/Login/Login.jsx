@@ -38,13 +38,13 @@ export default function Login() {
       style={{ backgroundImage: `url(${LoginBg})` }}
     >
       <div className="flex h-screen justify-center items-center ">
-        <div className="w-1/2 p-4 ">
+        <div className="md:w-1/2 w-full p-4 ">
           <div className="logo-container mb-5 ">
-            <img src={logo} alt="Logo" className="mx-auto" />
+            <img src={logo} alt="Logo" className="mx-auto md:w-48 w-[150px]" />
           </div>
           {/* form container */}
-          <div className="form-container p-12 rounded-2xl  bg-[#315951E5] opacity-90">
-            <div className="title mb-8">
+          <div className="form-container p-10 rounded-2xl  bg-[#315951E5] opacity-90">
+            <div className="title ">
               <p className="text-white text-sm">Welcome to PMS</p>
               <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
                 Login

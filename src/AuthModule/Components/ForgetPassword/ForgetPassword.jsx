@@ -39,7 +39,7 @@ export default function ForgetPassword() {
       <div className="relative z-10 w-full max-w-lg mx-4 flex flex-col items-center">
         {/* Logo */}
         <div className="mb-8">
-          <img src={logo} alt="Logo" className="w-48" />
+          <img src={logo} alt="Logo" className=" w-[150px] md:w-48" />
         </div>
 
         {/* Card */}

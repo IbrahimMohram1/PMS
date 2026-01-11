@@ -99,3 +99,6 @@
   background-color: #f9fafb !important;
   border-color: #d1d5db !important;
 }
+.Auth-container {
+  min-height: 100dvh;
+}

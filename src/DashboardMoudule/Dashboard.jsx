@@ -15,8 +15,6 @@ export default function Dashboard() {
 
   let greeting = getGreeting();
   useEffect(() => {
-    console.log(user);
-
     if (user.userGroup == "Manager") {
       getUsersCount();
     }

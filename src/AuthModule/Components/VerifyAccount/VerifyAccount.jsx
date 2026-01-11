@@ -21,9 +21,13 @@ export default function VerifyAccount() {
         style={{ backgroundImage: `url(${VerifyBg})` }}
       >
         <div className="flex  justify-center items-center h-full ">
-          <div className="w-1/2 ">
+          <div className="md:w-1/2 w-full ">
             <div className="logo-container my-3  ">
-              <img src={logo} alt="Logo" className="mx-auto" />
+              <img
+                src={logo}
+                alt="Logo"
+                className=" w-[150px] md:w-48 mx-auto"
+              />
             </div>
             <div className="form-container  p-12 rounded-2xl  bg-[#315951E5] opacity-90 ">
               <div className="title ">
