@@ -6,7 +6,6 @@ import { FaChartBar } from "react-icons/fa";
 import { CiViewList } from "react-icons/ci";
 import { useTasksApi } from "../Hooks/useTasks";
 import { useUsersApi } from "../Hooks/useUsers";
-import ChatBot from "../Shared/ChatBot/ChatBot";
 import ChartsData from "../Shared/ChartsData/ChartsData";
 
 export default function Dashboard() {
