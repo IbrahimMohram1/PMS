@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axiosClient from "../Utils/AxoisClient";
 import { toast } from "react-toastify";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function useProjects() {
   const [projects, setProjects] = useState([]);
@@ -10,12 +11,15 @@ export default function useProjects() {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  let { user } = useContext(AuthContext);
 
-  const getAllProjects = async () => {
+  const getAllProjects = async (role) => {
+    console.log(user);
+
     setLoading(true);
     setError(null);
     try {
-      const res = await axiosClient.get("Project/manager", {
+      const res = await axiosClient.get(`Project/${role}`, {
         params: { pageNumber, pageSize },
       });
       console.log(res.data.data);
@@ -41,7 +45,7 @@ export default function useProjects() {
   };
 
   useEffect(() => {
-    getAllProjects();
+    getAllProjects(user.userGroup);
   }, [pageNumber]);
 
   return {
