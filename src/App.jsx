@@ -2,7 +2,11 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import AuthLayout from "./Shared/AuthLayout/AuthLayout";
 import NotFound from "./Shared/NotFound/NotFound";
 import Login from "./AuthModule/Components/Login/Login";
@@ -30,7 +34,14 @@ function App() {
       element: <AuthLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Login /> },
+        {
+          index: true,
+          element: localStorage.getItem("access_token") ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Login />
+          ),
+        },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPassword /> },
@@ -49,13 +60,50 @@ function App() {
       children: [
         { index: true, element: <Dashboard /> },
         { path: "change-password", element: <ChangePassword /> },
-        { path: "users", element: <Users /> },
+
+        {
+          path: "users",
+          element: (
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <Users />
+            </ProtectedRoute>
+          ),
+        },
         { path: "tasks", element: <AllTask /> },
-        { path: "addtask", element: <AddTask /> },
-        { path: "addtask/:id", element: <AddTask /> },
+        {
+          path: "addtask",
+          element: (
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <AddTask />
+            </ProtectedRoute>
+          ),
+        },
+
+        {
+          path: "addtask/:id",
+          element: (
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <AddTask />
+            </ProtectedRoute>
+          ),
+        },
         { path: "Projects", element: <Projects /> },
-        { path: "Project-Data", element: <ProjectData /> },
-        { path: "Project-Data/:id", element: <ProjectData /> },
+        {
+          path: "Project-Data",
+          element: (
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <ProjectData />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "Project-Data/:id",
+          element: (
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <ProjectData />
+            </ProtectedRoute>
+          ),
+        },
         { path: "MyProjects", element: <MyProjects /> },
       ],
     },

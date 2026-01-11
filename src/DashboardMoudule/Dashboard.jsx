@@ -12,10 +12,15 @@ export default function Dashboard() {
   const { user } = useContext(AuthContext);
   let { taskCounts, taskCount } = useTasksApi();
   let { getUsersCount, data } = useUsersApi();
+
   let greeting = getGreeting();
   useEffect(() => {
+    console.log(user);
+
+    if (user.userGroup == "Manager") {
+      getUsersCount();
+    }
     taskCounts();
-    getUsersCount();
   }, []);
 
   return (
@@ -75,7 +80,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="md:w-1/2 w-full bg-[#F8F9FB] rounded-md p-5">
-          {user.userGroup == "user" ? (
+          {user.userGroup == "Manager" ? (
             <>
               <h5 className="border-l-[3px] mx-1 border-l-amber-400 p-1">
                 Users

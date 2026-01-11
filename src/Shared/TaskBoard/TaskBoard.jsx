@@ -8,14 +8,12 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { useTasksApi } from "../../Hooks/useTasks";
 
-// الأعمدة (نفس format الباك)
 const columns = [
   { id: "ToDo", title: "Todo" },
   { id: "InProgress", title: "In Progress" },
   { id: "Done", title: "Done" },
 ];
 
-// كارت التاسك
 function TaskCard({ task }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: task.id });

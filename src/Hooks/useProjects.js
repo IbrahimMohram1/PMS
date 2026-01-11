@@ -15,7 +15,7 @@ export default function useProjects() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axiosClient.get("Project", {
+      const res = await axiosClient.get("Project/manager", {
         params: { pageNumber, pageSize },
       });
       console.log(res.data.data);
