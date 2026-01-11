@@ -9,22 +9,27 @@ export default function useProjects() {
   const [error, setError] = useState(null);
 
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalProjects, setTotalProjects] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   let { user } = useContext(AuthContext);
 
+  //----- Get all projects (Manager or Employee)-----
   const getAllProjects = async (role) => {
-    console.log(user);
-
     setLoading(true);
     setError(null);
     try {
       const res = await axiosClient.get(`Project/${role}`, {
-        params: { pageNumber, pageSize },
+        params: {
+          pageNumber,
+          pageSize,
+          title: searchQuery,
+        },
       });
-      console.log(res.data.data);
       setProjects(res.data.data);
       setTotalPages(res.data.totalNumberOfPages);
+      setTotalProjects(res.data.totalNumberOfRecords || 0);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
@@ -35,8 +40,7 @@ export default function useProjects() {
   const deleteProject = async (id) => {
     try {
       await axiosClient.delete(`Project/${id}`);
-
-      setProjects((prev) => prev.filter((p) => p.id !== id));
+      getAllProjects(user.userGroup);
       toast.success("Project deleted successfully");
     } catch (err) {
       console.error("Delete project error", err);
@@ -45,8 +49,10 @@ export default function useProjects() {
   };
 
   useEffect(() => {
-    getAllProjects(user.userGroup);
-  }, [pageNumber]);
+    if (user?.userGroup) {
+      getAllProjects(user.userGroup);
+    }
+  }, [pageNumber, pageSize, searchQuery, user?.userGroup]);
 
   return {
     projects,
@@ -54,7 +60,12 @@ export default function useProjects() {
     error,
     pageNumber,
     totalPages,
+    pageSize,
+    totalProjects,
+    searchQuery,
+    setSearchQuery,
     setPageNumber,
+    setPageSize,
     deleteProject,
   };
 }

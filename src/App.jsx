@@ -25,7 +25,6 @@ import AddTask from "./TasksModule/Components/AddTask/AddTask";
 import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
 import Projects from "./ProjectModule/Component/Projects/Projects";
 import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
-import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
 
 function App() {
   let routes = createBrowserRouter([
@@ -104,7 +103,6 @@ function App() {
             </ProtectedRoute>
           ),
         },
-        { path: "MyProjects", element: <MyProjects /> },
       ],
     },
   ]);
