@@ -19,7 +19,7 @@ export const useTasksApi = () => {
     try {
       setLoading(true);
       const { data } = await axiosClient.get(
-        `Task/manager?pageSize=${pageSize}&pageNumber=${pageNumber}&title=${title}`
+        `Task/manager?pageSize=${pageSize}&pageNumber=${pageNumber}&title=${title}`,
       );
       setData(data.data);
       console.log(data);
@@ -38,7 +38,7 @@ export const useTasksApi = () => {
   const getProjectsForManger = async () => {
     try {
       const { data } = await axiosClient.get(
-        "Project/manager?pageSize=10&pageNumber=1"
+        "Project/manager?pageSize=10&pageNumber=1",
       );
       setProjectData(data.data);
       return data;
@@ -104,10 +104,35 @@ export const useTasksApi = () => {
       setLoading(false);
     }
   };
+  const tasksEmployee = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.get(`Task?pageSize=10&pageNumber=1
+`);
+      setData(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const ChangeTaskStatus = async (id, newStatus) => {
+    try {
+      const response = await axiosClient.put(`Task/${id}/change-status`, {
+        status: newStatus,
+      });
+      toast.success(`Change Status to ${response.data.status}`);
+
+      return response.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
 
   return {
     getMangerTasks,
     getProjectsForManger,
+    ChangeTaskStatus,
+    tasksEmployee,
     projectData,
     deleteTask,
     addTask,
