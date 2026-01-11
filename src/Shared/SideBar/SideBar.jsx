@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaUsers,
   FaTasks,
@@ -10,8 +10,10 @@ import { GrProjects } from "react-icons/gr";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { AuthContext } from "../../Context/AuthContext";
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const toggleButtonStyle = {
     position: "absolute",
@@ -69,12 +71,14 @@ export default function SideBar() {
             Projects
           </MenuItem>
 
-          <MenuItem
-            component={<Link to={"/dashboard/users"} />}
-            icon={<FaUsers />}
-          >
-            Users
-          </MenuItem>
+          {user.userGroup == "Manger" && (
+            <MenuItem
+              component={<Link to={"/dashboard/users"} />}
+              icon={<FaUsers />}
+            >
+              Users
+            </MenuItem>
+          )}
 
           <MenuItem
             component={<Link to={"/dashboard/tasks"} />}

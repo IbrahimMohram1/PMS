@@ -61,12 +61,9 @@ export const useTasksApi = () => {
   const deleteTask = async (id) => {
     try {
       const response = await axiosClient.delete(`Task/${id}`);
-      console.log(response);
 
       toast.success(response.statusText);
     } catch (error) {
-      console.log(error);
-
       toast.error(error.response.statusText);
     }
   };
@@ -74,12 +71,40 @@ export const useTasksApi = () => {
     try {
       setLoading(true);
       const response = await axiosClient.get(`Task/count`);
-      console.log(response.data);
       setTaskCount(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
+    }
+  };
+  const tasksEmployee = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.get(`Task?pageSize=10&pageNumber=1
+`);
+      setData(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const STATUS_MAP = {
+    ToDo: "toDo", // ✅ lowercase t, lowercase D
+    inprogress: "inProgress", // ✅ camelCase
+    done: "done", // ✅ lowercase
+  };
+
+  // 🔵 PUT Change Status
+  const ChangeTaskStatus = async (id, newStatus) => {
+    try {
+      const response = await axiosClient.put(`Task/${id}/change-status`, {
+        status: newStatus,
+      });
+      toast.success(`Change Status to ${response.data.status}`);
+
+      return response.data;
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
   };
 
@@ -92,6 +117,8 @@ export const useTasksApi = () => {
     updateTask,
     taskCounts,
     data,
+    ChangeTaskStatus,
+    tasksEmployee,
     taskCount,
     error,
     loading,

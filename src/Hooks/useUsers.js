@@ -40,7 +40,6 @@ export const useUsersApi = () => {
     try {
       setLoading(true);
       const response = await axiosClient.get(`Users/count`);
-      console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log(error);
