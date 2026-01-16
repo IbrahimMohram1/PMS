@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useUsersApi } from "../../../Hooks/useUsers";
 import { toast } from "react-toastify";
 import { CiMenuKebab } from "react-icons/ci";
 import { Spinner } from "flowbite-react";
+import { BsSearch } from "react-icons/bs";
+import { AuthContext } from "../../../Context/AuthContext";
 
 export default function Users() {
   const { getUsersApi, data, loading, toogleActiveUser } = useUsersApi();
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [search, setSearch] = useState("");
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     getUsersApi();
@@ -35,6 +39,23 @@ export default function Users() {
 
   return (
     <div className="flex-1 p-4 overflow-y-auto">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+        <div className="p-5">
+          <div className="relative max-w-xs">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <BsSearch className="w-4 h-4 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-emerald-500 focus:border-emerald-500 block w-full pl-10 p-2.5 outline-none"
+              placeholder="Search By Title"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="overflow-x-hidden">
         <table className="w-full border-collapse rounded-xl overflow-hidden shadow-md">
           <thead className="bg-[#315951E5] text-white">

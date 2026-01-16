@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Table,
   TableBody,
@@ -17,9 +17,11 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
+
 import { useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
+import { AuthContext } from "../../../Context/AuthContext";
 
 export default function Projects() {
   const {
@@ -31,6 +33,7 @@ export default function Projects() {
     setPageNumber,
     deleteProject,
   } = useProjects();
+  const { user } = useContext(AuthContext);
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [search, setSearch] = useState("");
@@ -75,12 +78,14 @@ export default function Projects() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 sm:gap-0">
         <p className="text-3xl text-[#4F4F4F]">Projects</p>
-        <button
-          onClick={() => navigate("/dashboard/Project-Data")}
-          className="bg-[#EF9B28] text-white py-2 px-5 rounded-4xl flex items-center gap-2 hover:bg-[#e88c1f] transition-colors"
-        >
-          <FaPlus /> <span>Add New Project</span>
-        </button>
+        {user.userGroup === "Manager" && (
+          <button
+            onClick={() => navigate("/dashboard/Project-Data")}
+            className="bg-[#EF9B28] text-white py-2 px-5 rounded-4xl flex items-center gap-2 hover:bg-[#e88c1f] transition-colors"
+          >
+            <FaPlus /> <span>Add New Project</span>
+          </button>
+        )}
       </div>
 
       {/* Search */}
@@ -185,24 +190,28 @@ export default function Projects() {
                               <HiOutlineEye className="mr-2 text-emerald-600" />{" "}
                               View
                             </button>
-                            <button
-                              onClick={() =>
-                                navigate(
-                                  `/dashboard/Project-Data/${project.id}`,
-                                  { state: project },
-                                )
-                              }
-                              className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
-                            >
-                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" />{" "}
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleDeleteClick(project)}
-                              className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                            >
-                              <HiOutlineTrash className="mr-2" /> Delete
-                            </button>
+                            {user.userGroup === "Manager" && (
+                              <button
+                                onClick={() =>
+                                  navigate(
+                                    `/dashboard/Project-Data/${project.id}`,
+                                    { state: project },
+                                  )
+                                }
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
+                              >
+                                <HiOutlinePencilAlt className="mr-2 text-emerald-600" />{" "}
+                                Edit
+                              </button>
+                            )}
+                            {user.userGroup === "Manager" && (
+                              <button
+                                onClick={() => handleDeleteClick(project)}
+                                className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                              >
+                                <HiOutlineTrash className="mr-2" /> Delete
+                              </button>
+                            )}
                           </div>
                         )}
                       </TableCell>

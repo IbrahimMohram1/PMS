@@ -8,8 +8,6 @@ import {
 } from "react-icons/fa";
 import { GrProjects } from "react-icons/gr";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
 

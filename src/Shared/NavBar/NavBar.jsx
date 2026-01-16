@@ -13,6 +13,7 @@ import imgProfile from "../../assets/imgUpload.jpg";
 import { useNavigate } from "react-router-dom";
 import { CgLogOut } from "react-icons/cg";
 import { TbLockPassword } from "react-icons/tb";
+import ToggleTheme from "../ToggleTheme/ToggleTheme";
 
 export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
@@ -71,6 +72,9 @@ export default function NavBar() {
           >
             <TbLockPassword size={18} />
             Change Pass
+          </DropdownItem>
+          <DropdownItem>
+            <ToggleTheme />
           </DropdownItem>
 
           <DropdownItem

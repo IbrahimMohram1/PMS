@@ -36,7 +36,6 @@ function TaskCard({ task }) {
   );
 }
 
-العمود;
 function Column({ column, tasks }) {
   const { setNodeRef } = useDroppable({ id: column.id });
 

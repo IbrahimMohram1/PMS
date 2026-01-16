@@ -27,6 +27,7 @@ import Projects from "./ProjectModule/Component/Projects/Projects";
 import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
 import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
 import ChatBot from "./Shared/ChatBot/ChatBot";
+import { ThemeContextProvider } from "./Context/DarkModeContext";
 
 function App() {
   let routes = createBrowserRouter([
@@ -113,22 +114,24 @@ function App() {
 
   return (
     <>
-      <AuthContextProvider>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          transition={Bounce}
-        />
-        <RouterProvider router={routes}></RouterProvider>
-      </AuthContextProvider>
+      <ThemeContextProvider>
+        <AuthContextProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            transition={Bounce}
+          />
+          <RouterProvider router={routes}></RouterProvider>
+        </AuthContextProvider>
+      </ThemeContextProvider>
     </>
   );
 }

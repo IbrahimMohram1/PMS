@@ -3,17 +3,13 @@ import { useTasksApi } from "../../../Hooks/useTasks";
 import { CiMenuKebab } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { FaEdit, FaEye, FaPlus, FaTrash } from "react-icons/fa";
-import { Spinner } from "flowbite-react";
 import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
 import { BsSearch, BsFilter } from "react-icons/bs";
 import { HiSelector } from "react-icons/hi";
 import TablePagination from "../../../Shared/TablePagination/TablePagination";
 import { AuthContext } from "../../../Context/AuthContext";
 import TaskBoard from "../../../Shared/TaskBoard/TaskBoard";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { Spinner } from "flowbite-react";
-import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
-import { BsSearch } from "react-icons/bs";
 
 export default function AllTask() {
   const [openDropdown, setOpenDropdown] = useState(null);
