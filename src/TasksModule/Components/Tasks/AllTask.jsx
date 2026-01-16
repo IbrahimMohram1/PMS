@@ -10,6 +10,10 @@ import { HiSelector } from "react-icons/hi";
 import TablePagination from "../../../Shared/TablePagination/TablePagination";
 import { AuthContext } from "../../../Context/AuthContext";
 import TaskBoard from "../../../Shared/TaskBoard/TaskBoard";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { Spinner } from "flowbite-react";
+import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
+import { BsSearch } from "react-icons/bs";
 
 export default function AllTask() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -68,10 +72,7 @@ export default function AllTask() {
     setOpenDropdown(null);
     setOpenModal(true);
   };
-  const handleCancelDelete = () => {
-    setOpenModal(false);
-  };
-  //Call API to delete task
+  const handleCancelDelete = () => setOpenModal(false);
   const handleDeleteConfirm = async () => {
     if (!selectedTask) return;
     try {

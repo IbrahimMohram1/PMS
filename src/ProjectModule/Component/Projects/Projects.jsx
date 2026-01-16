@@ -72,7 +72,8 @@ export default function Projects() {
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
-      <div className="flex justify-between mb-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 sm:gap-0">
         <p className="text-3xl text-[#4F4F4F]">Projects</p>
         <button
           onClick={() => navigate("/dashboard/Project-Data")}
@@ -82,8 +83,8 @@ export default function Projects() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* شريط البحث */}
+      {/* Search */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
         <div className="p-5">
           <div className="relative max-w-xs">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -99,6 +100,7 @@ export default function Projects() {
           </div>
         </div>
 
+        {/* Loading / Error */}
         {loading ? (
           <div className="flex justify-center py-20">
             <Spinner size="xl" />
@@ -144,13 +146,13 @@ export default function Projects() {
                             : "No Tasks"}
                         </span>
                       </TableCell>
-                      <TableCell className="text-gray-500">
-                        {project.task?.length || "-"}
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                        {project.manager?.userName || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500">
-                        {project.description || 0}
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                        {project.description || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500">
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
                         {project.creationDate
                           ? new Date(project.creationDate).toLocaleDateString(
                               "en-US",
@@ -211,7 +213,7 @@ export default function Projects() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-100">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 py-4 bg-white border-t border-gray-100 gap-2 sm:gap-0">
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>Showing</span>
                 <select className="border-gray-300 rounded-full text-xs p-1 px-2 focus:ring-emerald-500 focus:border-emerald-500">

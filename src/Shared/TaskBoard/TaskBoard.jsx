@@ -36,107 +36,106 @@ function TaskCard({ task }) {
   );
 }
 
-// العمود
-// function Column({ column, tasks }) {
-//   const { setNodeRef } = useDroppable({ id: column.id });
+العمود;
+function Column({ column, tasks }) {
+  const { setNodeRef } = useDroppable({ id: column.id });
 
-//   return (
-//     <div
-//       ref={setNodeRef}
-//       style={{
-//         flex: 1,
-//         minHeight: "400px",
-//         background: "#315951E5",
-//         padding: "15px",
-//         borderRadius: "8px",
-//       }}
-//     >
-//       <h3 className="text-white">{column.title}</h3>
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        flex: 1,
+        minHeight: "400px",
+        background: "#315951E5",
+        padding: "15px",
+        borderRadius: "8px",
+      }}
+    >
+      <h3 className="text-white">{column.title}</h3>
 
-//       <SortableContext
-//         items={tasks.map((t) => t.id)}
-//         strategy={verticalListSortingStrategy}
-//       >
-//         {tasks.map((task) => (
-//           <TaskCard key={task.id} task={task} />
-//         ))}
-//       </SortableContext>
-//     </div>
-//   );
-// }
+      <SortableContext
+        items={tasks.map((t) => t.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </SortableContext>
+    </div>
+  );
+}
 
 // البورد كله
 export default function TaskBoard() {
-  // const [tasks, setTasks] = useState([]);
-  // const { data, tasksEmployee, ChangeTaskStatus } = useTasksApi();
+  const [tasks, setTasks] = useState([]);
+  const { data, tasksEmployee, ChangeTaskStatus } = useTasksApi();
 
-  // // هات التاسكات أول ما الصفحة تفتح
-  // useEffect(() => {
-  //   tasksEmployee();
-  // }, []);
+  // هات التاسكات أول ما الصفحة تفتح
+  useEffect(() => {
+    tasksEmployee();
+  }, []);
 
-  // // خزن الداتا في state
-  // useEffect(() => {
-  //   if (data) setTasks(data);
-  // }, [data]);
+  // خزن الداتا في state
+  useEffect(() => {
+    if (data) setTasks(data);
+  }, [data]);
 
-  // // Drag End
-  // const handleDragEnd = async (event) => {
-  //   const { active, over } = event;
-  //   if (!over) return;
+  // Drag End
+  const handleDragEnd = async (event) => {
+    const { active, over } = event;
+    if (!over) return;
 
-  //   const activeId = active.id;
-  //   const activeTask = tasks.find((t) => t.id === activeId);
-  //   if (!activeTask) return;
+    const activeId = active.id;
+    const activeTask = tasks.find((t) => t.id === activeId);
+    if (!activeTask) return;
 
-  //   let newStatus;
+    let newStatus;
 
-  //   // IF Drop it at column
-  //   const column = columns.find((c) => c.id === over.id);
-  //   if (column) {
-  //     newStatus = column.id;
-  //   } else {
-  //     // IF Drop it to  another Task
+    // IF Drop it at column
+    const column = columns.find((c) => c.id === over.id);
+    if (column) {
+      newStatus = column.id;
+    } else {
+      // IF Drop it to  another Task
 
-  //     const overTask = tasks.find((t) => t.id === over.id);
-  //     newStatus = overTask?.status;
-  //   }
+      const overTask = tasks.find((t) => t.id === over.id);
+      newStatus = overTask?.status;
+    }
 
-  //   if (!newStatus || newStatus === activeTask.status) return;
+    if (!newStatus || newStatus === activeTask.status) return;
 
-  //   // Update UI (Optimistic Update)
-  //   setTasks((prev) =>
-  //     prev.map((t) => (t.id === activeId ? { ...t, status: newStatus } : t)),
-  //   );
+    // Update UI (Optimistic Update)
+    setTasks((prev) =>
+      prev.map((t) => (t.id === activeId ? { ...t, status: newStatus } : t)),
+    );
 
-  //   // Call API
-  //   try {
-  //     await ChangeTaskStatus(activeId, newStatus);
-  //     console.log("✅ Status updated:", newStatus);
-  //   } catch (err) {
-  //     console.error("❌ Failed:", err);
+    // Call API
+    try {
+      await ChangeTaskStatus(activeId, newStatus);
+      console.log("✅ Status updated:", newStatus);
+    } catch (err) {
+      console.error("❌ Failed:", err);
 
-  //     // Rollback
-  //     setTasks((prev) =>
-  //       prev.map((t) =>
-  //         t.id === activeId ? { ...t, status: activeTask.status } : t,
-  //       ),
-  //     );
-  //   }
-  // };
+      // Rollback
+      setTasks((prev) =>
+        prev.map((t) =>
+          t.id === activeId ? { ...t, status: activeTask.status } : t,
+        ),
+      );
+    }
+  };
 
   return (
-    <div>Hellllo Task Board</div>
-    // <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-    //   <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
-    //     {columns.map((col) => (
-    //       <Column
-    //         key={col.id}
-    //         column={col}
-    //         tasks={tasks.filter((t) => t.status === col.id)}
-    //       />
-    //     ))}
-    //   </div>
-    // </DndContext>
+    <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
+      <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
+        {columns.map((col) => (
+          <Column
+            key={col.id}
+            column={col}
+            tasks={tasks.filter((t) => t.status === col.id)}
+          />
+        ))}
+      </div>
+    </DndContext>
   );
 }

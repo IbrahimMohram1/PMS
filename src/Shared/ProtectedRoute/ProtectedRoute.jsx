@@ -6,8 +6,7 @@ import { AuthContext } from "../../Context/AuthContext";
 export default function ProtectedRoute({ children, allowedRoles }) {
   const { user, loading } = useContext(AuthContext);
   let role = user?.userGroup;
-
-  console.log(role);
+  if (loading) return <div>Loading...</div>;
 
   if (loading) return <div>Loading...</div>;
 
