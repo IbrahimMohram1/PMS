@@ -51,7 +51,7 @@ export default function Projects() {
   }, []);
 
   const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(search.toLowerCase()),
+    project.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleDeleteClick = (project) => {
@@ -72,7 +72,8 @@ export default function Projects() {
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
-      <div className="flex justify-between mb-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 sm:gap-0">
         <p className="text-3xl text-[#4F4F4F]">Projects</p>
         <button
           onClick={() => navigate("/dashboard/Project-Data")}
@@ -82,8 +83,8 @@ export default function Projects() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* شريط البحث */}
+      {/* Search */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
         <div className="p-5">
           <div className="relative max-w-xs">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -99,6 +100,7 @@ export default function Projects() {
           </div>
         </div>
 
+        {/* Loading / Error */}
         {loading ? (
           <div className="flex justify-center py-20">
             <Spinner size="xl" />
@@ -107,7 +109,8 @@ export default function Projects() {
           <p className="text-red-600 text-center py-10">{error}</p>
         ) : (
           <>
-            <div className="overflow-x-auto">
+            {/* Table */}
+            <div className="overflow-x-auto -mx-4 sm:-mx-0 px-4 sm:px-0">
               <Table hoverable>
                 <TableHead>
                   <TableHeadCell className="bg-[#4D6D66] text-white font-medium py-4">
@@ -116,13 +119,13 @@ export default function Projects() {
                   <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
                     Statuses
                   </TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium hidden sm:table-cell">
                     userName
                   </TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium hidden sm:table-cell">
                     description
                   </TableHeadCell>
-                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium">
+                  <TableHeadCell className="bg-[#4D6D66] text-white font-medium hidden sm:table-cell">
                     Date Created
                   </TableHeadCell>
                   <TableHeadCell className="bg-[#4D6D66] text-white font-medium"></TableHeadCell>
@@ -139,21 +142,17 @@ export default function Projects() {
                           {project.status || "Public"}
                         </span>
                       </TableCell>
-                      <TableCell className="text-gray-500">
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
                         {project.manager?.userName || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500">
-                        {project.description || 0}
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                        {project.description || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500">
+                      <TableCell className="text-gray-500 hidden sm:table-cell">
                         {project.creationDate
                           ? new Date(project.creationDate).toLocaleDateString(
                               "en-US",
-                              {
-                                month: "2-digit",
-                                day: "2-digit",
-                                year: "numeric",
-                              },
+                              { month: "2-digit", day: "2-digit", year: "numeric" }
                             )
                           : "09-23-2023"}
                       </TableCell>
@@ -161,7 +160,7 @@ export default function Projects() {
                         <button
                           onClick={() =>
                             setOpenDropdown(
-                              openDropdown === project.id ? null : project.id,
+                              openDropdown === project.id ? null : project.id
                             )
                           }
                           className="text-emerald-900 hover:bg-gray-100 p-1 rounded-lg"
@@ -172,23 +171,18 @@ export default function Projects() {
                         {openDropdown === project.id && (
                           <div
                             ref={dropdownRef}
-                            className="absolute right-10 top-0 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1"
+                            className="absolute top-0 sm:right-0 right-2 w-36 bg-white border border-gray-100 rounded-xl shadow-xl z-50 py-1"
                           >
                             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50 transition-colors">
-                              <HiOutlineEye className="mr-2 text-emerald-600" />{" "}
-                              View
+                              <HiOutlineEye className="mr-2 text-emerald-600" /> View
                             </button>
                             <button
                               onClick={() =>
-                                navigate(
-                                  `/dashboard/Project-Data/${project.id}`,
-                                  { state: project },
-                                )
+                                navigate(`/dashboard/Project-Data/${project.id}`, { state: project })
                               }
                               className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:bg-emerald-50"
                             >
-                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" />{" "}
-                              Edit
+                              <HiOutlinePencilAlt className="mr-2 text-emerald-600" /> Edit
                             </button>
                             <button
                               onClick={() => handleDeleteClick(project)}
@@ -206,7 +200,7 @@ export default function Projects() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-between items-center px-6 py-4 bg-white border-t border-gray-100">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 py-4 bg-white border-t border-gray-100 gap-2 sm:gap-0">
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>Showing</span>
                 <select className="border-gray-300 rounded-full text-xs p-1 px-2 focus:ring-emerald-500 focus:border-emerald-500">

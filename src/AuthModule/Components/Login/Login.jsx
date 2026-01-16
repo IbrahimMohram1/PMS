@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import LoginBg from "../../../assets/login-bg.png";
 import logo from "../../../assets/logo.svg";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext";
 export default function Login() {
   const { saveUserData } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false); 
   const {
     register,
     formState: { errors },
@@ -16,6 +17,7 @@ export default function Login() {
   } = useForm();
   let navigate = useNavigate();
   const onSubmit = (data) => {
+    setLoading(true);
     console.log(data);
     axios
       .post("https://upskilling-egypt.com:3003/api/v1/Users/Login", data)
@@ -92,9 +94,14 @@ export default function Login() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-[#EF9B28] text-white py-3 rounded-full font-semibold hover:bg-[#d88c24] transition-all shadow-lg mt-4 active:scale-95"
+                className={`w-full text-white py-3 rounded-full font-semibold transition-all shadow-lg mt-4 active:scale-95 ${
+                  loading
+                    ? "bg-[#EF9B28] cursor-not-allowed"
+                    : "bg-[#EF9B28] hover:bg-[#d88c24]"
+                }`}
+                disabled={loading} 
               >
-                Login
+                {loading ? "Logging in..." : "Login"} 
               </button>
             </form>
           </div>

@@ -86,10 +86,11 @@ export default function ChangePassword() {
                 </button>
               </div>
               {errors.oldPassword && (
-                <span className="text-[10px] text-red-400 absolute">
-                  {errors.oldPassword.message}
-                </span>
-              )}
+  <span className="text-[10px] text-red-400 mt-1 block">
+    {errors.oldPassword.message}
+  </span>
+)}
+              
             </div>
 
             {/* New Password */}
@@ -116,10 +117,10 @@ export default function ChangePassword() {
                 </button>
               </div>
               {errors.newPassword && (
-                <span className="text-[10px] text-red-400 absolute">
-                  {errors.newPassword.message}
-                </span>
-              )}
+  <span className="text-[10px] text-red-400 mt-1 block">
+    {errors.newPassword.message}
+  </span>
+)}
             </div>
 
             {/* Confirm Password */}
@@ -145,11 +146,11 @@ export default function ChangePassword() {
                   {showConfirm ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                 </button>
               </div>
-              {errors.confirmNewPassword && (
-                <span className="text-[10px] text-red-400 absolute">
-                  {errors.confirmNewPassword.message}
-                </span>
-              )}
+             {errors.confirmNewPassword&& (
+  <span className="text-[10px] text-red-400 mt-1 block">
+    {errors.confirmNewPassword.message}
+  </span>
+)}
             </div>
 
             <div className="pt-6">
@@ -162,7 +163,7 @@ export default function ChangePassword() {
                 </span>{" "}
               </button>
             </div>
-          </form>
+ؤ          </form>
         </div>
       </div>
     </div>

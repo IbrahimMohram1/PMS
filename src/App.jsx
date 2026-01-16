@@ -22,6 +22,7 @@ import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
 import Projects from "./ProjectModule/Component/Projects/Projects";
 import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
 import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
+import ChatBot from "./Shared/ChatBot/ChatBot";
 
 function App() {
   let routes = createBrowserRouter([
@@ -57,6 +58,7 @@ function App() {
         { path: "Project-Data", element: <ProjectData /> },
         { path: "Project-Data/:id", element: <ProjectData /> },
         { path: "MyProjects", element: <MyProjects /> },
+        { path: "Chat", element: <ChatBot /> },
       ],
     },
   ]);

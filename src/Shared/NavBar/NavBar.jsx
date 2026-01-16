@@ -30,9 +30,6 @@ export default function NavBar() {
         <img src={logo} className="w-32 md:w-40" alt="Logo" />
       </NavbarBrand>
 
-      {/* زر Toggle للهاتف */}
-      <NavbarToggle />
-
       <div className="flex items-center gap-6 ml-auto">
         {/* أيقونة الإشعارات */}
         <div className="relative cursor-pointer">
