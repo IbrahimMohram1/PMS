@@ -86,12 +86,11 @@ export default function ChangePassword() {
                 </button>
               </div>
               {errors.oldPassword && (
-                <span className="text-[10px] text-red-400 absolute">
+                <span className="text-[10px] text-red-400 mt-1 block">
                   {errors.oldPassword.message}
                 </span>
               )}
             </div>
-
             {/* New Password */}
             <div className="relative">
               <label className="block text-[#EF9B28] text-sm ">
@@ -116,12 +115,11 @@ export default function ChangePassword() {
                 </button>
               </div>
               {errors.newPassword && (
-                <span className="text-[10px] text-red-400 absolute">
+                <span className="text-[10px] text-red-400 mt-1 block">
                   {errors.newPassword.message}
                 </span>
               )}
             </div>
-
             {/* Confirm Password */}
             <div className="relative">
               <label className="block text-[#EF9B28] text-sm mb-1">
@@ -146,12 +144,11 @@ export default function ChangePassword() {
                 </button>
               </div>
               {errors.confirmNewPassword && (
-                <span className="text-[10px] text-red-400 absolute">
+                <span className="text-[10px] text-red-400 mt-1 block">
                   {errors.confirmNewPassword.message}
                 </span>
               )}
             </div>
-
             <div className="pt-6">
               <button
                 type="submit"
@@ -161,7 +158,7 @@ export default function ChangePassword() {
                   {loading ? "Saving..." : "Save"}
                 </span>{" "}
               </button>
-            </div>
+            </div>{" "}
           </form>
         </div>
       </div>

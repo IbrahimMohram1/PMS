@@ -12,10 +12,8 @@ export const useUsersApi = () => {
     try {
       setLoading(true);
       const response = await axiosClient.get("Users/?pageSize=10&pageNumber=1");
-      console.log(response.data.data);
-
       setData(response?.data?.data || []);
-
+      setLoading(false);
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "No Data");
@@ -24,9 +22,36 @@ export const useUsersApi = () => {
     }
   };
 
+  const toogleActiveUser = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.put(`Users/${id}`);
+      if (response.data.isActivated) {
+        toast.success("Activation Done");
+      } else {
+        toast.warning("DeActivation Done");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "No Data");
+      setLoading(false);
+    }
+  };
+  const getUsersCount = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosClient.get(`Users/count`);
+      console.log(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getUsersApi,
+    toogleActiveUser,
     data,
     loading,
+    getUsersCount,
   };
 };

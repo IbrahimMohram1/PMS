@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
-import logo from '../../assets/Navbar.png';
+import logo from "../../assets/Navbar.png";
 import { FaBell } from "react-icons/fa";
-import { Navbar, NavbarBrand, NavbarToggle, Dropdown, DropdownItem } from "flowbite-react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarToggle,
+  Dropdown,
+  DropdownItem,
+} from "flowbite-react";
 import { AuthContext } from "../../Context/AuthContext";
-import imgProfile from '../../assets/imgUpload.jpg';
+import imgProfile from "../../assets/imgUpload.jpg";
 import { useNavigate } from "react-router-dom";
 import { CgLogOut } from "react-icons/cg";
+import { TbLockPassword } from "react-icons/tb";
 
 export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
@@ -13,8 +20,8 @@ export default function NavBar() {
 
   const handelLogOut = () => {
     logout();
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   return (
     <Navbar fluid rounded className="bg-white shadow-md px-6 py-2">
@@ -40,7 +47,11 @@ export default function NavBar() {
             <div className="flex  gap-3 cursor-pointer">
               {/* الصورة */}
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#EF9B28]">
-                <img src={imgProfile} alt="Profile" className="w-full h-full object-cover" />
+                <img
+                  src={imgProfile}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col ">
                 <span className="font-semibold text-[#0E382F] text-sm md:text-base">
@@ -55,10 +66,11 @@ export default function NavBar() {
           className="bg-white shadow-lg border px-4 border-gray-200 rounded-lg mt-2"
         >
           <DropdownItem
-            onClick={() => navigate("/change-password")}
-            className="flex items-center gap-2 hover:bg-[#FFF4E6] transition-colors duration-200"
+            onClick={() => navigate("/dashboard/change-password")}
+            className="flex items-center gap-2 text-emerald-600 hover:bg-[#FFF4E6] transition-colors duration-200"
           >
-             Change Pass
+            <TbLockPassword size={18} />
+            Change Pass
           </DropdownItem>
 
           <DropdownItem

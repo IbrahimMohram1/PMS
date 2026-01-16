@@ -4,14 +4,15 @@ import {
   FaTasks,
   FaChevronLeft,
   FaChevronRight,
-  FaUser,
+  FaHome,
 } from "react-icons/fa";
 import { GrProjects } from "react-icons/gr";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
 
   const toggleButtonStyle = {
     position: "absolute",
@@ -30,11 +31,12 @@ export default function SideBar() {
     cursor: "pointer",
     boxShadow: "2px 0 5px rgba(0,0,0,0.2)",
   };
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <Sidebar
-       width="200px"
+        width="200px"
         collapsed={collapsed}
         backgroundColor="#0f3027"
         rootStyles={{ height: "100vh", border: "none", position: "relative" }}
@@ -52,25 +54,51 @@ export default function SideBar() {
 
         <Menu
           menuItemStyles={{
-            button: {
+            button: ({ level, active }) => ({
               color: "#fff",
-              "&:hover": { backgroundColor: "transparent", color: "#f3a333" },
-            },
+              backgroundColor: active ? "#f3a333" : "transparent",
+              "&:hover": {
+                color: "#f3a333",
+                backgroundColor: "rgba(255,255,255,0.1)",
+              },
+            }),
           }}
         >
           <div style={{ height: 40 }} />
-          <MenuItem icon={<FaHome />}  component={<Link to="/dashboard" />}>Home</MenuItem>
-          <MenuItem icon={<GrProjects />}  component={<Link to="/dashboard/Projects" />}>Projects</MenuItem>
 
-          <MenuItem component={<Link to={"/dashboard/users"} />} icon={<FaUsers />}  >
+          <MenuItem
+            icon={<FaHome />}
+            component={<Link to="/dashboard" />}
+            active={isActive("/dashboard")}
+          >
+            Home
+          </MenuItem>
+
+          <MenuItem
+            icon={<GrProjects />}
+            component={<Link to="/dashboard/Projects" />}
+            active={isActive("/dashboard/Projects")}
+          >
+            Projects
+          </MenuItem>
+
+          <MenuItem
+            icon={<FaUsers />}
+            component={<Link to="/dashboard/users" />}
+            active={isActive("/dashboard/users")}
+          >
             Users
           </MenuItem>
 
-        
+          <MenuItem
+            icon={<FaTasks />}
+            component={<Link to="/dashboard/tasks" />}
+            active={isActive("/dashboard/tasks")}
+          >
+            Tasks
+          </MenuItem>
         </Menu>
       </Sidebar>
-
-     
     </div>
   );
 }

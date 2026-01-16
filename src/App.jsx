@@ -16,10 +16,13 @@ import { AuthContextProvider } from "./Context/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import ChangePassword from "./AuthModule/Components/ChangePassword/ChangePassword";
 import Users from "./UsersModule/Components/Users/Users";
+import AllTask from "./TasksModule/Components/Tasks/AllTask";
+import AddTask from "./TasksModule/Components/AddTask/AddTask";
 import ProtectedRoute from "./Shared/ProtectedRoute/ProtectedRoute";
 import Projects from "./ProjectModule/Component/Projects/Projects";
 import ProjectData from "./ProjectModule/Component/Projects/ProjectData";
 import MyProjects from "./ProjectModule/Component/Projects/MyProjects";
+import ChatBot from "./Shared/ChatBot/ChatBot";
 
 function App() {
   let routes = createBrowserRouter([
@@ -39,19 +42,26 @@ function App() {
     },
     {
       path: "dashboard",
-      // element:<ProtectedRoute><MasterLayout /></ProtectedRoute>,
-     element:<MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Dashboard /> },
+        { path: "change-password", element: <ChangePassword /> },
         { path: "users", element: <Users /> },
-        {path:"Projects",element: <Projects/>},
-        {path:'Project-Data',element:<ProjectData/> },
-        {path:"Project-Data/:id",element:<ProjectData/> },
-        {path:"MyProjects",element:<MyProjects/> },
-
+        { path: "tasks", element: <AllTask /> },
+        { path: "addtask", element: <AddTask /> },
+        { path: "addtask/:id", element: <AddTask /> },
+        { path: "Projects", element: <Projects /> },
+        { path: "Project-Data", element: <ProjectData /> },
+        { path: "Project-Data/:id", element: <ProjectData /> },
+        { path: "MyProjects", element: <MyProjects /> },
+        { path: "Chat", element: <ChatBot /> },
       ],
-    }
+    },
   ]);
 
   return (

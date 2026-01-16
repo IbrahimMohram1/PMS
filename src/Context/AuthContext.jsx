@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> f8636bc9431462acb0d4fd8525eae6c14e9b273d
 import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
@@ -22,11 +25,11 @@ export function AuthContextProvider({ children }) {
     setUser(null);
   };
 
-  // ✅ on refresh
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (localStorage.getItem("access_token")) {
-      saveUserData();
-    }
+    saveUserData();
+    setLoading(false);
   }, []);
 
   return (
@@ -34,6 +37,7 @@ export function AuthContextProvider({ children }) {
       value={{
         user,
         saveUserData,
+        loading,
         logout,
       }}
     >
