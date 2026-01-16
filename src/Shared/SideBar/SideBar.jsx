@@ -66,7 +66,7 @@ export default function SideBar() {
             }),
           }}
         >
-          <div style={{ height: 40 }} />
+          <div style={{ marginTop: 80 }} />
 
           <MenuItem
             icon={<FaHome />}

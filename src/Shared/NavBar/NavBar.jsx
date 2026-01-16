@@ -40,6 +40,7 @@ export default function NavBar() {
           <FaBell className="text-[#EF9B28] text-2xl hover:text-[#d18e20] transition-colors duration-200" />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
         </div>
+        <ToggleTheme />
 
         {/* Profile Dropdown */}
         <Dropdown
@@ -72,9 +73,6 @@ export default function NavBar() {
           >
             <TbLockPassword size={18} />
             Change Pass
-          </DropdownItem>
-          <DropdownItem>
-            <ToggleTheme />
           </DropdownItem>
 
           <DropdownItem

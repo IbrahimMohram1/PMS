@@ -5,17 +5,17 @@ import NavBar from "../NavBar/NavBar";
 
 export default function MasterLayout() {
   return (
- <div>
-  <NavBar/>
-     <div className="h-screen flex">
-      {/* Sidebar */}
-      <SideBar />
+    <div>
+      <NavBar />
+      <div className="h-screen flex">
+        {/* Sidebar */}
+        <SideBar />
 
-      {/* Page Content */}
-      <div className="flex-1  overflow-y-auto">
-        <Outlet />
+        {/* Page Content */}
+        <div className="flex-1  ">
+          <Outlet />
+        </div>
       </div>
     </div>
- </div>
   );
 }

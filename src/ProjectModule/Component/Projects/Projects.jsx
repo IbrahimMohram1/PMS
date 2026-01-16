@@ -142,7 +142,7 @@ export default function Projects() {
                         {project.title}
                       </TableCell>
                       <TableCell>
-                        <span className="bg-[#4D6D66] text-white px-4 py-1.5 rounded-full text-xs font-medium">
+                        <span className="bg-[#4D6D66] text-white px-4 py-1.5 rounded-full text-xs font-medium text-nowrap">
                           {project.task?.length
                             ? `${
                                 project.task.filter((t) => t.status === "Done")
@@ -151,13 +151,13 @@ export default function Projects() {
                             : "No Tasks"}
                         </span>
                       </TableCell>
-                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                      <TableCell className="text-gray-500  sm:table-cell">
                         {project.manager?.userName || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                      <TableCell className="text-gray-500  sm:table-cell">
                         {project.description || "-"}
                       </TableCell>
-                      <TableCell className="text-gray-500 hidden sm:table-cell">
+                      <TableCell className="text-gray-500  sm:table-cell">
                         {project.creationDate
                           ? new Date(project.creationDate).toLocaleDateString(
                               "en-US",

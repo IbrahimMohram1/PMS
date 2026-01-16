@@ -26,23 +26,20 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#d3cfcf5e] flex flex-col">
       {/* Header Section */}
-      <div className="mx-4 sm:mx-6 py-5 relative rounded-xl overflow-hidden">
-        <img
-          src={headerimg}
-          className="w-full h-auto rounded-xl"
-          alt="Dashboard Header"
-        />
-        <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-6 text-white gap-3 rounded-xl">
-          <h3 className="text-2xl sm:text-3xl font-bold">
-            {greeting}{" "}
-            <span className="text-[#EF9B28]">
-              {user ? `, ${user.userName}` : ""}
-            </span>
-          </h3>
-          <p className="text-sm sm:text-base">
-            You can add projects and assign tasks to your team
-          </p>
-        </div>
+      <div
+        className="mx-4 sm:mx-6 h-75 py-10 px-4 sm:px-6 rounded-xl text-white flex flex-col justify-center gap-3 bg-cover bg-center"
+        style={{ backgroundImage: `url(${headerimg})` }}
+      >
+        <h3 className="text-2xl sm:text-3xl font-bold">
+          {greeting}
+          <span className="text-[#EF9B28]">
+            {user ? `, ${user.userName}` : ""}
+          </span>
+        </h3>
+
+        <p className="text-sm sm:text-base max-w-xl">
+          You can add projects and assign tasks to your team
+        </p>
       </div>
 
       {/* Main Sections: Tasks & Users */}
@@ -87,15 +84,15 @@ export default function Dashboard() {
               </h5>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               <div className="my-5">
-                <div className="flex gap-x-7 items-center">
-                  <div className="w-1/3 py-5 px-4 bg-[#E5E6F4] rounded-md flex flex-col items-start gap-y-2">
+                <div className="flex gap-x-7 gap-y-3 items-center md:flex-nowrap flex-wrap">
+                  <div className="md:w-1/2 w-full py-5 px-4 bg-[#E5E6F4] rounded-md flex flex-col items-start gap-y-2">
                     <div className="bg-[#CFD1EC] p-3 text-black rounded-md">
                       <FaChartBar />
                     </div>
                     <span className="text-gray-500">Active</span>
                     <h6>{data.activatedEmployeeCount}</h6>
                   </div>
-                  <div className="w-1/3 py-5 px-4 bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2">
+                  <div className="md:w-1/2 w-full py-5 px-4 bg-[#F4F4E5] rounded-md flex flex-col items-start gap-y-2">
                     <div className="bg-[#E4E4BC] p-3 text-black rounded-md">
                       <CiViewList />
                     </div>

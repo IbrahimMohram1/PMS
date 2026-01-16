@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../../Context/DarkModeContext";
+import { CiLight } from "react-icons/ci";
+import { MdDarkMode } from "react-icons/md";
 
 export default function ToggleTheme() {
   let { darkMode, toggleTheme } = useContext(ThemeContext);
   return (
-    <button
-      onClick={toggleTheme}
-      className="px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-800"
-    >
-      {darkMode ? "Light Mode ☀️" : "Dark Mode 🌙"}
-    </button>
+    <i onClick={toggleTheme} className="w-fit cursor-pointer text-2xl">
+      {darkMode ? <CiLight className="text-white" /> : <MdDarkMode />}
+    </i>
   );
 }

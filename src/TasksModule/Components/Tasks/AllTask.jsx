@@ -103,7 +103,7 @@ export default function AllTask() {
             </Link>
           </div>
 
-          <div className="flex-1 p-4">
+          <div className="flex-1 p-4 ">
             <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
               {/* Internal Search & Filter Bar */}
               <div className="p-5 flex gap-3 items-center border-b border-gray-50 bg-white">
