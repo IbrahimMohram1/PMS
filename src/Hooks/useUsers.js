@@ -1,21 +1,24 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axiosClient from "../Utils/AxoisClient";
 import { toast } from "react-toastify";
 
 export const useUsersApi = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  let navigate = useNavigate();
-
-  const getUsersApi = async () => {
+  //-------GET ALL LOGGED IN USERS------------
+  const getUsersApi = async (pageNumber = 1, pageSize = 10, userName = "") => {
     try {
       setLoading(true);
-      const response = await axiosClient.get("Users/?pageSize=10&pageNumber=1");
+      const response = await axiosClient.get(
+        `Users/?pageSize=${pageSize}&pageNumber=${pageNumber}&userName=${userName}`
+      );
+      console.log(response.data);
       setData(response?.data?.data || []);
-      setLoading(false);
-      return data;
+      setTotalCount(response?.data?.totalNumberOfRecords || 0);
+      setTotalPages(response?.data?.totalNumberOfPages || 0);
     } catch (error) {
       toast.error(error?.response?.data?.message || "No Data");
     } finally {
@@ -23,15 +26,17 @@ export const useUsersApi = () => {
     }
   };
 
+  //-------TOOGLE ACTIVE EMPLOYEE------------
   const toogleActiveUser = async (id) => {
     try {
       setLoading(true);
-      const response = await axiosClient.put(`Users/${id}`);
+      await axiosClient.put(`Users/${id}`);
     } catch (error) {
       toast.error(error?.response?.data?.message || "No Data");
       setLoading(false);
     }
   };
+
   const getUsersCount = async () => {
     try {
       setLoading(true);
@@ -40,6 +45,8 @@ export const useUsersApi = () => {
       setData(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,5 +56,7 @@ export const useUsersApi = () => {
     data,
     loading,
     getUsersCount,
+    totalCount,
+    totalPages,
   };
 };

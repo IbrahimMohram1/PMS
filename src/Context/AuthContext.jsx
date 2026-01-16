@@ -9,8 +9,10 @@ export function AuthContextProvider({ children }) {
   // ✅ save user data from token
   const saveUserData = () => {
     const token = localStorage.getItem("access_token");
+    
     if (token) {
       const decoded = jwtDecode(token);
+      console.log(decoded);
       setUser(decoded);
     }
   };
