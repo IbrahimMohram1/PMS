@@ -68,13 +68,15 @@ export default function Projects() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#f8f9fb]">
+    <div className="flex flex-col h-full bg-[#f8f9fb] dark:bg-gray-900 transition-colors duration-300">
       <div className="flex justify-between items-center py-5 px-6">
-        <h2 className="text-3xl text-gray-800 font-semibold">Projects</h2>
+        <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+          Projects
+        </h2>
         {user?.userGroup === "Manager" && (
           <button
             onClick={() => navigate("/dashboard/Project-Data")}
-            className="bg-[#EF9B28] text-white py-2 px-6 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] transition-all shadow-md font-medium"
+            className="bg-[#EF9B28] text-white py-2 px-6 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-all shadow-md font-medium"
           >
             <FaPlus size={14} /> <span>Add New Project</span>
           </button>
@@ -82,22 +84,22 @@ export default function Projects() {
       </div>
 
       <div className="p-4">
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
           {/* Internal Search Bar */}
-          <div className="p-5 flex gap-3 items-center border-b border-gray-50 bg-white">
+          <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
             <div className="relative max-w-xs flex-1">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <BsSearch className="w-4 h-4 text-gray-400" />
+                <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none font-sans"
+                className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none font-sans dark:placeholder-gray-400 transition-colors duration-300"
                 placeholder="Search by Title..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors shadow-sm bg-white">
+            <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm bg-white dark:bg-gray-800">
               <BsFilter size={18} />
               <span className="font-medium text-sm">Filter</span>
             </button>
@@ -105,7 +107,7 @@ export default function Projects() {
 
           <div className="overflow-x-auto relative">
             {loading && projects.length > 0 && (
-              <div className="absolute inset-0 bg-white/50 z-10 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/50 dark:bg-gray-800/50 z-10 flex items-center justify-center transition-colors duration-300">
                 <Spinner size="lg" />
               </div>
             )}
@@ -115,12 +117,12 @@ export default function Projects() {
                 <Spinner size="xl" />
               </div>
             ) : error ? (
-              <p className="text-red-600 text-center py-10 font-medium">
+              <p className="text-red-600 dark:text-red-400 text-center py-10 font-medium">
                 {error}
               </p>
             ) : (
-              <table className="w-full min-w-max text-left text-sm text-gray-500">
-                <thead className="bg-[#315951] text-white uppercase tracking-wider text-xs font-medium">
+              <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
+                <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                   <tr>
                     <th className="px-6 py-4 font-medium">
                       <div className="flex items-center gap-2 cursor-pointer group">
@@ -145,18 +147,18 @@ export default function Projects() {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-100 bg-white">
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
                   {projects.length > 0 ? (
                     projects.map((project) => (
                       <tr
                         key={project.id}
-                        className="hover:bg-gray-50 transition-colors"
+                        className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       >
-                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
                           {project.title}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="bg-[#D1FADF] text-[#027A48] px-4 py-1.5 rounded-full text-xs font-semibold">
+                          <span className="bg-[#D1FADF] dark:bg-green-900 text-[#027A48] dark:text-green-200 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-300">
                             {project.task?.length
                               ? `${
                                   project.task.filter(
@@ -166,13 +168,13 @@ export default function Projects() {
                               : "No Tasks"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-600">
+                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
                           {project.task?.length || 0}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 max-w-xs truncate">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate">
                           {project.description || "-"}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 whitespace-nowrap">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">
                           {new Date(project.creationDate).toLocaleDateString()}
                         </td>
                         {user?.userGroup === "Manager" && (
@@ -187,7 +189,7 @@ export default function Projects() {
                                       : project.id,
                                   );
                                 }}
-                                className="text-gray-500 hover:text-gray-800 hover:bg-gray-100 p-2 rounded-full transition-all"
+                                className="text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-full transition-all"
                               >
                                 <CiMenuKebab size={20} className="rotate-90" />
                               </button>
@@ -196,13 +198,13 @@ export default function Projects() {
                             {openDropdown === project.id && (
                               <div
                                 ref={dropdownRef}
-                                className="absolute right-10 top-8 w-40 bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 p-2 animate-in fade-in zoom-in duration-200"
+                                className="absolute right-10 top-8 w-40 bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600 rounded-2xl shadow-2xl z-50 p-2 animate-in fade-in zoom-in duration-200 transition-colors"
                               >
                                 <ul className="flex flex-col text-sm space-y-1">
-                                  <li className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors">
+                                  <li className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 cursor-pointer transition-colors">
                                     <HiOutlineEye
                                       size={16}
-                                      className="text-emerald-700"
+                                      className="text-emerald-700 dark:text-emerald-400"
                                     />{" "}
                                     <span className="font-medium">View</span>
                                   </li>
@@ -213,17 +215,17 @@ export default function Projects() {
                                         { state: project },
                                       )
                                     }
-                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors"
+                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 cursor-pointer transition-colors"
                                   >
                                     <HiOutlinePencilAlt
                                       size={16}
-                                      className="text-emerald-700"
+                                      className="text-emerald-700 dark:text-emerald-400"
                                     />{" "}
                                     <span className="font-medium">Edit</span>
                                   </li>
                                   <li
                                     onClick={() => handleDeleteClick(project)}
-                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-red-600 hover:bg-red-50 cursor-pointer transition-colors"
+                                    className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-600 cursor-pointer transition-colors"
                                   >
                                     <HiOutlineTrash size={16} />{" "}
                                     <span className="font-medium">Delete</span>
@@ -239,7 +241,7 @@ export default function Projects() {
                     <tr>
                       <td
                         colSpan={user?.userGroup === "Manager" ? "6" : "5"}
-                        className="text-center py-20 text-gray-400"
+                        className="text-center py-20 text-gray-400 dark:text-gray-500"
                       >
                         No projects found
                       </td>
@@ -250,7 +252,7 @@ export default function Projects() {
             )}
           </div>
 
-          <div className="mt-auto border-t border-gray-50">
+          <div className="mt-auto border-t border-gray-50 dark:border-gray-700">
             <TablePagination
               pageSize={pageSize}
               setPageSize={setPageSize}

@@ -55,18 +55,18 @@ export default function ProjectData() {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
       {/* Header */}
-      <div className="mb-8 bg-white p-4">
+      <div className="mb-8 bg-white dark:bg-gray-800 p-4 transition-colors duration-300">
         <div
           onClick={() => navigate("/dashboard/Projects")}
-          className="flex items-center gap-1 text-gray-500 cursor-pointer"
+          className="flex items-center gap-1 text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
           <IoIosArrowBack />
           <span>View all projects</span>
         </div>
 
-        <h2 className="mt-3 text-2xl font-semibold text-gray-700">
+        <h2 className="mt-3 text-2xl font-semibold text-gray-700 dark:text-gray-300">
           {isEditMode ? "Edit Project" : "Add New Project"}
         </h2>
       </div>
@@ -75,29 +75,39 @@ export default function ProjectData() {
       <div className="flex justify-center px-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white w-full p-6 rounded-xl shadow border flex flex-col gap-6"
+          className="bg-white dark:bg-gray-800 w-full p-6 rounded-xl shadow border border-gray-200 dark:border-gray-700 flex flex-col gap-6 transition-colors duration-300"
         >
           <div>
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className="dark:text-gray-300">
+              Title
+            </Label>
             <TextInput
               id="title"
               {...register("title", { required: "Title is required" })}
               color={errors.title ? "failure" : "gray"}
+              className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400"
             />
             {errors.title && (
-              <p className="text-red-600 text-sm">{errors.title.message}</p>
+              <p className="text-red-600 dark:text-red-400 text-sm">
+                {errors.title.message}
+              </p>
             )}
           </div>
 
           <div>
-            <Label htmlFor="description">Description</Label>
-            <TextInput id="description" {...register("description")} />
+            <Label htmlFor="description" className="dark:text-gray-300">
+              Description
+            </Label>
+            <TextInput
+              id="description"
+              {...register("description")}
+              className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400"
+            />
           </div>
 
           <div className="flex justify-between mt-6">
             <Button
               color="light"
-              
               onClick={() => navigate("/dashboard/Projects")}
               disabled={isSubmitting}
             >
@@ -107,7 +117,6 @@ export default function ProjectData() {
             <Button
               type="submit"
               className="bg-[#EF9B28]"
-              
               disabled={isSubmitting}
             >
               {isSubmitting ? <Spinner size="sm" /> : "Save"}

@@ -9,6 +9,11 @@
     background-size: cover;
   }
 
+  /* Dark Mode */
+  .dark body {
+    background-color: #0f172a;
+    color: #f9fafb;
+  }
   input::-ms-reveal,
   input::-ms-clear {
     display: none;

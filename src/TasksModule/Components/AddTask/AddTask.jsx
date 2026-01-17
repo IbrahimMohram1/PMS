@@ -64,24 +64,27 @@ export default function AddTask() {
   return (
     <>
       <div className="flex flex-col justify-start py-5 px-3 my-2">
-        <Link to={"/dashboard/tasks"} className="flex w-fit items-center">
+        <Link
+          to={"/dashboard/tasks"}
+          className="flex w-fit items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+        >
           <IoIosArrowBack />
           View All Tasks
         </Link>
-        <h2 className="text-3xl text-gray-600 my-2">
+        <h2 className="text-3xl text-gray-600 dark:text-gray-300 my-2">
           {isEdit ? "Edit Task" : "Add a New Task"}
         </h2>
       </div>
 
-      <div className="bg-gray-100 min-h-screen w-full p-12">
+      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen w-full p-12 transition-colors duration-300">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-4xl mx-auto bg-white rounded-md"
+          className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-md transition-colors duration-300"
         >
           <div className="p-12 mx-auto flex flex-col gap-y-4">
             {/* Title */}
             <div className="mb-2 block">
-              <Label htmlFor="title" className="text-black dark:text-gray-600">
+              <Label htmlFor="title" className="text-black dark:text-gray-300">
                 Title
               </Label>
               <TextInput
@@ -93,10 +96,12 @@ export default function AddTask() {
                   required: "Title is required",
                   minLength: { value: 3, message: "Min length is 3" },
                 })}
-                className="bg-gray-50 text-black dark:bg-gray-50"
+                className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
               />
               {errors.title && (
-                <p className="text-red-500 text-sm">{errors.title.message}</p>
+                <p className="text-red-500 dark:text-red-400 text-sm">
+                  {errors.title.message}
+                </p>
               )}
             </div>
 
@@ -104,7 +109,7 @@ export default function AddTask() {
             <div className="mb-2 block">
               <Label
                 htmlFor="description"
-                className="text-black dark:text-gray-600"
+                className="text-black dark:text-gray-300"
               >
                 Description
               </Label>
@@ -116,10 +121,10 @@ export default function AddTask() {
                   required: "Description is required",
                   minLength: { value: 8, message: "Min length is 8" },
                 })}
-                className="bg-gray-50 dark:bg-gray-50 text-black"
+                className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
               />
               {errors.description && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 dark:text-red-400 text-sm">
                   {errors.description.message}
                 </p>
               )}
@@ -131,7 +136,7 @@ export default function AddTask() {
               <div className="mb-2 block w-1/2">
                 <Label
                   htmlFor="employeeId"
-                  className="text-black dark:text-gray-600"
+                  className="text-black dark:text-gray-300"
                 >
                   User
                 </Label>
@@ -140,7 +145,7 @@ export default function AddTask() {
                   id="employeeId"
                   defaultValue=""
                   {...register("employeeId", { required: "User is required" })}
-                  className="bg-gray-50 text-black dark:bg-gray-50"
+                  className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
                 >
                   <option value="" disabled>
                     Select User
@@ -152,7 +157,7 @@ export default function AddTask() {
                   ))}
                 </Select>
                 {errors.employeeId && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 dark:text-red-400 text-sm">
                     {errors.employeeId.message}
                   </p>
                 )}
@@ -163,7 +168,7 @@ export default function AddTask() {
                 <div className="mb-2 block w-1/2">
                   <Label
                     htmlFor="projectId"
-                    className="text-black dark:text-gray-600"
+                    className="text-black dark:text-gray-300"
                   >
                     Project
                   </Label>
@@ -174,7 +179,7 @@ export default function AddTask() {
                     {...register("projectId", {
                       required: "Project is required",
                     })}
-                    className="bg-gray-50 text-black dark:bg-gray-50"
+                    className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
                   >
                     <option value="" disabled>
                       Select Project
@@ -186,7 +191,7 @@ export default function AddTask() {
                     ))}
                   </Select>
                   {errors.projectId && (
-                    <p className="text-red-500 text-sm">
+                    <p className="text-red-500 dark:text-red-400 text-sm">
                       {errors.projectId.message}
                     </p>
                   )}
@@ -195,19 +200,19 @@ export default function AddTask() {
             </div>
           </div>
 
-          <hr className="w-full bg-gray-100 text-gray-300 my-1" />
+          <hr className="w-full bg-gray-100 dark:bg-gray-700 text-gray-300 dark:text-gray-600 my-1" />
 
           {/* Buttons */}
           <div className="flex justify-between items-center max-w-3xl mx-auto py-5">
             <Link
               to={"/dashboard/tasks"}
-              className="border px-5 py-2 rounded-xl text-black cursor-pointer"
+              className="border border-gray-300 dark:border-gray-600 px-5 py-2 rounded-xl text-black dark:text-gray-300 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               Cancel
             </Link>
             <button
               type="submit"
-              className="border px-5 py-2 rounded-xl bg-amber-400 text-white cursor-pointer"
+              className="border border-amber-400 px-5 py-2 rounded-xl bg-amber-400 dark:bg-amber-600 text-white cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-700 transition-colors"
             >
               {isEdit ? "Update Task" : "Save Task"}
             </button>

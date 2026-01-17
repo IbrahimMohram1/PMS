@@ -19,7 +19,6 @@ export default function Users() {
     totalPages,
   } = useUsersApi();
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [search, setSearch] = useState("");
   const { user } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -53,26 +52,28 @@ export default function Users() {
   return (
     <>
       <div className="flex justify-between items-center py-5 px-3">
-        <h2 className="text-3xl text-gray-800 font-semibold">Users</h2>
+        <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+          Users
+        </h2>
       </div>
 
       <div className="flex-1 p-4">
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
           {/* Search & Filter Bar */}
-          <div className="p-5 flex gap-3 items-center border-b border-gray-50 bg-white">
+          <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
             <div className="relative max-w-xs flex-1">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <BsSearch className="w-4 h-4 text-gray-400" />
+                <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
               </div>
               <input
                 type="text"
-                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none font-sans"
+                className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none font-sans dark:placeholder-gray-400 transition-colors duration-300"
                 placeholder="Search by User Name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors shadow-sm bg-white">
+            <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm bg-white dark:bg-gray-800">
               <BsFilter size={18} />
               <span className="font-medium text-sm">Filter</span>
             </button>
@@ -80,13 +81,13 @@ export default function Users() {
 
           <div className="overflow-x-auto relative">
             {loading && data.length > 0 && (
-              <div className="absolute inset-0 bg-white/50 z-10 flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/50 dark:bg-gray-800/50 z-10 flex items-center justify-center transition-colors duration-300">
                 <Spinner size="lg" />
               </div>
             )}
 
-            <table className="w-full min-w-max text-left text-sm text-gray-500">
-              <thead className="bg-[#315951] text-white uppercase tracking-wider text-xs font-medium">
+            <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
+              <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                 <tr>
                   <th className="px-6 py-4 font-medium flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                     User Name{" "}
@@ -120,7 +121,7 @@ export default function Users() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-gray-100 bg-white">
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
                 {loading && data.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="text-center py-20">
@@ -130,32 +131,32 @@ export default function Users() {
                 ) : data.length > 0 ? (
                   data.map((user) => (
                     <tr
-                      className="hover:bg-gray-50 transition-colors"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       key={user.id}
                     >
-                      <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
                         {user.userName}
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
-                          className={`inline-block rounded-full px-4 py-1.5 text-xs font-semibold ${
+                          className={`inline-block rounded-full px-4 py-1.5 text-xs font-semibold transition-colors duration-300 ${
                             user.isActivated
-                              ? "bg-[#009247] text-white"
-                              : "bg-[#BC5454] text-white"
+                              ? "bg-[#009247] dark:bg-green-700 text-white"
+                              : "bg-[#BC5454] dark:bg-red-700 text-white"
                           }`}
                         >
                           {user.isActivated ? "Active" : "Not Active"}
                         </span>
                       </td>
 
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                         {user.phoneNumber}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                         {user.email}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                         {new Date(user.creationDate).toLocaleDateString()}
                       </td>
 
@@ -168,40 +169,43 @@ export default function Users() {
                                 openDropdown === user.id ? null : user.id,
                               );
                             }}
-                            className="text-gray-500 hover:text-gray-800 hover:bg-gray-100 p-2 rounded-full transition-all"
+                            className="text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-full transition-all"
                           >
                             <CiMenuKebab className="text-xl rotate-90" />
                           </button>
                         </div>
 
                         {openDropdown === user.id && (
-                          <div className="absolute right-10 top-8 z-50 w-40 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-gray-100 border border-gray-100 animate-in fade-in zoom-in duration-200">
+                          <div className="absolute right-10 top-8 z-50 w-40 rounded-2xl bg-white dark:bg-gray-700 p-2 shadow-2xl ring-1 ring-gray-100 dark:ring-gray-600 border border-gray-100 dark:border-gray-600 animate-in fade-in zoom-in duration-200 transition-colors">
                             <ul className="flex flex-col text-sm space-y-1">
                               <li
                                 onClick={() => handleToggleActive(user)}
                                 className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 cursor-pointer transition-colors ${
                                   user.isActivated
-                                    ? "text-[#E14120] hover:bg-red-50"
-                                    : "text-emerald-800 hover:bg-emerald-50"
+                                    ? "text-[#E14120] dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-600"
+                                    : "text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600"
                                 }`}
                               >
                                 {user.isActivated ? (
                                   <FaTimesCircle
                                     size={14}
-                                    className="text-[#E14120]"
+                                    className="text-[#E14120] dark:text-red-400"
                                   />
                                 ) : (
                                   <FaCheckCircle
                                     size={14}
-                                    className="text-emerald-700"
+                                    className="text-emerald-700 dark:text-emerald-400"
                                   />
                                 )}
                                 <span className="font-medium">
                                   {user.isActivated ? "Deactivate" : "Activate"}
                                 </span>
                               </li>
-                              <li className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors">
-                                <FaEye className="text-emerald-700" size={14} />{" "}
+                              <li className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 cursor-pointer transition-colors">
+                                <FaEye
+                                  className="text-emerald-700 dark:text-emerald-400"
+                                  size={14}
+                                />{" "}
                                 <span className="font-medium">
                                   View Profile
                                 </span>
@@ -214,7 +218,10 @@ export default function Users() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="text-center py-10 text-gray-400">
+                    <td
+                      colSpan="6"
+                      className="text-center py-10 text-gray-400 dark:text-gray-500"
+                    >
                       No Data Found
                     </td>
                   </tr>

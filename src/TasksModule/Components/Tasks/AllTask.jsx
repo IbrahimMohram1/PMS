@@ -94,49 +94,53 @@ export default function AllTask() {
           />
 
           <div className="flex justify-between items-center py-5 px-3">
-            <h2 className="text-3xl text-gray-800 font-semibold">Tasks</h2>
+            <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+              Tasks
+            </h2>
             <Link
               to={"/dashboard/addtask"}
-              className="bg-[#EF9B28] text-white py-2 px-5 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] transition-colors shadow-sm"
+              className="bg-[#EF9B28] text-white py-2 px-5 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-colors shadow-sm"
             >
               <FaPlus size={14} /> <span>Add New Task</span>
             </Link>
           </div>
 
           <div className="flex-1 p-4 ">
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
               {/* Internal Search & Filter Bar */}
-              <div className="p-5 flex gap-3 items-center border-b border-gray-50 bg-white">
+              <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
                 <div className="relative max-w-xs flex-1">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <BsSearch className="w-4 h-4 text-gray-400" />
+                    <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   </div>
                   <input
                     type="text"
-                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none"
+                    className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 text-sm rounded-full focus:ring-[#315951] focus:border-[#315951] block w-full pl-10 p-2.5 outline-none dark:placeholder-gray-400 transition-colors duration-300"
                     placeholder="Search Fleets"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
                 </div>
-                <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-50 transition-colors shadow-sm bg-white">
+                <button className="flex items-center gap-2 px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm bg-white dark:bg-gray-800">
                   <BsFilter size={18} />
                   <span className="font-medium">Filter</span>
                 </button>
               </div>
 
               {loading ? (
-                <div className="flex justify-center py-20 bg-white">
+                <div className="flex justify-center py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
                   <Spinner size="xl" />
                 </div>
               ) : error ? (
-                <div className="py-10 text-center bg-white">
-                  <p className="text-red-500 font-medium">{error}</p>
+                <div className="py-10 text-center bg-white dark:bg-gray-800 transition-colors duration-300">
+                  <p className="text-red-500 dark:text-red-400 font-medium">
+                    {error}
+                  </p>
                   <button
                     onClick={() =>
                       getMangerTasks(pageSize, currentPage, search)
                     }
-                    className="mt-2 text-emerald-600 hover:underline text-sm"
+                    className="mt-2 text-emerald-600 dark:text-emerald-400 hover:underline text-sm"
                   >
                     Try again
                   </button>
@@ -144,8 +148,8 @@ export default function AllTask() {
               ) : (
                 <>
                   <div className="overflow-x-auto">
-                    <table className="w-full min-w-max text-left text-sm text-gray-500">
-                      <thead className="bg-[#315951] text-white uppercase tracking-wider text-xs font-medium">
+                    <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
+                      <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                         <tr>
                           <th className="px-6 py-4 font-medium flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                             Title{" "}
@@ -181,40 +185,40 @@ export default function AllTask() {
                         </tr>
                       </thead>
 
-                      <tbody className="divide-y divide-gray-100 bg-white">
+                      <tbody className="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
                         {data.length > 0 ? (
                           data.map((task) => (
                             <tr
-                              className="hover:bg-gray-50 transition-colors"
+                              className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                               key={task.id}
                             >
-                              <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                              <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
                                 {task?.title}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <span
-                                  className={`inline-block rounded-full px-4 py-1.5 text-xs font-medium ${
+                                  className={`inline-block rounded-full px-4 py-1.5 text-xs font-medium transition-colors duration-300 ${
                                     task.status === "ToDo"
-                                      ? "bg-[#E6E0F2] text-[#8666C5]"
+                                      ? "bg-[#E6E0F2] dark:bg-purple-900 text-[#8666C5] dark:text-purple-300"
                                       : task.status === "InProgress"
-                                      ? "bg-[#FEEFC3] text-[#F3A53F]"
-                                      : "bg-[#D1FADF] text-[#027A48]"
+                                        ? "bg-[#FEEFC3] dark:bg-yellow-900 text-[#F3A53F] dark:text-yellow-300"
+                                        : "bg-[#D1FADF] dark:bg-green-900 text-[#027A48] dark:text-green-300"
                                   }`}
                                 >
                                   {task.status === "ToDo"
                                     ? "to do"
                                     : task.status === "InProgress"
-                                    ? "in progress"
-                                    : "done"}
+                                      ? "in progress"
+                                      : "done"}
                                 </span>
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {task.employee.userName}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {task.project.title}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {new Date(
                                   task.creationDate,
                                 ).toLocaleDateString()}
@@ -230,20 +234,20 @@ export default function AllTask() {
                                           : task.id,
                                       );
                                     }}
-                                    className="text-gray-500 hover:text-gray-800 hover:bg-gray-100 p-2 rounded-full transition-all"
+                                    className="text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-full transition-all"
                                   >
                                     <CiMenuKebab className="text-xl rotate-90" />
                                   </button>
                                 </div>
                                 {openDropdown === task.id && (
-                                  <div className="absolute right-10 top-8 z-50 w-36 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-gray-100 border border-gray-100">
+                                  <div className="absolute right-10 top-8 z-50 w-36 rounded-2xl bg-white dark:bg-gray-700 p-2 shadow-2xl ring-1 ring-gray-100 dark:ring-gray-600 border border-gray-100 dark:border-gray-600 transition-colors duration-300">
                                     <ul className="flex flex-col text-sm space-y-1">
                                       <li
                                         onClick={() => setOpenDropdown(null)}
-                                        className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors"
+                                        className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 cursor-pointer transition-colors"
                                       >
                                         <FaEye
-                                          className="text-emerald-700"
+                                          className="text-emerald-700 dark:text-emerald-400"
                                           size={12}
                                         />{" "}
                                         <span className="font-medium">
@@ -253,10 +257,10 @@ export default function AllTask() {
                                       <li>
                                         <Link
                                           to={`/dashboard/addtask/${task.id}`}
-                                          className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 transition-colors"
+                                          className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 transition-colors"
                                         >
                                           <FaEdit
-                                            className="text-emerald-700"
+                                            className="text-emerald-700 dark:text-emerald-400"
                                             size={12}
                                           />{" "}
                                           <span className="font-medium">
@@ -266,7 +270,7 @@ export default function AllTask() {
                                       </li>
                                       <li
                                         onClick={() => handleDeleteClick(task)}
-                                        className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-[#E14120] hover:bg-red-50 cursor-pointer transition-colors"
+                                        className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-[#E14120] dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-600 cursor-pointer transition-colors"
                                       >
                                         <FaTrash size={12} />{" "}
                                         <span className="font-medium">
@@ -283,7 +287,7 @@ export default function AllTask() {
                           <tr>
                             <td
                               colSpan="6"
-                              className="text-center py-10 text-gray-400"
+                              className="text-center py-10 text-gray-400 dark:text-gray-500"
                             >
                               No Data Found
                             </td>
@@ -309,7 +313,9 @@ export default function AllTask() {
       ) : (
         <>
           <div className="flex justify-start items-center py-5 px-3 mx-3">
-            <h2 className="text-3xl text-gray-600">Task Board</h2>
+            <h2 className="text-3xl text-gray-600 dark:text-gray-400">
+              Task Board
+            </h2>
           </div>
           <TaskBoard />
         </>
