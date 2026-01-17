@@ -157,19 +157,19 @@ export default function AllTask() {
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                             </div>
                           </th>
-                          <th className="px-6 py-4 font-medium">
+                          <th className=" px-6 py-4 font-medium">
                             <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                               User{" "}
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                             </div>
                           </th>
-                          <th className="px-6 py-4 font-medium">
+                          <th className="hidden sm:table-cell px-6 py-4 font-medium">
                             <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                               Project{" "}
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                             </div>
                           </th>
-                          <th className="px-6 py-4 font-medium">
+                          <th className="hidden sm:table-cell px-6 py-4 font-medium">
                             <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                               Date Created{" "}
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
@@ -211,10 +211,10 @@ export default function AllTask() {
                               <td className="px-6 py-4 whitespace-nowrap">
                                 {task.employee.userName}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell" >
                                 {task.project.title}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
+                              <td className=" hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                                 {new Date(
                                   task.creationDate,
                                 ).toLocaleDateString()}

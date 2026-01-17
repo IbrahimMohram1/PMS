@@ -98,19 +98,19 @@ export default function Users() {
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Phone Number{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Email{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Date Created{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
@@ -149,13 +149,13 @@ export default function Users() {
                         </span>
                       </td>
 
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                         {user.phoneNumber}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                         {user.email}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                         {new Date(user.creationDate).toLocaleDateString()}
                       </td>
 

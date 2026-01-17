@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import useProjects from "../../../Hooks/useProjects";
 import { BsSearch, BsFilter } from "react-icons/bs";
 import { CiMenuKebab } from "react-icons/ci";
@@ -14,7 +14,6 @@ import { FaPlus } from "react-icons/fa";
 import { Spinner } from "flowbite-react";
 import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
 import TablePagination from "../../../Shared/TablePagination/TablePagination";
-import { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 
 export default function Projects() {
@@ -69,6 +68,7 @@ export default function Projects() {
 
   return (
     <div className="flex flex-col h-full bg-[#f8f9fb]">
+      {/* Header */}
       <div className="flex justify-between items-center py-5 px-6">
         <h2 className="text-3xl text-gray-800 font-semibold">Projects</h2>
         {user?.userGroup === "Manager" && (
@@ -81,9 +81,10 @@ export default function Projects() {
         )}
       </div>
 
+      {/* Table */}
       <div className="p-4">
         <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden flex flex-col">
-          {/* Internal Search Bar */}
+          {/* Search & Filter */}
           <div className="p-5 flex gap-3 items-center border-b border-gray-50 bg-white">
             <div className="relative max-w-xs flex-1">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -103,6 +104,7 @@ export default function Projects() {
             </button>
           </div>
 
+          {/* Table Body */}
           <div className="overflow-x-auto relative">
             {loading && projects.length > 0 && (
               <div className="absolute inset-0 bg-white/50 z-10 flex items-center justify-center">
@@ -115,64 +117,39 @@ export default function Projects() {
                 <Spinner size="xl" />
               </div>
             ) : error ? (
-              <p className="text-red-600 text-center py-10 font-medium">
-                {error}
-              </p>
+              <p className="text-red-600 text-center py-10 font-medium">{error}</p>
             ) : (
               <table className="w-full min-w-max text-left text-sm text-gray-500">
+                {/* Table Head */}
                 <thead className="bg-[#315951] text-white uppercase tracking-wider text-xs font-medium">
                   <tr>
-                    <th className="px-6 py-4 font-medium">
-                      <div className="flex items-center gap-2 cursor-pointer group">
-                        Title{" "}
-                        <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
-                      </div>
-                    </th>
-                    <th className="px-6 py-4 font-medium">Statuses</th>
-                    <th className="px-6 py-4 font-medium">Tasks</th>
-                    <th className="px-6 py-4 font-medium">Description</th>
-                    <th className="px-6 py-4 font-medium">
-                      <div className="flex items-center gap-2 cursor-pointer group">
-                        Date Created{" "}
-                        <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
-                      </div>
-                    </th>
+                    <th className="px-6 py-4 font-medium">Title</th>
+                    <th className="px-6 py-4 font-medium hidden sm:table-cell">Statuses</th>
+                    <th className="px-6 py-4 font-medium hidden md:table-cell">Tasks</th>
+                    <th className="px-6 py-4 font-medium hidden lg:table-cell">Description</th>
+                    <th className="px-6 py-4 font-medium hidden sm:table-cell">Date Created</th>
                     {user?.userGroup === "Manager" && (
-                      <th className="px-6 py-4 font-medium text-center">
-                        Actions
-                      </th>
+                      <th className="px-6 py-4 font-medium text-center">Actions</th>
                     )}
                   </tr>
                 </thead>
 
+                {/* Table Body */}
                 <tbody className="divide-y divide-gray-100 bg-white">
                   {projects.length > 0 ? (
                     projects.map((project) => (
-                      <tr
-                        key={project.id}
-                        className="hover:bg-gray-50 transition-colors"
-                      >
-                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                          {project.title}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                      <tr key={project.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{project.title}</td>
+                        <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                           <span className="bg-[#D1FADF] text-[#027A48] px-4 py-1.5 rounded-full text-xs font-semibold">
                             {project.task?.length
-                              ? `${
-                                  project.task.filter(
-                                    (t) => t.status === "Done",
-                                  ).length
-                                } Done`
+                              ? `${project.task.filter((t) => t.status === "Done").length} Done`
                               : "No Tasks"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-600">
-                          {project.task?.length || 0}
-                        </td>
-                        <td className="px-6 py-4 text-gray-500 max-w-xs truncate">
-                          {project.description || "-"}
-                        </td>
-                        <td className="px-6 py-4 text-gray-500 whitespace-nowrap">
+                        <td className="px-6 py-4 text-gray-600 hidden md:table-cell">{project.task?.length || 0}</td>
+                        <td className="px-6 py-4 text-gray-500 max-w-xs truncate hidden lg:table-cell">{project.description || "-"}</td>
+                        <td className="px-6 py-4 text-gray-500 whitespace-nowrap hidden sm:table-cell">
                           {new Date(project.creationDate).toLocaleDateString()}
                         </td>
                         {user?.userGroup === "Manager" && (
@@ -181,11 +158,7 @@ export default function Projects() {
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  setOpenDropdown(
-                                    openDropdown === project.id
-                                      ? null
-                                      : project.id,
-                                  );
+                                  setOpenDropdown(openDropdown === project.id ? null : project.id);
                                 }}
                                 className="text-gray-500 hover:text-gray-800 hover:bg-gray-100 p-2 rounded-full transition-all"
                               >
@@ -200,33 +173,23 @@ export default function Projects() {
                               >
                                 <ul className="flex flex-col text-sm space-y-1">
                                   <li className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors">
-                                    <HiOutlineEye
-                                      size={16}
-                                      className="text-emerald-700"
-                                    />{" "}
+                                    <HiOutlineEye size={16} className="text-emerald-700" />{" "}
                                     <span className="font-medium">View</span>
                                   </li>
                                   <li
                                     onClick={() =>
-                                      navigate(
-                                        `/dashboard/Project-Data/${project.id}`,
-                                        { state: project },
-                                      )
+                                      navigate(`/dashboard/Project-Data/${project.id}`, { state: project })
                                     }
                                     className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-emerald-800 hover:bg-emerald-50 cursor-pointer transition-colors"
                                   >
-                                    <HiOutlinePencilAlt
-                                      size={16}
-                                      className="text-emerald-700"
-                                    />{" "}
+                                    <HiOutlinePencilAlt size={16} className="text-emerald-700" />{" "}
                                     <span className="font-medium">Edit</span>
                                   </li>
                                   <li
                                     onClick={() => handleDeleteClick(project)}
                                     className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-red-600 hover:bg-red-50 cursor-pointer transition-colors"
                                   >
-                                    <HiOutlineTrash size={16} />{" "}
-                                    <span className="font-medium">Delete</span>
+                                    <HiOutlineTrash size={16} /> <span className="font-medium">Delete</span>
                                   </li>
                                 </ul>
                               </div>
@@ -237,10 +200,7 @@ export default function Projects() {
                     ))
                   ) : (
                     <tr>
-                      <td
-                        colSpan={user?.userGroup === "Manager" ? "6" : "5"}
-                        className="text-center py-20 text-gray-400"
-                      >
+                      <td colSpan={user?.userGroup === "Manager" ? "6" : "5"} className="text-center py-20 text-gray-400">
                         No projects found
                       </td>
                     </tr>
@@ -250,6 +210,7 @@ export default function Projects() {
             )}
           </div>
 
+          {/* Pagination */}
           <div className="mt-auto border-t border-gray-50">
             <TablePagination
               pageSize={pageSize}
@@ -263,6 +224,7 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* Confirm Delete Modal */}
       <ConfirmModal
         isOpen={isModalOpen}
         title="Delete Project"

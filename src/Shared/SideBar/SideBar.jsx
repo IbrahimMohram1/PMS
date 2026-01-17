@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   FaUsers,
   FaTasks,
@@ -12,9 +12,25 @@ import { AuthContext } from "../../Context/AuthContext";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SideBar() {
-  const [collapsed, setCollapsed] = useState(false);
   const { user } = useContext(AuthContext);
   const location = useLocation();
+
+  // Sidebar collapsed state
+  const [collapsed, setCollapsed] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCollapsed(true); 
+      } else {
+        setCollapsed(false); 
+      }
+    };
+
+    handleResize(); // set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleButtonStyle = {
     position: "absolute",
@@ -33,6 +49,7 @@ export default function SideBar() {
     cursor: "pointer",
     boxShadow: "2px 0 5px rgba(0,0,0,0.2)",
   };
+
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -47,11 +64,7 @@ export default function SideBar() {
           style={toggleButtonStyle}
           onClick={() => setCollapsed(!collapsed)}
         >
-          {collapsed ? (
-            <FaChevronRight size={12} />
-          ) : (
-            <FaChevronLeft size={12} />
-          )}
+          {collapsed ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
         </button>
 
         <Menu
@@ -84,7 +97,7 @@ export default function SideBar() {
             Projects
           </MenuItem>
 
-          {user.userGroup == "Manager" && (
+          {user.userGroup === "Manager" && (
             <MenuItem
               component={<Link to={"/dashboard/users"} />}
               icon={<FaUsers />}
