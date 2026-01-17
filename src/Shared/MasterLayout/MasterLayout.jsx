@@ -7,12 +7,14 @@ export default function MasterLayout() {
   return (
     <div>
       <NavBar />
-      <div className="h-screen flex">
-        {/* Sidebar */}
-        <SideBar />
+      <div className=" flex">
+        <div className="sideBar">
+          {/* Sidebar */}
+          <SideBar />
+        </div>
 
         {/* Page Content */}
-        <div className="flex-1  ">
+        <div className="flex-1  overflow-x-hidden ">
           <Outlet />
         </div>
       </div>

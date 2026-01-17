@@ -147,14 +147,14 @@ useEffect(() => {
       {/* Open button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-orange-500 text-white w-14 h-14 rounded-full shadow-lg"
+        className="fixed bottom-6 right-6 bg-[#0e382f] text-white w-14 h-14 rounded-full shadow-lg"
       >
         💬
       </button>
 
       {open && (
         <div className="fixed bottom-24 right-6 w-80 bg-white rounded-xl shadow-xl flex flex-col">
-          <div className="bg-orange-500 text-white p-3 rounded-t-xl">
+          <div className="bg-[#0e382f] text-white p-3 rounded-t-xl">
             PMS Assistant
           </div>
 
@@ -166,7 +166,7 @@ useEffect(() => {
               >
                 <span
                   className={`inline-block px-3 py-2 rounded-lg ${
-                    msg.sender === "user" ? "bg-orange-500 text-white" : "bg-gray-200"
+                    msg.sender === "user" ? "bg-[#0e382f] text-white" : "bg-gray-200"
                   }`}
                 >
                   {msg.text}
@@ -186,7 +186,7 @@ useEffect(() => {
             />
             <button
               onClick={sendMessage}
-              className="bg-orange-500 text-white px-3 rounded-lg"
+              className="bg-[#0e382f] text-white px-3 rounded-lg"
             >
               Send
             </button>

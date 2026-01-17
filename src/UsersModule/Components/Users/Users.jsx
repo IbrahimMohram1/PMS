@@ -86,7 +86,7 @@ export default function Users() {
               </div>
             )}
 
-            <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
+            <table className="w-full overflow-x-scroll  min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
               <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                 <tr>
                   <th className="px-6 py-4 font-medium flex items-center gap-2 cursor-pointer group whitespace-nowrap">
@@ -99,19 +99,19 @@ export default function Users() {
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Phone Number{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Email{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                     </div>
                   </th>
-                  <th className="px-6 py-4 font-medium">
+                  <th className="hidden sm:table-cell px-6 py-4 font-medium">
                     <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                       Date Created{" "}
                       <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />

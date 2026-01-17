@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/Navbar.png";
 import { FaBell } from "react-icons/fa";
 import {
@@ -22,6 +22,7 @@ export default function NavBar() {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   let { darkMode } = useContext(ThemeContext);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handelLogOut = () => {
     logout();

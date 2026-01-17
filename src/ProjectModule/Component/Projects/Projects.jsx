@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import useProjects from "../../../Hooks/useProjects";
 import { BsSearch, BsFilter } from "react-icons/bs";
 import { CiMenuKebab } from "react-icons/ci";
@@ -14,7 +14,6 @@ import { FaPlus } from "react-icons/fa";
 import { Spinner } from "flowbite-react";
 import ConfirmModal from "../../../Shared/ConfirmModal/ConfirmModal";
 import TablePagination from "../../../Shared/TablePagination/TablePagination";
-import { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 
 export default function Projects() {
@@ -83,6 +82,7 @@ export default function Projects() {
         )}
       </div>
 
+      {/* Table */}
       <div className="p-4">
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
           {/* Internal Search Bar */}
@@ -105,6 +105,7 @@ export default function Projects() {
             </button>
           </div>
 
+          {/* Table Body */}
           <div className="overflow-x-auto relative">
             {loading && projects.length > 0 && (
               <div className="absolute inset-0 bg-white/50 dark:bg-gray-800/50 z-10 flex items-center justify-center transition-colors duration-300">
@@ -121,23 +122,21 @@ export default function Projects() {
                 {error}
               </p>
             ) : (
-              <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
+              <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400 overflow-x-scroll">
                 <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                   <tr>
-                    <th className="px-6 py-4 font-medium">
-                      <div className="flex items-center gap-2 cursor-pointer group">
-                        Title{" "}
-                        <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
-                      </div>
+                    <th className="px-6 py-4 font-medium">Title</th>
+                    <th className="px-6 py-4 font-medium hidden sm:table-cell">
+                      Statuses
                     </th>
-                    <th className="px-6 py-4 font-medium">Statuses</th>
-                    <th className="px-6 py-4 font-medium">Tasks</th>
-                    <th className="px-6 py-4 font-medium">Description</th>
-                    <th className="px-6 py-4 font-medium">
-                      <div className="flex items-center gap-2 cursor-pointer group">
-                        Date Created{" "}
-                        <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
-                      </div>
+                    <th className="px-6 py-4 font-medium hidden md:table-cell">
+                      Tasks
+                    </th>
+                    <th className="px-6 py-4 font-medium hidden lg:table-cell">
+                      Description
+                    </th>
+                    <th className="px-6 py-4 font-medium hidden sm:table-cell">
+                      Date Created
                     </th>
                     {user?.userGroup === "Manager" && (
                       <th className="px-6 py-4 font-medium text-center">
@@ -160,11 +159,7 @@ export default function Projects() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="bg-[#D1FADF] dark:bg-green-900 text-[#027A48] dark:text-green-200 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-300">
                             {project.task?.length
-                              ? `${
-                                  project.task.filter(
-                                    (t) => t.status === "Done",
-                                  ).length
-                                } Done`
+                              ? `${project.task.filter((t) => t.status === "Done").length} Done`
                               : "No Tasks"}
                           </span>
                         </td>
@@ -265,6 +260,7 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* Confirm Delete Modal */}
       <ConfirmModal
         isOpen={isModalOpen}
         title="Delete Project"
