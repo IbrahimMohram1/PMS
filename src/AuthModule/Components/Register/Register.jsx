@@ -27,7 +27,7 @@ export default function Register() {
           <div className="logo-container mb-5 ">
             <img src={logo} alt="Logo" className=" w-[150px] md:w-48 mx-auto" />
           </div>
-          <div className="form-container p-10 rounded-2xl  bg-[#315951E5] opacity-90">
+          <div className="form-container p-6 sm:p-10 rounded-2xl bg-[#315951E5] opacity-90 shadow-xl">
             <div className="title ">
               <p className="text-white text-sm">Welcome to PMS</p>
               <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">
@@ -41,8 +41,8 @@ export default function Register() {
                 <FaCamera className="text-[#EF9B28] text-xl" />
               </label>
               <input type="file" id="fileInput" />
-              <div className="flex   flex-row gap-4 justify-center items-center my-5">
-                <div className="w-1/2">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center my-5">
+                <div className="w-full sm:w-1/2">
                   <div className="  flex gap-y-1 flex-col w-full ">
                     <div>
                       <Label
@@ -130,7 +130,7 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full sm:w-1/2">
                   <div className="  flex gap-y-1 flex-col w-full ">
                     <div>
                       <Label

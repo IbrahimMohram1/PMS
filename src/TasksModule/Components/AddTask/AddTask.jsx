@@ -63,161 +63,171 @@ export default function AddTask() {
 
   return (
     <>
-      <div className="flex flex-col justify-start py-5 px-3 my-2">
+      <div className="flex flex-col justify-start py-6 px-6 bg-white dark:bg-gray-800 transition-colors duration-300 border-b border-gray-100 dark:border-gray-700">
         <Link
           to={"/dashboard/tasks"}
-          className="flex w-fit items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          className="flex w-fit items-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors gap-1 text-sm mb-2"
         >
           <IoIosArrowBack />
-          View All Tasks
+          <span>View All Tasks</span>
         </Link>
-        <h2 className="text-3xl text-gray-600 dark:text-gray-300 my-2">
+        <h2 className="text-2xl font-semibold text-[#0E382F] dark:text-gray-200">
           {isEdit ? "Edit Task" : "Add a New Task"}
         </h2>
       </div>
 
-      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen w-full p-12 transition-colors duration-300">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-md transition-colors duration-300"
-        >
-          <div className="p-12 mx-auto flex flex-col gap-y-4">
-            {/* Title */}
-            <div className="mb-2 block">
-              <Label htmlFor="title" className="text-black dark:text-gray-300">
-                Title
-              </Label>
-              <TextInput
-                style={{ color: "#000" }}
-                id="title"
-                type="text"
-                placeholder="Name"
-                {...register("title", {
-                  required: "Title is required",
-                  minLength: { value: 3, message: "Min length is 3" },
-                })}
-                className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
-              />
-              {errors.title && (
-                <p className="text-red-500 dark:text-red-400 text-sm">
-                  {errors.title.message}
-                </p>
-              )}
-            </div>
-
-            {/* Description */}
-            <div className="mb-2 block">
-              <Label
-                htmlFor="description"
-                className="text-black dark:text-gray-300"
-              >
-                Description
-              </Label>
-              <Textarea
-                style={{ color: "#000" }}
-                id="description"
-                placeholder="Description"
-                {...register("description", {
-                  required: "Description is required",
-                  minLength: { value: 8, message: "Min length is 8" },
-                })}
-                className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
-              />
-              {errors.description && (
-                <p className="text-red-500 dark:text-red-400 text-sm">
-                  {errors.description.message}
-                </p>
-              )}
-            </div>
-
-            {/* User & Project */}
-            <div className="flex justify-between items-center gap-x-3">
-              {/* User */}
-              <div className="mb-2 block w-1/2">
+      <div className="bg-[#F8F9FB] dark:bg-gray-900 min-h-screen w-full px-4 sm:px-6 py-6 sm:py-10 transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-800 max-w-6xl mx-auto rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 transition-colors duration-300 overflow-hidden">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+            {/* Input Fields Container */}
+            <div className="p-8 sm:p-14 flex flex-col gap-8">
+              {/* Title */}
+              <div>
                 <Label
-                  htmlFor="employeeId"
-                  className="text-black dark:text-gray-300"
+                  htmlFor="title"
+                  className="text-[#0E382F] dark:text-gray-300 font-medium mb-3 block text-base"
                 >
-                  User
+                  Title
                 </Label>
-                <Select
-                  style={{ backgroundColor: "#fff", color: "#000" }}
-                  id="employeeId"
-                  defaultValue=""
-                  {...register("employeeId", { required: "User is required" })}
-                  className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
-                >
-                  <option value="" disabled>
-                    Select User
-                  </option>
-                  {users?.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.userName}
-                    </option>
-                  ))}
-                </Select>
-                {errors.employeeId && (
-                  <p className="text-red-500 dark:text-red-400 text-sm">
-                    {errors.employeeId.message}
+                <TextInput
+                  id="title"
+                  type="text"
+                  placeholder="Name"
+                  {...register("title", {
+                    required: "Title is required",
+                    minLength: { value: 3, message: "Min length is 3" },
+                  })}
+                  className="shadow-sm"
+                  theme={{
+                    field: {
+                      input: {
+                        base: "block w-full border disabled:cursor-not-allowed disabled:opacity-50 transition-all rounded-xl py-3 px-4",
+                        colors: {
+                          gray: "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:border-emerald-500 focus:ring-emerald-500",
+                        },
+                      },
+                    },
+                  }}
+                />
+                {errors.title && (
+                  <p className="text-red-600 dark:text-red-400 text-xs mt-1.5 ml-1">
+                    {errors.title.message}
                   </p>
                 )}
               </div>
 
-              {/* Project - Show ONLY if NOT editing */}
-              {!isEdit && (
-                <div className="mb-2 block w-1/2">
+              {/* Description */}
+              <div>
+                <Label
+                  htmlFor="description"
+                  className="text-[#0E382F] dark:text-gray-300 font-medium mb-3 block text-base"
+                >
+                  Description
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="Description"
+                  rows={5}
+                  {...register("description", {
+                    required: "Description is required",
+                    minLength: { value: 8, message: "Min length is 8" },
+                  })}
+                  className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:border-emerald-500 focus:ring-emerald-500 rounded-2xl shadow-sm transition-all resize-none py-3 px-4"
+                />
+                {errors.description && (
+                  <p className="text-red-600 dark:text-red-400 text-xs mt-1.5 ml-1">
+                    {errors.description.message}
+                  </p>
+                )}
+              </div>
+
+              {/* User & Project */}
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-6">
+                {/* User */}
+                <div className="w-full sm:w-1/2">
                   <Label
-                    htmlFor="projectId"
-                    className="text-black dark:text-gray-300"
+                    htmlFor="employeeId"
+                    className="text-[#0E382F] dark:text-gray-300 font-medium mb-2 block"
                   >
-                    Project
+                    User
                   </Label>
                   <Select
-                    style={{ backgroundColor: "#fff", color: "#000" }}
-                    id="projectId"
+                    id="employeeId"
                     defaultValue=""
-                    {...register("projectId", {
-                      required: "Project is required",
+                    {...register("employeeId", {
+                      required: "User is required",
                     })}
-                    className="bg-gray-50 dark:bg-gray-700 text-black dark:text-gray-100 border-gray-300 dark:border-gray-600 dark:placeholder-gray-400 transition-colors duration-300"
+                    className="bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:border-emerald-500 focus:ring-emerald-500 rounded-xl shadow-sm"
                   >
                     <option value="" disabled>
-                      Select Project
+                      Select User
                     </option>
-                    {projectData?.map((project) => (
-                      <option key={project.id} value={project.id}>
-                        {project.title}
+                    {users?.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.userName}
                       </option>
                     ))}
                   </Select>
-                  {errors.projectId && (
-                    <p className="text-red-500 dark:text-red-400 text-sm">
-                      {errors.projectId.message}
+                  {errors.employeeId && (
+                    <p className="text-red-600 dark:text-red-400 text-xs mt-1 ml-1">
+                      {errors.employeeId.message}
                     </p>
                   )}
                 </div>
-              )}
+
+                {/* Project - Show ONLY if NOT editing */}
+                {!isEdit && (
+                  <div className="w-full sm:w-1/2">
+                    <Label
+                      htmlFor="projectId"
+                      className="text-[#0E382F] dark:text-gray-300 font-medium mb-2 block"
+                    >
+                      Project
+                    </Label>
+                    <Select
+                      id="projectId"
+                      defaultValue=""
+                      {...register("projectId", {
+                        required: "Project is required",
+                      })}
+                      className="bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white focus:border-emerald-500 focus:ring-emerald-500 rounded-xl shadow-sm"
+                    >
+                      <option value="" disabled>
+                        Select Project
+                      </option>
+                      {projectData?.map((project) => (
+                        <option key={project.id} value={project.id}>
+                          {project.title}
+                        </option>
+                      ))}
+                    </Select>
+                    {errors.projectId && (
+                      <p className="text-red-600 dark:text-red-400 text-xs mt-1 ml-1">
+                        {errors.projectId.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <hr className="w-full bg-gray-100 dark:bg-gray-700 text-gray-300 dark:text-gray-600 my-1" />
-
-          {/* Buttons */}
-          <div className="flex justify-between items-center max-w-3xl mx-auto py-5">
-            <Link
-              to={"/dashboard/tasks"}
-              className="border border-gray-300 dark:border-gray-600 px-5 py-2 rounded-xl text-black dark:text-gray-300 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              className="border border-amber-400 px-5 py-2 rounded-xl bg-amber-400 dark:bg-amber-600 text-white cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-700 transition-colors"
-            >
-              {isEdit ? "Update Task" : "Save Task"}
-            </button>
-          </div>
-        </form>
+            {/* Actions Bar */}
+            <div className="px-8 sm:px-12 py-8 bg-gray-50/50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+              <Link
+                to={"/dashboard/tasks"}
+                className="px-8 py-2.5 border-2 border-gray-400 dark:border-gray-500 text-gray-600 dark:text-gray-300 rounded-full font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-all active:scale-95 text-center"
+              >
+                Cancel
+              </Link>
+              <button
+                type="submit"
+                className="px-10 py-2.5 bg-[#EF9B28] hover:bg-[#e88c1f] text-white rounded-full font-semibold shadow-md transition-all active:scale-95 flex items-center justify-center min-w-[140px]"
+              >
+                {isEdit ? "Update Task" : "Save Task"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

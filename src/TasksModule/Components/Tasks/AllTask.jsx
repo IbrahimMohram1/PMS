@@ -93,22 +93,22 @@ export default function AllTask() {
             onCancel={handleCancelDelete}
           />
 
-          <div className="flex justify-between items-center py-5 px-3">
-            <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+          <div className="flex flex-row justify-between items-center gap-4 py-5 px-6 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h2 className="text-2xl sm:text-3xl text-gray-800 dark:text-gray-100 font-semibold truncate">
               Tasks
             </h2>
             <Link
               to={"/dashboard/addtask"}
-              className="bg-[#EF9B28] text-white py-2 px-5 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-colors shadow-sm"
+              className="bg-[#EF9B28] text-white py-2 px-4 sm:px-5 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-all shadow-md font-medium text-sm sm:text-base shrink-0"
             >
               <FaPlus size={14} /> <span>Add New Task</span>
             </Link>
           </div>
 
           <div className="flex-1 p-4 ">
-            <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
+            <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md overflow-hidden flex flex-col transition-colors duration-300">
               {/* Internal Search & Filter Bar */}
-              <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
+              <div className="p-4 sm:p-5 flex flex-col sm:flex-row gap-3 items-start sm:items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
                 <div className="relative max-w-xs flex-1">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
@@ -215,10 +215,10 @@ export default function AllTask() {
                               <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {task.employee.userName}
                               </td>
-                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                                 {task.project.title}
                               </td>
-                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                                 {new Date(
                                   task.creationDate,
                                 ).toLocaleDateString()}

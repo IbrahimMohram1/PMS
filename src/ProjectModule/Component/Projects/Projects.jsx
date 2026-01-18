@@ -68,14 +68,14 @@ export default function Projects() {
 
   return (
     <div className="flex flex-col h-full bg-[#f8f9fb] dark:bg-gray-900 transition-colors duration-300">
-      <div className="flex justify-between items-center py-5 px-6">
-        <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+      <div className="flex flex-row justify-between items-center gap-4 py-5 px-6 bg-white dark:bg-gray-800 transition-colors duration-300">
+        <h2 className="text-2xl sm:text-3xl text-gray-800 dark:text-gray-100 font-semibold truncate">
           Projects
         </h2>
         {user?.userGroup === "Manager" && (
           <button
             onClick={() => navigate("/dashboard/Project-Data")}
-            className="bg-[#EF9B28] text-white py-2 px-6 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-all shadow-md font-medium"
+            className="bg-[#EF9B28] text-white py-2 px-4 sm:px-6 rounded-full flex items-center gap-2 hover:bg-[#e88c1f] dark:hover:bg-[#d88a1a] transition-all shadow-md font-medium text-sm sm:text-base shrink-0"
           >
             <FaPlus size={14} /> <span>Add New Project</span>
           </button>
@@ -84,9 +84,9 @@ export default function Projects() {
 
       {/* Table */}
       <div className="p-4">
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md overflow-hidden flex flex-col transition-colors duration-300">
           {/* Internal Search Bar */}
-          <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
+          <div className="p-4 sm:p-5 flex flex-col sm:flex-row gap-3 items-start sm:items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
             <div className="relative max-w-xs flex-1">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
@@ -122,7 +122,7 @@ export default function Projects() {
                 {error}
               </p>
             ) : (
-              <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400 overflow-x-scroll">
+              <table className="w-full min-w-max text-left text-sm text-gray-500 dark:text-gray-400">
                 <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                   <tr>
                     <th className="px-6 py-4 font-medium">Title</th>
@@ -156,20 +156,20 @@ export default function Projects() {
                         <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
                           {project.title}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                           <span className="bg-[#D1FADF] dark:bg-green-900 text-[#027A48] dark:text-green-200 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-300">
                             {project.task?.length
                               ? `${project.task.filter((t) => t.status === "Done").length} Done`
                               : "No Tasks"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
+                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400 hidden md:table-cell">
                           {project.task?.length || 0}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate hidden lg:table-cell">
                           {project.description || "-"}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                           {new Date(project.creationDate).toLocaleDateString()}
                         </td>
                         {user?.userGroup === "Manager" && (

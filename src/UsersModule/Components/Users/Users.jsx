@@ -51,16 +51,16 @@ export default function Users() {
 
   return (
     <>
-      <div className="flex justify-between items-center py-5 px-3">
-        <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 py-5 px-6 bg-white dark:bg-gray-800 transition-colors duration-300">
+        <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-semibold text-center sm:text-left">
           Users
         </h2>
       </div>
 
       <div className="flex-1 p-4">
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden flex flex-col transition-colors duration-300">
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md overflow-hidden flex flex-col transition-colors duration-300">
           {/* Search & Filter Bar */}
-          <div className="p-5 flex gap-3 items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
+          <div className="p-4 sm:p-5 flex flex-col sm:flex-row gap-3 items-start sm:items-center border-b border-gray-50 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300">
             <div className="relative max-w-xs flex-1">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <BsSearch className="w-4 h-4 text-gray-400 dark:text-gray-500" />
@@ -150,13 +150,13 @@ export default function Users() {
                         </span>
                       </td>
 
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                         {user.phoneNumber}
                       </td>
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                         {user.email}
                       </td>
-                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                      <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
                         {new Date(user.creationDate).toLocaleDateString()}
                       </td>
 

@@ -18,11 +18,10 @@ import ToggleTheme from "../ToggleTheme/ToggleTheme";
 import { ThemeContext } from "../../Context/DarkModeContext";
 import lightLogo from "../../assets/PMS.png";
 
-export default function NavBar() {
+export default function NavBar({ onMenuClick }) {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   let { darkMode } = useContext(ThemeContext);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handelLogOut = () => {
     logout();
@@ -33,7 +32,7 @@ export default function NavBar() {
     <Navbar
       fluid
       rounded
-      className="bg-white dark:bg-gray-900 shadow-md dark:shadow-lg dark:shadow-gray-800 px-4 py-2 transition-colors duration-300"
+      className="bg-white dark:bg-gray-900 shadow-lg dark:shadow-xl px-4 py-2 transition-colors duration-300 z-50 relative"
     >
       {/* Logo */}
       <NavbarBrand>
@@ -45,8 +44,32 @@ export default function NavBar() {
       </NavbarBrand>
 
       {/* Toggle Button (Mobile) */}
-      <div className="flex md:hidden">
-        <NavbarToggle className="dark:text-gray-300 dark:hover:bg-gray-700" />
+      <div className="flex items-center gap-4 md:hidden">
+        {/* Notifications */}
+        <div className="relative cursor-pointer">
+          <FaBell className="text-[#EF9B28] text-xl" />
+          <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+        </div>
+
+        <button
+          onClick={onMenuClick}
+          className="p-1.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors border border-gray-200 dark:border-gray-700"
+          aria-label="Toggle SideBar"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
       </div>
 
       {/* Desktop Right Side */}
@@ -101,52 +124,6 @@ export default function NavBar() {
           </DropdownItem>
         </Dropdown>
       </div>
-
-      {/* Mobile Menu */}
-      <NavbarCollapse className="dark:bg-gray-900 dark:border-gray-700 transition-colors duration-300">
-        <div className="flex flex-col gap-4 mt-4 md:hidden">
-          {/* Notifications */}
-          <div className="flex items-center gap-3 text-gray-900 dark:text-gray-100">
-            <FaBell className="text-[#EF9B28] text-xl" />
-            <span>Notifications</span>
-          </div>
-
-          {/* Theme Toggle */}
-          <div className="flex items-center gap-3">
-            <ToggleTheme />
-          </div>
-
-          {/* Profile */}
-          <div className="flex items-center gap-3 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-            <img
-              src={imgProfile}
-              className="w-10 h-10 rounded-full border-2 border-[#EF9B28]"
-            />
-            <div className="flex flex-col">
-              <span className="font-semibold">{user?.userName}</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {user?.userEmail}
-              </span>
-            </div>
-          </div>
-
-          <hr className="border-gray-300 dark:border-gray-700" />
-
-          <button
-            onClick={() => navigate("/dashboard/change-password")}
-            className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors duration-300"
-          >
-            <TbLockPassword /> Change Password
-          </button>
-
-          <button
-            onClick={handelLogOut}
-            className="flex items-center gap-2 text-red-500 dark:text-red-400 dark:hover:text-red-300 transition-colors duration-300"
-          >
-            <CgLogOut /> Logout
-          </button>
-        </div>
-      </NavbarCollapse>
     </Navbar>
   );
 }

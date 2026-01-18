@@ -27,7 +27,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#d3cfcf5e] dark:bg-gray-900 flex flex-col transition-colors duration-300">
       {/* Header Section */}
       <div
-        className="mx-4 sm:mx-6 h-75 py-10 px-4 sm:px-6 rounded-xl text-white flex flex-col justify-center gap-3 bg-cover bg-center"
+        className="mx-4 sm:mx-6 min-h-[220px] py-10 px-4 sm:px-6 rounded-xl text-white flex flex-col justify-center gap-3 bg-cover bg-center transition-all duration-300"
         style={{ backgroundImage: `url(${headerimg})` }}
       >
         <h3 className="text-2xl sm:text-3xl font-bold dark:text-gray-100">

@@ -29,7 +29,7 @@ export default function VerifyAccount() {
                 className=" w-[150px] md:w-48 mx-auto"
               />
             </div>
-            <div className="form-container  p-12 rounded-2xl  bg-[#315951E5] opacity-90 ">
+            <div className="form-container p-6 sm:p-12 rounded-2xl bg-[#315951E5] opacity-90 shadow-xl">
               <div className="title ">
                 <p className="text-white text-sm">Welcome to PMS</p>
                 <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">

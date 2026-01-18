@@ -9,20 +9,28 @@ import {
 import { GrProjects } from "react-icons/gr";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { AuthContext } from "../../Context/AuthContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export default function SideBar() {
-  const { user } = useContext(AuthContext);
+import { CgLogOut } from "react-icons/cg";
+import { TbLockPassword } from "react-icons/tb";
+import ToggleTheme from "../ToggleTheme/ToggleTheme";
+import imgProfile from "../../assets/imgUpload.jpg";
+
+export default function SideBar({ toggled, setToggled }) {
+  const { user, logout } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // Sidebar collapsed state
+  // Sidebar collapsed state for desktop
   const [collapsed, setCollapsed] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setCollapsed(true); 
-      } else {
-        setCollapsed(false); 
+      // For desktop: collapse if window is smaller than 1024 but still desktop
+      if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+        setCollapsed(true);
+      } else if (window.innerWidth >= 1024) {
+        setCollapsed(false);
       }
     };
 
@@ -52,70 +60,136 @@ export default function SideBar() {
 
   const isActive = (path) => location.pathname === path;
 
+  // Auto-close sidebar on mobile when location changes
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setToggled(false);
+    }
+  }, [location.pathname, setToggled]);
+
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <Sidebar
-        width="200px"
-        collapsed={collapsed}
-        backgroundColor="#0f3027"
-        rootStyles={{ height: "100vh", border: "none", position: "relative" }}
+    <Sidebar
+      width="200px"
+      collapsed={collapsed}
+      toggled={toggled}
+      onBackdropClick={() => setToggled(false)}
+      breakPoint="md"
+      backgroundColor="#0e382f"
+      rootStyles={{
+        height: "100vh",
+        minHeight: "100vh",
+        border: "none",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+      }}
+    >
+      <button
+        className="hidden md:flex"
+        style={toggleButtonStyle}
+        onClick={() => setCollapsed(!collapsed)}
       >
-        <button
-          style={toggleButtonStyle}
-          onClick={() => setCollapsed(!collapsed)}
+        {collapsed ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
+      </button>
+
+      <Menu
+        menuItemStyles={{
+          button: ({ level, active }) => ({
+            color: "#fff",
+            backgroundColor: active ? "#f3a333" : "transparent",
+            "&:hover": {
+              color: "#f3a333",
+              backgroundColor: "rgba(255,255,255,0.1)",
+            },
+          }),
+        }}
+      >
+        <div style={{ marginTop: 80 }} />
+
+        {/* User Profile for Mobile Sidebar */}
+        {!collapsed && (
+          <div className="px-6 py-4 md:hidden border-b border-white/10 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#f3a333]">
+                <img
+                  src={imgProfile}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col overflow-hidden">
+                <span className="text-white text-sm font-bold truncate">
+                  {user?.userName}
+                </span>
+                <span className="text-white/60 text-[10px] truncate">
+                  {user?.userEmail}
+                </span>
+              </div>
+            </div>
+            <div className="mt-4 flex justify-between items-center">
+              <span className="text-white/80 text-xs">Theme</span>
+              <ToggleTheme />
+            </div>
+          </div>
+        )}
+
+        <div className="md:mt-20 mt-2" />
+
+        <MenuItem
+          icon={<FaHome />}
+          component={<Link to="/dashboard" />}
+          active={isActive("/dashboard")}
         >
-          {collapsed ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
-        </button>
+          Home
+        </MenuItem>
 
-        <Menu
-          menuItemStyles={{
-            button: ({ level, active }) => ({
-              color: "#fff",
-              backgroundColor: active ? "#f3a333" : "transparent",
-              "&:hover": {
-                color: "#f3a333",
-                backgroundColor: "rgba(255,255,255,0.1)",
-              },
-            }),
-          }}
+        <MenuItem
+          icon={<GrProjects />}
+          component={<Link to="/dashboard/Projects" />}
+          active={isActive("/dashboard/Projects")}
         >
-          <div style={{ marginTop: 80 }} />
+          Projects
+        </MenuItem>
 
+        {user.userGroup === "Manager" && (
           <MenuItem
-            icon={<FaHome />}
-            component={<Link to="/dashboard" />}
-            active={isActive("/dashboard")}
+            component={<Link to={"/dashboard/users"} />}
+            icon={<FaUsers />}
+            active={isActive("/dashboard/users")}
           >
-            Home
+            Users
           </MenuItem>
+        )}
 
+        <MenuItem
+          icon={<FaTasks />}
+          component={<Link to="/dashboard/tasks" />}
+          active={isActive("/dashboard/tasks")}
+        >
+          Tasks
+        </MenuItem>
+
+        {/* Mobile Only Items */}
+        <div className="md:hidden mt-4 border-t border-white/10 pt-4">
           <MenuItem
-            icon={<GrProjects />}
-            component={<Link to="/dashboard/Projects" />}
-            active={isActive("/dashboard/Projects")}
+            icon={<TbLockPassword />}
+            component={<Link to="/dashboard/change-password" />}
+            active={isActive("/dashboard/change-password")}
           >
-            Projects
+            Change Password
           </MenuItem>
-
-          {user.userGroup === "Manager" && (
-            <MenuItem
-              component={<Link to={"/dashboard/users"} />}
-              icon={<FaUsers />}
-              active={isActive("/dashboard/users")}
-            >
-              Users
-            </MenuItem>
-          )}
-
           <MenuItem
-            icon={<FaTasks />}
-            component={<Link to="/dashboard/tasks" />}
-            active={isActive("/dashboard/tasks")}
+            icon={<CgLogOut />}
+            onClick={() => {
+              logout();
+              navigate("/login");
+            }}
+            className="text-red-400"
           >
-            Tasks
+            Logout
           </MenuItem>
-        </Menu>
-      </Sidebar>
-    </div>
+        </div>
+      </Menu>
+    </Sidebar>
   );
 }

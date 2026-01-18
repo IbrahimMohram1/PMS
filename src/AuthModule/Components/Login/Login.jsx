@@ -45,7 +45,7 @@ export default function Login() {
             <img src={logo} alt="Logo" className="mx-auto md:w-48 w-[150px]" />
           </div>
           {/* form container */}
-          <div className="form-container p-10 rounded-2xl  bg-[#315951E5] opacity-90">
+          <div className="form-container p-6 sm:p-10 rounded-2xl bg-[#315951E5] opacity-90 shadow-xl">
             <div className="title ">
               <p className="text-white text-sm">Welcome to PMS</p>
               <h1 className="text-3xl text-[#EF9B28] font-bold flex flex-col">

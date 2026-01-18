@@ -108,10 +108,3 @@
 .Auth-container {
   min-height: 100dvh;
 }
-
-.sideBar {
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  height: 100dvh;
-}

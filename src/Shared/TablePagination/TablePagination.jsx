@@ -11,7 +11,7 @@ export default function TablePagination({
   setCurrentPage,
 }) {
   return (
-    <div className="flex justify-end items-center px-6 py-4 bg-white dark:bg-gray-800 border-t border-gray-50 dark:border-gray-700 gap-6 mt-auto transition-colors duration-300">
+    <div className="flex flex-col sm:flex-row justify-between items-center px-6 py-4 bg-white dark:bg-gray-800 border-t border-gray-50 dark:border-gray-700 gap-4 mt-auto transition-colors duration-300">
       <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
         <span>Showing</span>
         <div className="relative">
