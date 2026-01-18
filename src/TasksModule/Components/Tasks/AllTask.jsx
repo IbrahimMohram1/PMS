@@ -167,13 +167,13 @@ export default function AllTask() {
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                             </div>
                           </th>
-                          <th className="hidden sm:table-cell px-6 py-4 font-medium">
+                          <th className=" sm:table-cell px-6 py-4 font-medium">
                             <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                               Project{" "}
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
                             </div>
                           </th>
-                          <th className="hidden sm:table-cell px-6 py-4 font-medium">
+                          <th className=" sm:table-cell px-6 py-4 font-medium">
                             <div className="flex items-center gap-2 cursor-pointer group whitespace-nowrap">
                               Date Created{" "}
                               <HiSelector className="text-gray-400 group-hover:text-white transition-colors" />
@@ -215,10 +215,10 @@ export default function AllTask() {
                               <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap">
                                 {task.employee.userName}
                               </td>
-                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap  sm:table-cell">
                                 {task.project.title}
                               </td>
-                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
+                              <td className="px-6 py-4 text-gray-600 dark:text-gray-400 whitespace-nowrap  sm:table-cell">
                                 {new Date(
                                   task.creationDate,
                                 ).toLocaleDateString()}

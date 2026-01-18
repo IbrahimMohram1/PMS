@@ -126,16 +126,16 @@ export default function Projects() {
                 <thead className="bg-[#315951] dark:bg-gray-700 text-white uppercase tracking-wider text-xs font-medium">
                   <tr>
                     <th className="px-6 py-4 font-medium">Title</th>
-                    <th className="px-6 py-4 font-medium hidden sm:table-cell">
+                    <th className="px-6 py-4 font-medium  sm:table-cell">
                       Statuses
                     </th>
-                    <th className="px-6 py-4 font-medium hidden md:table-cell">
+                    <th className="px-6 py-4 font-medium  md:table-cell">
                       Tasks
                     </th>
-                    <th className="px-6 py-4 font-medium hidden lg:table-cell">
+                    <th className="px-6 py-4 font-medium  lg:table-cell">
                       Description
                     </th>
-                    <th className="px-6 py-4 font-medium hidden sm:table-cell">
+                    <th className="px-6 py-4 font-medium  sm:table-cell">
                       Date Created
                     </th>
                     {user?.userGroup === "Manager" && (
@@ -156,20 +156,20 @@ export default function Projects() {
                         <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
                           {project.title}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                        <td className="px-6 py-4 whitespace-nowrap  sm:table-cell">
                           <span className="bg-[#D1FADF] dark:bg-green-900 text-[#027A48] dark:text-green-200 px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-300">
                             {project.task?.length
                               ? `${project.task.filter((t) => t.status === "Done").length} Done`
                               : "No Tasks"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400 hidden md:table-cell">
+                        <td className="px-6 py-4 text-gray-600 dark:text-gray-400  md:table-cell">
                           {project.task?.length || 0}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate hidden lg:table-cell">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate  lg:table-cell">
                           {project.description || "-"}
                         </td>
-                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap hidden sm:table-cell">
+                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap  sm:table-cell">
                           {new Date(project.creationDate).toLocaleDateString()}
                         </td>
                         {user?.userGroup === "Manager" && (
