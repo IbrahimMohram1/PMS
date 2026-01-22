@@ -17,27 +17,26 @@ export default function ChatBot() {
   ]);
 
   // Suggested messages based on role
-useEffect(() => {
-  if (!user) return;
+  useEffect(() => {
+    if (!user) return;
 
-  // منع تكرار الرسائل
-  const botSuggestedAlready = messages.some(
-    (msg) => msg.text.includes("Try asking:")
-  );
-  if (botSuggestedAlready) return;
+    // منع تكرار الرسائل
+    const botSuggestedAlready = messages.some((msg) =>
+      msg.text.includes("Try asking:"),
+    );
+    if (botSuggestedAlready) return;
 
-  setMessages((prev) => [
-    ...prev,
-    {
-      sender: "bot",
-      text:
-        user.userGroup === "Manager"
-          ? "Try asking:\n- My projects\n- New project\n- Task count\n- User count\n- Project status\n- Who is assigned to my project?\n- What is this website about?\n- How can I use it?"
-          : "Try asking:\n- user count\n-  My tasks\n- Task count\n- My projects\n- Who am I?\n- What is this website about?\n- How can I use it?",
-    },
-  ]);
-}, [user, messages]);
-
+    setMessages((prev) => [
+      ...prev,
+      {
+        sender: "bot",
+        text:
+          user.userGroup === "Manager"
+            ? "Try asking:\n- My projects\n- New project\n- Task count\n- User count\n- Project status\n- Who is assigned to my project?\n- What is this website about?\n- How can I use it?"
+            : "Try asking:\n- user count\n-  My tasks\n- Task count\n- My projects\n- Who am I?\n- What is this website about?\n- How can I use it?",
+      },
+    ]);
+  }, [user, messages]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -104,7 +103,8 @@ useEffect(() => {
         }
 
         case "USER_COUNT": {
-          const { activatedEmployeeCount = 0, deactivatedEmployeeCount = 0 } = res || {};
+          const { activatedEmployeeCount = 0, deactivatedEmployeeCount = 0 } =
+            res || {};
           const total = activatedEmployeeCount + deactivatedEmployeeCount;
           reply = `Users:\nTotal: ${total}\nActive: ${activatedEmployeeCount}\nInactive: ${deactivatedEmployeeCount}`;
           break;
@@ -117,12 +117,14 @@ useEffect(() => {
         }
 
         case "SITE_INFO": {
-          reply = "This website is a Project Management System (PMS) that helps you manage projects, tasks, and employees efficiently.";
+          reply =
+            "This website is a Project Management System (PMS) that helps you manage projects, tasks, and employees efficiently.";
           break;
         }
 
         case "SITE_USAGE": {
-          reply = "You can use this website to create projects, assign tasks, track progress, and monitor team performance. Managers have extra privileges to add or manage employees.";
+          reply =
+            "You can use this website to create projects, assign tasks, track progress, and monitor team performance. Managers have extra privileges to add or manage employees.";
           break;
         }
 
@@ -165,8 +167,10 @@ useEffect(() => {
                 className={`mb-2 ${msg.sender === "user" ? "text-right" : "text-left"}`}
               >
                 <span
-                  className={`inline-block px-3 py-2 rounded-lg ${
-                    msg.sender === "user" ? "bg-[#0e382f] text-white" : "bg-gray-200"
+                  className={`inline-block px-3 dark:text-black py-2 rounded-lg ${
+                    msg.sender === "user"
+                      ? "bg-[#0e382f] text-white"
+                      : "bg-gray-200"
                   }`}
                 >
                   {msg.text}
@@ -177,11 +181,11 @@ useEffect(() => {
             {loading && <p className="text-gray-400">typing...</p>}
           </div>
 
-          <div className="flex p-2 gap-2 border-t">
+          <div className="flex px-2 py-4 gap-2 border-t">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 border rounded-lg px-2"
+              className="flex-1 py-2 border rounded-lg px-2 text-black"
               placeholder="Ask about projects, tasks, or website info..."
             />
             <button

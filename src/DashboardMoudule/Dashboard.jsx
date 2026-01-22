@@ -27,7 +27,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#d3cfcf5e] dark:bg-gray-900 flex flex-col transition-colors duration-300">
       {/* Header Section */}
       <div
-        className="mx-4 sm:mx-6 min-h-[220px] py-10 px-4 sm:px-6 rounded-xl text-white flex flex-col justify-center gap-3 bg-cover bg-center transition-all duration-300"
+        className="mx-4 sm:mx-6 min-h-[300px] py-10 px-4 sm:px-6 rounded-xl text-white flex flex-col justify-center gap-3 bg-cover bg-center transition-all duration-300"
         style={{ backgroundImage: `url(${headerimg})` }}
       >
         <h3 className="text-2xl sm:text-3xl font-bold dark:text-gray-100">
@@ -43,7 +43,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main Sections: Tasks & Users */}
-      <div className="flex flex-col md:flex-row gap-6 mx-4 sm:mx-6 mt-6 flex-1">
+      <div className="flex flex-col md:flex-row gap-6 mx-4 sm:mx-6 mt-6 ">
         {/* Tasks Section */}
         <div className="flex-1 bg-[#F8F9FB] dark:bg-gray-800 rounded-md p-5 transition-colors duration-300">
           <h5 className="border-l-4 border-amber-400 pl-2 mb-2 dark:text-gray-100">
@@ -54,7 +54,7 @@ export default function Dashboard() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="py-5 px-4 bg-[#E5E6F4] dark:bg-gray-700 rounded-md flex flex-col items-start gap-y-2 transition-colors">
-              <div className="bg-[#CFD1EC] dark:bg-gray-600 p-3 text-black dark:text-gray-300 rounded-md">
+              <div className="bg-[#cecfdc] dark:bg-rose-300 p-3 text-black dark:text-blue-700 rounded-md">
                 <FaChartBar size={20} />
               </div>
               <span className="text-gray-500 dark:text-gray-400">Progress</span>
@@ -63,7 +63,7 @@ export default function Dashboard() {
               </h6>
             </div>
             <div className="py-5 px-4 bg-[#F4F4E5] dark:bg-gray-700 rounded-md flex flex-col items-start gap-y-2 transition-colors">
-              <div className="bg-[#E4E4BC] dark:bg-gray-600 p-3 text-black dark:text-gray-300 rounded-md">
+              <div className="bg-[#cccca5] dark:bg-rose-300 p-3 text-black dark:text-blue-700 rounded-md">
                 <CiViewList size={20} />
               </div>
               <span className="text-gray-500 dark:text-gray-400">
@@ -74,7 +74,7 @@ export default function Dashboard() {
               </h6>
             </div>
             <div className="py-5 px-4 bg-[#F4E5ED] dark:bg-gray-700 rounded-md flex flex-col items-start gap-y-2 transition-colors">
-              <div className="bg-[#E7C3D7] dark:bg-gray-600 p-3 text-black dark:text-gray-300 rounded-md">
+              <div className="bg-[#e2c6d5] dark:bg-rose-300 p-3 text-black dark:text-blue-700 rounded-md">
                 <FaChartBar size={20} />
               </div>
               <span className="text-gray-500 dark:text-gray-400">
@@ -87,7 +87,7 @@ export default function Dashboard() {
         <div className="md:w-1/2 w-full bg-[#F8F9FB] dark:bg-gray-800 rounded-md p-5 transition-colors duration-300">
           {user.userGroup == "Manager" ? (
             <>
-              <h5 className="border-l-[3px] mx-1 border-l-amber-400 p-1 dark:text-gray-100">
+              <h5 className="border-l-4 border-amber-400 pl-2 mb-2 dark:text-gray-100">
                 Users
               </h5>
               <p className="dark:text-gray-400">
@@ -96,7 +96,7 @@ export default function Dashboard() {
               <div className="my-5">
                 <div className="flex gap-x-7 gap-y-3 items-center md:flex-nowrap flex-wrap">
                   <div className="md:w-1/2 w-full py-5 px-4 bg-[#E5E6F4] dark:bg-gray-700 rounded-md flex flex-col items-start gap-y-2 transition-colors">
-                    <div className="bg-[#CFD1EC] dark:bg-gray-600 p-3 text-black dark:text-gray-300 rounded-md">
+                    <div className="bg-[#dadbe5] dark:bg-rose-300 p-3 text-black dark:text-blue-700 rounded-md">
                       <FaChartBar />
                     </div>
                     <span className="text-gray-500 dark:text-gray-400">
@@ -107,7 +107,7 @@ export default function Dashboard() {
                     </h6>
                   </div>
                   <div className="md:w-1/2 w-full py-5 px-4 bg-[#F4F4E5] dark:bg-gray-700 rounded-md flex flex-col items-start gap-y-2 transition-colors">
-                    <div className="bg-[#E4E4BC] dark:bg-gray-600 p-3 text-black dark:text-gray-300 rounded-md">
+                    <div className="bg-[#E4E4BC] dark:bg-rose-300 p-3 text-black dark:text-blue-700 rounded-md">
                       <CiViewList />
                     </div>
                     <span className="text-gray-500 dark:text-gray-400">

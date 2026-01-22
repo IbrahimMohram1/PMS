@@ -21,16 +21,25 @@ function TaskCard({ task }) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    padding: "10px",
-    margin: "15px",
-    background: "#EF9B28",
-    borderRadius: "6px",
-    cursor: "grab",
-    border: "1px solid #ddd",
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      className="
+      p-2.5
+      m-4
+      bg-[#EF9B28]
+      dark:bg-[#3f718c]
+      rounded-md
+      cursor-grab
+      border
+      border-gray-300
+    "
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       {task.title}
     </div>
   );
@@ -42,13 +51,7 @@ function Column({ column, tasks }) {
   return (
     <div
       ref={setNodeRef}
-      style={{
-        flex: 1,
-        minHeight: "400px",
-        background: "#315951E5",
-        padding: "15px",
-        borderRadius: "8px",
-      }}
+      className="flex-1 min-h-[400px] bg-[#2e6459e5] dark:bg-[#adc2bfe5] p-4 rounded-lg"
     >
       <h3 className="text-white">{column.title}</h3>
 
